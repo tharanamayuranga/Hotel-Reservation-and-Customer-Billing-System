@@ -341,8 +341,261 @@ public class EmployeeUIController implements Initializable {
     
 //</editor-fold>
     
-   
+    //<editor-fold defaultstate="collapsed" desc="Binding-Methods">
+    @FXML
+    private void txtNameKR(KeyEvent event) {
+        
+        if (employee.setName(txtName.getText().trim())) {
+            
+            if (oldEmployee != null && !employee.getName().equals(oldEmployee.getName())) {
+                
+                txtName.setStyle(updated);
+                
+            } else {
+                
+                txtName.setStyle(valid);
+                
+            }
+            
+        } else {
+            
+            txtName.setStyle(invalid);
+            
+        }
+    }
+    
+    @FXML
+    private void cmbCivilstatusAP(ActionEvent event) {
+        
+        employee.setCivilstatusId(cmbCivilstatus.getSelectionModel().getSelectedItem());
+        
+        if (oldEmployee != null && !employee.getCivilstatusId().equals(oldEmployee.getCivilstatusId())) {
+            
+            cmbCivilstatus.setStyle(updated);
+            
+        } else {
+            
+            cmbCivilstatus.setStyle(valid);
+            
+        }
+    }
+    
+    @FXML
+    private void txtAddressKR(KeyEvent event) {
+        
+        if (employee.setAddress(txtAddress.getText().trim())) {
+            
+            if (oldEmployee != null && !employee.getAddress().equals(oldEmployee.getAddress())) {
+                
+                ((ScrollPane) txtAddress.getChildrenUnmodifiable().get(0)).getContent().setStyle(updated);
+                
+            } else {
+                
+                ((ScrollPane) txtAddress.getChildrenUnmodifiable().get(0)).getContent().setStyle(valid);
+                
+            }
+            
+        } else {
+            
+            ((ScrollPane) txtAddress.getChildrenUnmodifiable().get(0)).getContent().setStyle(invalid);
+            
+        }
+    }
+    @FXML
+    private void cmbGenderAP(ActionEvent event) {
+          employee.setGenderId(cmbGender.getSelectionModel().getSelectedItem());
+        if (oldEmployee != null && !employee.getGenderId().equals(oldEmployee.getGenderId())) {
+            cmbGender.setStyle(updated);
+        } else {
+            cmbGender.setStyle(valid);
+        }
+    }
 
+    @FXML
+    private void dtpDOBDateAP(ActionEvent event) {
+     
+        if (dtpDOBDate.getValue() != null) {
+            Date today = new Date();
+            today.setYear(today.getYear() - 18);
+            Date dob = java.sql.Date.valueOf(dtpDOBDate.getValue());
+
+            if (dob.before(today)) {
+                employee.setDob(dob);
+                if (oldEmployee != null && !employee.getDob().equals(oldEmployee.getDob())) {
+                    dtpDOBDate.setStyle(updated);
+                } else {
+                    dtpDOBDate.setStyle(valid);
+                }
+            } else {
+                dtpDOBDate.setStyle(invalid);
+            }
+        }
+    }
+    @FXML
+    private void txtNICKR(KeyEvent event) {
+        
+        if (employee.setNic(txtNIC.getText().trim())) {
+            
+            if (oldEmployee != null && !employee.getNic().equals(oldEmployee.getNic())) {
+                
+                txtNIC.setStyle(updated);
+                
+            } else {
+                
+                txtNIC.setStyle(valid);
+                
+            }
+            
+        } else {
+            
+            txtNIC.setStyle(invalid);
+            
+        }
+        
+    }
+    
+    @FXML
+    private void txtMobileNumberKR(KeyEvent event) {
+        
+        if (employee.setMobile(txtMobileNumber.getText().trim())) {
+            
+            if (oldEmployee != null && !employee.getMobile().equals(oldEmployee.getMobile())) {
+                
+                txtMobileNumber.setStyle(updated);
+                
+            } else {
+                
+                txtMobileNumber.setStyle(valid);
+                
+            }
+            
+        } else {
+            
+            txtMobileNumber.setStyle(invalid);
+            
+        }
+    }
+    
+    @FXML
+    private void txtLandNumberKR(KeyEvent event) {
+        if (employee.setLand(txtLandNumber.getText().trim())) {
+            
+            if (oldEmployee != null && oldEmployee.getLand() != null && employee.getLand() != null && oldEmployee.getLand().equals(employee.getLand())) {
+                
+                txtLandNumber.setStyle(valid);
+                
+            } else if (oldEmployee != null && oldEmployee.getLand() != employee.getLand()) {
+                
+                txtLandNumber.setStyle(updated);
+                
+            } else {
+                
+                txtLandNumber.setStyle(valid);
+                
+            }
+            
+        } else {
+            
+            txtLandNumber.setStyle(invalid);
+            
+        }
+    }
+    
+    @FXML
+    private void txtEmailKR(KeyEvent event) {
+        
+        if (employee.setEmail(txtEmail.getText().trim())) {
+            
+            if (oldEmployee != null && !employee.getEmail().equals(oldEmployee.getEmail())) {
+                
+                txtEmail.setStyle(updated);
+                
+            } else {
+                
+                txtEmail.setStyle(valid);
+                
+            }
+            
+        } else {
+            
+            txtEmail.setStyle(invalid);
+            
+        }
+    }
+    
+    @FXML
+    private void cmbDesignationAP(ActionEvent event) {
+        
+        employee.setDesignationId(cmbDesignation.getSelectionModel().getSelectedItem());
+        
+        if (oldEmployee != null && !employee.getDesignationId().equals(oldEmployee.getDesignationId())) {
+            
+            cmbDesignation.setStyle(updated);
+            
+        } else {
+            
+            cmbDesignation.setStyle(valid);
+            
+        }
+    }
+    
+    @FXML
+    private void cmbStatusAP(ActionEvent event) {
+        
+        employee.setEmployeestatusId(cmbStatus.getSelectionModel().getSelectedItem());
+        
+        if (oldEmployee != null && !employee.getEmployeestatusId().equals(oldEmployee.getEmployeestatusId())) {
+            
+            cmbStatus.setStyle(updated);
+            
+        } else {
+            
+            cmbStatus.setStyle(valid);
+            
+        }
+    }
+    
+    @FXML
+    private void dtpAssignedDateAP(ActionEvent event) {
+        
+        if (dtpAssignedDate.getValue() != null) {
+            
+            Date today = new Date();
+            Date assign = java.sql.Date.valueOf(dtpAssignedDate.getValue());
+            
+            if (assign.before(today)) {
+                
+                employee.setAssigned(assign);
+                
+                if (oldEmployee != null && !employee.getAssigned().equals(oldEmployee.getAssigned())) {
+                    
+                    dtpAssignedDate.getEditor().setStyle(updated);
+                    
+                } else {
+                    
+                    dtpAssignedDate.getEditor().setStyle(valid);
+                    
+                }
+                
+            } else {
+                
+                dtpAssignedDate.getEditor().setStyle(invalid);
+                employee.setAssigned(null);
+                
+            }
+            
+        }
+    }
+    
+
+    
+    
+//</editor-fold>
+    
+  
+
+    }
+//</editor-fold>
    
     
     
