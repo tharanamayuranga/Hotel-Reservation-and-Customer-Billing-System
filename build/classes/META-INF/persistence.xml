@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="RefreshHikkaduwaPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>entity.Designation</class>
+    <class>entity.Civilstatus</class>
+    <class>entity.Employeestatus</class>
+    <class>entity.Employee</class>
+    <class>entity.Gender</class>
+    <class>entity.Roomfacility</class>
+    <class>entity.Room</class>
+    <class>entity.Roomtype</class>
+    <class>entity.Roomstatus</class>
+    <class>entity.Floor</class>
+    <class>entity.Cleaningstatus</class>
+    <class>entity.Roomsize</class>
+    <class>entity.Role</class>
+    <class>entity.User</class>
+    <class>entity.Fooditem</class>
+    <class>entity.Fooditemcategory</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hrh?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="1234"/>
+    </properties>
+  </persistence-unit>
+</persistence>
