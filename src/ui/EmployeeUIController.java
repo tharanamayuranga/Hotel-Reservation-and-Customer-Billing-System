@@ -305,13 +305,39 @@ public class EmployeeUIController implements Initializable {
         row = 0;
         page = 0;
 
-       //fillTable(EmployeeDao.getAll());
+       fillTable(EmployeeDao.getAll());
 
         pagination.setCurrentPageIndex(0);
 
     }
 
-    
+    private void fillTable(ObservableList<Employee> employees) {
+
+        if (employees != null && !employees.isEmpty()) {
+
+            int rowsCount = 5;
+            int pageCount = ((employees.size() - 1) / rowsCount) + 1;
+            pagination.setPageCount(pageCount);
+
+            pagination.setPageFactory((Integer pageIndex) -> {
+                int start = pageIndex * rowsCount;
+                int end = pageIndex == pageCount - 1 ? employees.size() : pageIndex * rowsCount + rowsCount;
+                tblEmployee.getItems().clear();
+                tblEmployee.setItems(FXCollections.observableArrayList(employees.subList(start, end)));
+                return tblEmployee;
+            });
+
+        } else {
+
+            pagination.setPageCount(1);
+            tblEmployee.getItems().clear();
+
+        }
+
+        pagination.setCurrentPageIndex(page);
+        tblEmployee.getSelectionModel().select(row);
+
+    }
     
 //</editor-fold>
     
