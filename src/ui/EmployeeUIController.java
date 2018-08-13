@@ -255,11 +255,64 @@ public class EmployeeUIController implements Initializable {
         txtSearchName.setStyle(style);
 
     }
+         
+    private void dissableButtons(boolean select, boolean insert, boolean update, boolean delete) {
 
+        btnAdd.setDisable(insert);
+        btnUpdate.setDisable(update);
+        btnDelete.setDisable(delete);
+
+    }
     
 
      
+     private void loadTable() {
+        
+        cmbSearchStatus.setItems(EmployeestatusDao.getAll());
+        cmbSearchStatus.getSelectionModel().clearSelection();
+        cmbSearchDesignation.setItems(DesignationDao.getAll());
+        cmbSearchDesignation.getSelectionModel().clearSelection();
 
+        txtSearchName.setText("");
+
+        colName.setCellValueFactory(new PropertyValueFactory("name"));
+        colStatus.setCellValueFactory(new PropertyValueFactory("employeestatusId"));
+        colMobile.setCellValueFactory(new PropertyValueFactory("mobile"));
+        colEmail.setCellValueFactory(new PropertyValueFactory("email"));
+        colDesignation.setCellValueFactory(new PropertyValueFactory("designationId"));
+
+//        tblEmployee.setRowFactory(new Callback<TableView<Employee>, TableRow<Employee>>() {
+//
+//            @Override
+//            public TableRow<Employee> call(TableView<Employee> dateTableView) {
+//
+//                return new TableRow<Employee>() {
+//
+//                    @Override
+//                    protected void updateItem(Employee date, boolean b) {
+//                        super.updateItem(date, b);
+//
+//                        setStyle("-fx-background-color: linear-gradient(#04ef57 1%, #FFFFFF 100%);");
+//
+//                    }
+//
+//                };
+//
+//            }
+//
+//        });
+ 
+        row = 0;
+        page = 0;
+
+       //fillTable(EmployeeDao.getAll());
+
+        pagination.setCurrentPageIndex(0);
+
+    }
+
+    
+    
 //</editor-fold>
     
    
