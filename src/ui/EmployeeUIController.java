@@ -587,7 +587,125 @@ public class EmployeeUIController implements Initializable {
         }
     }
     
+@FXML
+    private void btnPhotoSelectAP(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
 
+        if (lastDirectory != null) {
+            fileChooser.setInitialDirectory(lastDirectory);
+        }
+
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        File file = fileChooser.showOpenDialog(stageBasic);
+
+        if (file != null) {
+
+            lastDirectory = file.getParentFile();
+            FileInputStream fis = null;
+
+            try {
+                fis = new FileInputStream(file);
+                byte[] image = new byte[(int) file.length()];
+                DataInputStream dataIs = new DataInputStream(new FileInputStream(file));
+                dataIs.readFully(image);
+
+                ImageIcon img = new ImageIcon(image);
+                String extension = file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf('.'));
+                if (extension.equalsIgnoreCase(".jpg") || extension.equalsIgnoreCase(".jpeg") || extension.equalsIgnoreCase(".png") || extension.equalsIgnoreCase(".gif")) {
+
+                    if (img.getIconHeight() <= 100 && img.getIconWidth() <= 100) {
+                        
+                        Image photo = new Image(fis);
+                        imgPhoto.setImage(photo);
+                        employee.setImage(image);
+                        photoSelected = true;
+
+                    } else {
+
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+
+                        alert.setTitle("Error - Employee Add");
+                        alert.setHeaderText("Photo Selection Error");
+                        alert.setContentText("The Image Size should smaller than 100*100 Pixel");
+                        
+                        DialogPane dialogPane = alert.getDialogPane();
+
+                        dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+                        dialogPane.getStyleClass().add("myDialogForError");
+                        
+                        alert.showAndWait();
+
+                        photoSelected = false;
+
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+
+                    alert.setTitle("Error - Employee Add");
+                    alert.setHeaderText("Photo Selection Error");
+                    alert.setContentText("The Image Size should smaller than 100*100 Pixel");
+                    
+                    DialogPane dialogPane = alert.getDialogPane();
+
+                    dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+                    dialogPane.getStyleClass().add("myDialogForError");
+                    
+                    alert.showAndWait();
+
+                    photoSelected = false;
+
+                }
+
+            } catch (FileNotFoundException ex) {
+                System.out.println(ex.getMessage());
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+
+        } else {
+            photoSelected = false;
+        }
+    }
+    
+    @FXML
+    private void btnPhotoClearAP(ActionEvent event) {
+        if (employee.getImage() != null) {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+            alert.setTitle("Add Employee");
+            alert.setHeaderText("Clear Photo");
+            alert.setContentText("Are you sure you need to clear the selectd photo???");
+            
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+
+                imgPhoto.setImage(new Image("/image/user.png"));
+
+                if (oldEmployee != null && oldEmployee.getImage() != null) {
+                    
+                    photoSelected = true;
+                    
+                } else {
+                    
+                    photoSelected = false;
+                    
+                }
+
+                employee.setImage(null);
+
+            }
+
+        }
+
+    }
     
     
 //</editor-fold>
