@@ -126,6 +126,95 @@ public class MainWindowController implements Initializable {
     }
 //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="UI-Loading-Methods">
+    @FXML
+    private void btnHomeAP(ActionEvent event) {
+        apnRight.getChildren().clear();
+        apnRight.getChildren().add(imgDashBoard);
+    }
     
+    @FXML
+    private void mtmUserAP(ActionEvent event) {
+        
+    }
+    
+    @FXML
+    private void mtmPrivilageAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void mtmEmployeeAP(ActionEvent event) {
+       
+    }
+    
+    @FXML
+    private void mtmServicesAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void mtmMenuItemAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void mtmFunctionHallAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void mtmKitchenItemAP(ActionEvent event) {
+        
+    }
+    
+    @FXML
+    private void mtmGuestManagementAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void mtmFunctionBookingAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void mtmMenuManagementAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void mtmPayemetAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void mtmKitchenItemRequestAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void btnReportManagementAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void tglGuestMgtAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void tglMenuCustomAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void tglFunctionBookingAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void tglKitchenRequestAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void tglPayementAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void tglReportingAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void btnSignoutAP(ActionEvent event) {
+    }
+//</editor-fold>
     
 }
