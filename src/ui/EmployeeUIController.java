@@ -587,7 +587,7 @@ public class EmployeeUIController implements Initializable {
         }
     }
     
-@FXML
+    @FXML
     private void btnPhotoSelectAP(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
 
@@ -710,11 +710,467 @@ public class EmployeeUIController implements Initializable {
     
 //</editor-fold>
     
-  
+    //<editor-fold defaultstate="collapsed" desc="operation-Methods">
+    @FXML
+    private void btnClearAP(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        
+        
+        DialogPane dialogPane = alert.getDialogPane();
+        
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+        
+        alert.setTitle(" Employee Management");
+        alert.setHeaderText("Clear Form");
+        alert.setContentText("Are you sure you need to clear form?? ");
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        
+        if (result.get() == ButtonType.OK) {
+            
+            loadForm();
+            
+        }
+        
+    }
+    
+    @FXML
+    private void btnAddAP(ActionEvent event) {
+//        employee.setName(txtName.getText());
+//        employee.setNic(txtNIC.getText());
+//        employee.setMobile(txtMobileNumber.getText());
+//        employee.setAddress(txtAddress.getText());
+//        employee.setEmail(txtEmail.getText());
+//        employee.setLand(txtLandNumber.getText());
+//        employee.setGenderId(cmbGender.getSelectionModel().getSelectedItem());
+//        employee.setCivilstatusId(cmbCivilstatus.getSelectionModel().getSelectedItem());
+//        employee.setDesignationId(cmbDesignation.getSelectionModel().getSelectedItem());
+//
+
+String errors = getErrors();
+
+if (errors.isEmpty()) {
+    
+    String details =
+            "\nName          \t\t: " + employee.getName()
+            + "\nGender        \t\t: " + employee.getGenderId().getName()
+            + "\nCivil Status  \t\t: " + employee.getCivilstatusId().getName()
+            + "\nAddress       \t\t: " + employee.getAddress()
+            + "\nBirth Date    \t\t: " + employee.getDob().toString()
+            + "\nNIC No        \t\t: " + employee.getNic()
+            + "\nMobile No     \t\t: " + employee.getMobile()
+            + "\nLand          \t\t: " + (employee.getLand() != null ? employee.getLand() : "Not Entered")
+            + "\nEmail         \t\t: " + employee.getEmail()
+            + "\nDesignation   \t\t: " + employee.getDesignationId().getName()
+            + "\nAssigned Date \t: " + employee.getAssigned().toString()
+            + "\nPhoto         \t\t: " + (employee.getImage() != null ? "Selected" : "Not Selected")
+            + "\nStatus        \t\t: " + employee.getEmployeestatusId().getName();
+    
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Add Module");
+    alert.setHeaderText("Are you sure you need to add the following Employee???");
+    alert.setContentText(details);
+    
+    DialogPane dialogPane = alert.getDialogPane();
+    
+    dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+    dialogPane.getStyleClass().add("myDialogForConfirmation");
+    
+    Optional<ButtonType> result = alert.showAndWait();
+    
+    if (result.get() == ButtonType.OK) {
+        
+        employee.setDisable(0);
+        
+        EmployeeDao.add(employee);
+        
+        loadForm();
+        
+        loadTable();
+        
+    }
+    
+} else {
+    
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Error");
+    alert.setHeaderText("You need to fill the following Employee");
+    alert.setContentText(errors);
+    
+    DialogPane dialogPane = alert.getDialogPane();
+    
+    dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+    dialogPane.getStyleClass().add("myDialogForError");
+    
+    alert.showAndWait();
+    
+}
+
+//        EmployeeDao.add(employee);
+//
+//        loadTable();
+//
+//        loadForm();
+    }
+    
+    @FXML
+    private void btnDeleteAP(ActionEvent event) {
+        String details =
+                "\nName          \t: " + oldEmployee.getName()
+                + "\nGender Type  : " + oldEmployee.getGenderId().getName()
+                + "\nDate of Birth \t: " + oldEmployee.getDob().toString()
+                + "\nNIC           \t: " + oldEmployee.getNic()
+                + "\nCivilstatus   \t: " + oldEmployee.getCivilstatusId().getName()
+                + "\nAddress       \t: " + oldEmployee.getAddress()
+                + "\nMobile No     \t: " + oldEmployee.getMobile()
+                + "\nLand No       \t: " + oldEmployee.getLand()
+                + "\nEmail         \t: " + oldEmployee.getEmail()
+                + "\nPhoto         \t: will be deleted.."
+                + "\nDesignation   \t: " + oldEmployee.getDesignationId().getName()
+                + "\nAssing Date   \t: " + oldEmployee.getAssigned().toString()
+                + "\nStatus        \t: " + oldEmployee.getEmployeestatusId().getName();
+        
+        Alert alertForDelete = new Alert(Alert.AlertType.CONFIRMATION);
+        
+        alertForDelete.setTitle("Delete Module");
+        alertForDelete.setHeaderText("Are you sure you need to delete the following Module?");
+        alertForDelete.setContentText(details);
+        
+        DialogPane dialogPane = alertForDelete.getDialogPane();
+        
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+        
+        Optional<ButtonType> result = alertForDelete.showAndWait();
+        
+        if (result.get() == ButtonType.OK) {
+            
+            
+//            EmployeeDao.delete(oldEmployee);
+
+oldEmployee.setDisable(1);
+
+EmployeeDao.update(oldEmployee);
+
+//            fillTable(EmployeeDao.getAll());
+
+loadTable();
+
+loadForm();
+
+pagination.setCurrentPageIndex(page);
+tblEmployee.getSelectionModel().select(row);
+
+        }
+        
+    }
+    @FXML
+    private void tblEmployeeMC(MouseEvent event) {
+        fillForm();
+    }
+    
+    @FXML
+    private void tblEmployeeKR(KeyEvent event) {
+        fillForm();
+    }
+    private void fillForm() {
+        
+        if (tblEmployee.getSelectionModel().getSelectedItem() != null) {
+            
+            photoSelected = false;
+            
+            dissableButtons(false, true, false, false);
+            
+            setStyle(valid);
+            
+            cmbStatus.setDisable(false);
+            
+            cmbSearchDesignation.setStyle(initial);
+            cmbSearchStatus.setStyle(initial);
+            txtSearchName.setStyle(initial);
+            
+            oldEmployee = EmployeeDao.getById(tblEmployee.getSelectionModel().getSelectedItem().getId());
+            employee = EmployeeDao.getById(tblEmployee.getSelectionModel().getSelectedItem().getId());
+            
+            cmbCivilstatus.getSelectionModel().select((Civilstatus) oldEmployee.getCivilstatusId());
+            cmbDesignation.getSelectionModel().select((Designation) oldEmployee.getDesignationId());
+            cmbStatus.getSelectionModel().select((Employeestatus) oldEmployee.getEmployeestatusId());
+            cmbGender.getSelectionModel().select((Gender) oldEmployee.getGenderId());
+            
+            txtName.setText(oldEmployee.getName());
+            txtAddress.setText(oldEmployee.getAddress());
+            
+//            oldNicWithOldFormateWithV = oldEmployee.getNic().substring(2, 7) + oldEmployee.getNic().substring(8) + "v";
+//            oldNicWithOldFormateWithX = oldEmployee.getNic().substring(2, 7) + oldEmployee.getNic().substring(8) + "x";
+
+txtNIC.setText(oldEmployee.getNic());
+
+txtMobileNumber.setText(oldEmployee.getMobile());
+
+if (oldEmployee.getLand() != null) {
+    
+    txtLandNumber.setText(oldEmployee.getLand());
+    
+} else {
+    
+    txtLandNumber.setText("");
+    
+}
+
+txtEmail.setText(oldEmployee.getEmail());
+
+dtpDOBDate.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(oldEmployee.getDob())));
+dtpDOBDate.getEditor().setText(new SimpleDateFormat("yyyy-MM-dd").format(oldEmployee.getDob()));
+
+//            lblDob.setText(oldEmployee.getDob().toString());
+//            lblGender.setText(oldEmployee.getGenderId().getName());
+
+dtpAssignedDate.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(oldEmployee.getAssigned())));
+dtpAssignedDate.getEditor().setText(new SimpleDateFormat("yyyy-MM-dd").format(oldEmployee.getAssigned()));
+
+if (oldEmployee.getImage() != null) {
+    imgPhoto.setImage(new Image(new ByteArrayInputStream(oldEmployee.getImage())));
+} else {
+    imgPhoto.setImage(new Image("/image/user.png"));
+}
+
+lblEmployeeID.setText(String.format("%06d", oldEmployee.getId() ));
+
+page = pagination.getCurrentPageIndex();
+row = tblEmployee.getSelectionModel().getSelectedIndex();
+
+        }
+        
+    }
+    private String getErrors() {
+        
+        String errors = "";
+        
+        if (employee.getName() == null) {
+            errors = errors + "Name \t\tis Invalid\n";
+        }
+        
+        if (employee.getGenderId() == null) {
+            errors = errors + "Gender \t\tis Not Selected\n";
+        }
+        
+        if (employee.getCivilstatusId() == null) {
+            errors = errors + "Civilstatus \tis Not Selected\n";
+        }
+        
+        if (employee.getAddress() == null) {
+            errors = errors + "Address \t\tis Invalid\n";
+        }
+        
+        if (employee.getDob() == null) {
+            
+            if (dtpDOBDate.getValue() == null ) {
+                
+                errors = errors + "Birth Date \tis not seleted\n";
+                
+            } else {
+                
+                errors = errors + "Birth Date \tAge is less than 18\n";
+                
+            }
+            
+        }
+        
+        if (employee.getNic() == null) {
+            errors = errors + "NIC No. \t\tis Invalid or Already in\n";
+        }
+        
+        if (employee.getMobile() == null) {
+            errors = errors + "Mobile No. \tis Invalid\n";
+        }
+        
+        if (txtLandNumber.getText() != null && !employee.setLand(txtLandNumber.getText().trim())) {
+            errors = errors + "Land No. \t\tis Invalid\n";
+        }
+        
+        if (employee.getEmail() == null) {
+            errors = errors + "Email \t\tis Invalid\n";
+        }
+        
+        if (employee.getDesignationId() == null) {
+            errors = errors + "Designation \tis Not Selected\n";
+        }
+        
+        if (employee.getAssigned() == null) {
+            errors = errors + "Assign Date \tis Invalid\n";
+        }
+        
+        if (employee.getEmployeestatusId() == null) {
+            errors = errors + "Status \t\tis Not Selected\n";
+        }
+        
+        return errors;
+        
+    }
+    @FXML
+    private void btnUpdateAP(ActionEvent event) {
+        
+        String errors = getErrors();
+
+        if (errors.isEmpty()) {
+            
+//            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//
+//            try {
+//
+//                employee.setDob(java.sql.Date.valueOf(format.format(format.parse(actualDob))));
+//
+//            } catch (ParseException ex) {
+//
+//                System.out.println(ex);
+//
+//            }
+
+            String updates = getUpdates();
+
+            if (!updates.isEmpty()) {
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+                alert.setTitle("Update Module");
+                alert.setHeaderText("Are you sure you need to update the following Module");
+                alert.setContentText(updates);
+                
+                DialogPane dialogPane = alert.getDialogPane();
+
+                dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.get() == ButtonType.OK) {
+                     
+                  //  Notification.Notifier.INSTANCE.notifySuccess("Update", employee.getName() + " is updated!");
+
+                    EmployeeDao.update(employee);
+
+                    loadForm();
+                    loadTable();                 
+
+                }
+
+            } else {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                alert.setTitle("Update Module");
+                alert.setHeaderText("There is nothing to Update!!!");
+                alert.setContentText("Nothing to Update!!!");
+                
+                DialogPane dialogPane = alert.getDialogPane();
+
+                dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialogForInformation");
+                
+                alert.showAndWait();
+
+            }
+
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+
+            alert.setTitle("Error - Employee Update");
+            alert.setHeaderText("Form Data Error");
+            alert.setContentText(errors);
+            
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForError");
+
+            alert.showAndWait();
+
+        }
+        
+        
+    }
+        private String getUpdates() {
+
+        String updates = "";
+
+        if (oldEmployee != null) {
+
+            if (employee.getName() != null && !employee.getName().equals(oldEmployee.getName())) {
+                updates = updates + oldEmployee.getName() + " chnaged to " + employee.getName() + "\n";
+            }
+
+            if (employee.getAddress() != null && !employee.getAddress().equals(oldEmployee.getAddress())) {
+                updates = updates + oldEmployee.getAddress() + " chnaged to " + employee.getAddress() + "\n";
+            }
+
+            if (employee.getNic() != null && !employee.getNic().equals(oldEmployee.getNic())) {
+                updates = updates + oldEmployee.getNic() + " chnaged to " + employee.getNic() + "\n";
+            }
+
+//            if (!(oldEmployee.getLand() != null && employee.getLand() != null && oldEmployee.getLand().equals(employee.getLand()))) {
+//                if (oldEmployee.getLand() != employee.getLand()) {
+//                    updates = updates + oldEmployee.getLand() + " chnaged to " + employee.getLand() + "\n";
+//                }
+//            }
+
+            if (!(oldEmployee.getLand() != null && employee.getLand() != null && oldEmployee.getLand().equals(employee.getLand()))) {
+
+                if (oldEmployee.getLand() != employee.getLand()) {
+
+                    updates = updates
+                            + (oldEmployee.getLand() == null ? "Nothing" : oldEmployee.getLand())
+                            + " chnaged to "
+                            + (employee.getLand() == null ? "Nothing" : employee.getLand())
+                            + "\n";
+
+                }
+
+            }
+
+            if (employee.getEmail() != null && !employee.getEmail().equals(oldEmployee.getEmail())) {
+                updates = updates + oldEmployee.getEmail() + " chnaged to " + employee.getEmail() + "\n";
+            }
+
+            if (employee.getMobile() != null && !employee.getMobile().equals(oldEmployee.getMobile())) {
+                updates = updates + oldEmployee.getMobile() + " chnaged to " + employee.getMobile() + "\n";
+            }
+
+            if (employee.getGenderId() != null && !employee.getGenderId().equals(oldEmployee.getGenderId())) {
+                updates = updates + oldEmployee.getGenderId() + " chnaged to " + employee.getGenderId() + "\n";
+            }
+
+            if (employee.getCivilstatusId() != null && !employee.getCivilstatusId().equals(oldEmployee.getCivilstatusId())) {
+                updates = updates + oldEmployee.getCivilstatusId() + " chnaged to " + employee.getCivilstatusId() + "\n";
+            }
+
+            if (employee.getDesignationId() != null && !employee.getDesignationId().equals(oldEmployee.getDesignationId())) {
+                updates = updates + oldEmployee.getDesignationId() + " chnaged to " + employee.getDesignationId() + "\n";
+            }
+
+            if (employee.getDob() != null && !employee.getDob().equals(oldEmployee.getDob())) {
+                updates = updates + oldEmployee.getDob().toString() + "(dob)" + " chnaged to " + employee.getDob().toString() + "\n";
+            }
+
+            if (employee.getAssigned() != null && !employee.getAssigned().equals(oldEmployee.getAssigned())) {
+                updates = updates + oldEmployee.getAssigned().toString() + " chnaged to " + employee.getAssigned().toString() + "\n";
+            }
+
+            if ( photoSelected ) {
+                updates = updates + "Photo Changed\n";
+            }
+            
+            if (employee.getEmployeestatusId() != null && !employee.getEmployeestatusId().equals(oldEmployee.getEmployeestatusId())) {
+                updates = updates + oldEmployee.getEmployeestatusId() + " chnaged to " + employee.getEmployeestatusId() + "\n";
+            }
+        }
+
+        return updates;
 
     }
 //</editor-fold>
    
-    
+
     
 }
