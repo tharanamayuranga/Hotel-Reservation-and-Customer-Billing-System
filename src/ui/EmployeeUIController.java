@@ -1171,6 +1171,182 @@ row = tblEmployee.getSelectionModel().getSelectedIndex();
     }
 //</editor-fold>
    
+    //<editor-fold defaultstate="collapsed" desc="Search-Methods">
+        @FXML
+        private void txtSearchNameKR(KeyEvent event) {
+            updateTable();
+        }
+        
+        @FXML
+        private void cmbSearchStatusAP(ActionEvent event) {
+            if (cmbSearchStatus.getSelectionModel().getSelectedItem() != null) {
+                
+                updateTable();
+                
+            }
+        }
+        
+        @FXML
+        private void cmbSearchDesignationAP(ActionEvent event) {
+            if (cmbSearchDesignation.getSelectionModel().getSelectedItem() != null) {
+                
+                updateTable();
+                
+            }
+        }
+        
+        
+        @FXML
+        private void btnSearchClearAP(ActionEvent event) {
+            
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            
+            alert.setTitle(" Employee Management");
+            alert.setHeaderText("Clear Search Form");
+            alert.setContentText("Are you sure you need to clear search form ????");
+            
+            DialogPane dialogPane = alert.getDialogPane();
+            
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForConfirmation");
+            
+            Optional<ButtonType> result = alert.showAndWait();
+            
+            if (result.get() == ButtonType.OK) {
+                
+                loadTable();
+//            if (privilege.get("Employee_select")) {
+//
+//                //Notification.Notifier.INSTANCE.notifySuccess("Search Form", "The Search Fields are cleared!" );
+//
+//
+//
+//            }
 
+            }
+        }
+        
+        
+//    private void lblNewDesignationAddMC(MouseEvent event) throws IOException{
+//        System.out.println("yyyyy");
+//        Parent root = FXMLLoader.load(getClass().getResource("DesignationUI.fxml"));
+//
+//        Scene scene = new Scene(root);
+//
+//        designationStage = new Stage();
+//        designationStage.setScene(scene);
+//
+//        designationStage.setOnCloseRequest(e -> {
+//
+//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//
+//            alert.setTitle(" WINDOW CLOSE");
+//            alert.setHeaderText("Close Form");
+//            alert.setContentText("Are you sure you need to close this form?? ");
+//
+//            DialogPane dialogPane = alert.getDialogPane();
+//
+//            dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+//            dialogPane.getStyleClass().add("myDialogForConfirmation");
+//
+//            Optional<ButtonType> result = alert.showAndWait();
+//
+//            if (result.get() == ButtonType.OK) {
+//
+//                designationStage.close();
+//
+//            }
+//
+//            e.consume();
+//
+//        });
+//
+//        designationStage.initModality(Modality.WINDOW_MODAL);
+//        designationStage.initOwner(stageBasic);
+//        designationStage.setResizable(false);
+//        designationStage.setTitle("Oder and Payment Management System");
+//        designationStage.show();
+//    }
+        
+        
+        private void updateTable() {
+            
+            String name = txtSearchName.getText().trim();
+            boolean sname = !name.isEmpty();
+            Employeestatus status = cmbSearchStatus.getSelectionModel().getSelectedItem();
+            boolean sstatus = cmbSearchStatus.getSelectionModel().getSelectedIndex() != -1;
+            Designation designation = cmbSearchDesignation.getSelectionModel().getSelectedItem();
+            boolean sdesignation = cmbSearchDesignation.getSelectionModel().getSelectedIndex() != -1;
+            
+            if (!sname && !sstatus && !sdesignation) {
+                fillTable(EmployeeDao.getAll());
+            }
+            if (sname && !sstatus && !sdesignation) {
+                fillTable(EmployeeDao.getAllByName(name));
+            }
+            if (!sname && !sstatus && sdesignation) {
+                fillTable(EmployeeDao.getAllByDesignation(designation));
+            }
+            if (!sname && sstatus && !sdesignation) {
+                fillTable(EmployeeDao.getAllByStatus(status));
+            }
+            if (sname && sstatus && !sdesignation) {
+                fillTable(EmployeeDao.getAllByNameStatus(name, status));
+            }
+            if (sname && !sstatus && sdesignation) {
+                fillTable(EmployeeDao.getAllByNameDesignation(name, designation));
+            }
+            if (!sname && sstatus && sdesignation) {
+                fillTable(EmployeeDao.getAllByStatusDesignation(status, designation));
+            }
+            if (sname && sstatus && sdesignation) {
+                fillTable(EmployeeDao.getAllByNameStatusDesignation(name, status, designation));
+            }
+            
+        }
+        
+        @FXML
+        private void btnNewDesignationAP(ActionEvent event) throws IOException {
+            Parent root = FXMLLoader.load(getClass().getResource("DesignationUI.fxml"));
+            
+            Scene scene = new Scene(root);
+            
+            designationStage = new Stage();
+            designationStage.setScene(scene);
+            
+            designationStage.setOnCloseRequest(e -> {
+                
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                
+                alert.setTitle(" WINDOW CLOSE");
+                alert.setHeaderText("Close Form");
+                alert.setContentText("Are you sure you need to close this form?? ");
+                
+                DialogPane dialogPane = alert.getDialogPane();
+                
+                dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialogForConfirmation");
+                
+                Optional<ButtonType> result = alert.showAndWait();
+                
+                if (result.get() == ButtonType.OK) {
+                    
+                    designationStage.close();
+                    
+                }
+                
+                e.consume();
+                
+            });
+            
+            designationStage.initModality(Modality.WINDOW_MODAL);
+            designationStage.initOwner(stageBasic);
+            designationStage.setResizable(false);
+            designationStage.setTitle("Oder and Payment Management System");
+            designationStage.show();
+            
+        }
+        
+//</editor-fold>
     
 }
