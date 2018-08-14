@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="apnMainwindows" prefHeight="810.0" prefWidth="1456.0" styleClass="mainFxmlClass" stylesheets="@../css/style1.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MainWindowController">
+<children><SplitPane fx:id="sptMain" dividerPositions="0.16858496953283683" focusTraversable="true" layoutX="-22.0" layoutY="-2.0" prefHeight="812.0" prefWidth="1479.0" styleClass="moduletopicback" stylesheets="@../css/style1.css" xmlns:fx="http://javafx.com/fxml">
+  <items>
+    <AnchorPane fx:id="apnLeft" minHeight="0.0" minWidth="0.0" prefHeight="810.0" prefWidth="293.0" stylesheets="@../css/style1.css">
+               <children>
+                  <ImageView fx:id="imgUser" fitHeight="69.0" fitWidth="86.0" layoutX="157.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/user.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="lblUser" layoutX="156.0" layoutY="97.0" prefHeight="21.0" prefWidth="69.0" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="27.0" layoutY="123.0" prefHeight="5.0" prefWidth="216.0" />
+                  <ToggleButton fx:id="btnHome" layoutX="49.0" layoutY="22.0" mnemonicParsing="false" onAction="#btnHomeAP" prefHeight="69.0" prefWidth="69.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" styleClass="toogleButton">
+                     <graphic>
+                        <ImageView blendMode="HARD_LIGHT" fitHeight="41.0" fitWidth="51.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/home.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </ToggleButton>
+                  <Accordion blendMode="COLOR_BURN" layoutX="21.0" layoutY="129.0" prefHeight="682.0" prefWidth="223.0" stylesheets="@../css/style1.css">
+                    <panes>
+                      <TitledPane prefHeight="632.0" prefWidth="277.0" styleClass="dashbuttons" stylesheets="@../css/style1.css" text="Administrative Tasks" textFill="#156686">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: rgb(80,80,80);">
+                                 <children>
+                                    <ToggleButton fx:id="mtmUser" layoutX="-2.0" layoutY="1.0" mnemonicParsing="false" onAction="#mtmUserAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" stylesheets="@../css/style1.css" text="User Management              " textFill="WHITE">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tglAdminTasks" />
+                                       </toggleGroup>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmPrivilage" layoutX="-2.0" layoutY="43.0" mnemonicParsing="false" onAction="#mtmPrivilageAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" stylesheets="@../css/style1.css" text="Privilege Management        " textFill="WHITE" toggleGroup="$tglAdminTasks">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmEmployee" layoutX="-2.0" layoutY="85.0" mnemonicParsing="false" onAction="#mtmEmployeeAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" stylesheets="@../css/style1.css" text="Employee Management      " textFill="WHITE" toggleGroup="$tglAdminTasks">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmServices" layoutX="-2.0" layoutY="127.0" mnemonicParsing="false" onAction="#mtmServicesAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" stylesheets="@../css/style1.css" text="Services Management         " textFill="WHITE" toggleGroup="$tglAdminTasks">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmMenuItem" layoutX="-2.0" layoutY="169.0" mnemonicParsing="false" onAction="#mtmMenuItemAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" stylesheets="@../css/style1.css" text="Liquior Item Management     " textFill="WHITE" toggleGroup="$tglAdminTasks">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmFunctionHall" layoutX="-2.0" layoutY="211.0" mnemonicParsing="false" onAction="#mtmFunctionHallAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" stylesheets="@../css/style1.css" text="Restaurant Item Management  " textFill="WHITE" toggleGroup="$tglAdminTasks">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmKitchenItem" layoutX="-2.0" layoutY="253.0" mnemonicParsing="false" onAction="#mtmKitchenItemAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" stylesheets="@../css/style1.css" text="Food Item Management  " textFill="WHITE" toggleGroup="$tglAdminTasks">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmKitchenItem1" layoutY="295.0" mnemonicParsing="false" onAction="#mtmKitchenItemAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" stylesheets="@../css/style1.css" text="Room Details Management" textFill="WHITE">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tglAdminTasks1" />
+                                       </toggleGroup>
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmKitchenItem11" layoutX="-2.0" layoutY="337.0" mnemonicParsing="false" onAction="#mtmKitchenItemAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" stylesheets="@../css/style1.css" text="Room Package Management" textFill="WHITE">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tglAdminTasks11" />
+                                       </toggleGroup>
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                      </TitledPane>
+                      <TitledPane styleClass="dashbuttons" stylesheets="@../css/style1.css" text="Business Tasks" textFill="#156686">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: rgb(80,80,80);">
+                                 <children>
+                                    <ToggleButton fx:id="mtmGuestManagement" layoutX="-2.0" mnemonicParsing="false" onAction="#mtmGuestManagementAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" text="Guest Management                 " textFill="WHITE">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tglBusinessTasks" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmFunctionBooking" layoutX="-2.0" layoutY="42.0" mnemonicParsing="false" onAction="#mtmFunctionBookingAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" text="Room Reservation" textFill="WHITE" toggleGroup="$tglBusinessTasks">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmMenuManagement" layoutX="-2.0" layoutY="84.0" mnemonicParsing="false" onAction="#mtmMenuManagementAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" text="Room Customization              " textFill="WHITE" toggleGroup="$tglBusinessTasks">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmPayemet" layoutX="-2.0" layoutY="126.0" mnemonicParsing="false" onAction="#mtmPayemetAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" text="Payment Management          " textFill="WHITE" toggleGroup="$tglBusinessTasks">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmKitchenItemRequest" layoutX="-2.0" layoutY="168.0" mnemonicParsing="false" onAction="#mtmKitchenItemRequestAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" text="Restaurant Bill" textFill="WHITE" toggleGroup="$tglBusinessTasks">
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmKitchenItemRequest1" layoutY="210.0" mnemonicParsing="false" onAction="#mtmKitchenItemRequestAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" text="Liquior Bill" textFill="WHITE">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tglBusinessTasks2" />
+                                       </toggleGroup>
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmKitchenItemRequest11" layoutX="-2.0" layoutY="252.0" mnemonicParsing="false" onAction="#mtmKitchenItemRequestAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" text="Spa Bill" textFill="WHITE">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tglBusinessTasks21" />
+                                       </toggleGroup>
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmKitchenItemRequest111" layoutY="336.0" mnemonicParsing="false" onAction="#mtmKitchenItemRequestAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" text="Check In" textFill="WHITE">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tglBusinessTasks211" />
+                                       </toggleGroup>
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="mtmKitchenItemRequest112" layoutY="294.0" mnemonicParsing="false" onAction="#mtmKitchenItemRequestAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" text="Check Out" textFill="WHITE">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tglBusinessTasks212" />
+                                       </toggleGroup>
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                 </children></AnchorPane>
+                        </content>
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                      </TitledPane>
+                      <TitledPane styleClass="dashbuttons" stylesheets="@../css/style1.css" text="Reporting" textFill="#156686">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: rgb(80,80,80);">
+                                 <children>
+                                    <ToggleButton fx:id="btnReportManagement" mnemonicParsing="false" onAction="#btnReportManagementAP" opacity="0.61" prefHeight="42.0" prefWidth="226.0" text="Report Management" textFill="WHITE">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tglBusinessTasks1" />
+                                       </toggleGroup>
+                                       <font>
+                                          <Font name="Calibri" size="14.0" />
+                                       </font>
+                                       <styleClass>
+                                          <String fx:value="toggleButton" />
+                                          <String fx:value="toogleButton" />
+                                       </styleClass>
+                                    </ToggleButton>
+                                 </children></AnchorPane>
+                        </content>
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                      </TitledPane>
+                    </panes>
+                  </Accordion>
+                  <Label layoutX="64.0" layoutY="98.0" text="Home" textFill="WHITE">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+    <AnchorPane fx:id="apnRight" minHeight="0.0" minWidth="0.0" prefHeight="732.0" prefWidth="1061.0">
+               <children>
+                  <Pane fx:id="imgDashBoard" prefHeight="810.0" prefWidth="1225.0" styleClass="backgroundIMG">
+                     <children>
+                        <ImageView fitHeight="885.0" fitWidth="1930.0" layoutX="-134.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/imgDashboard.jpg" />
+                           </image>
+                        </ImageView>
+                        <ToggleButton fx:id="tglGuestMgt" layoutX="152.0" layoutY="147.0" onAction="#tglGuestMgtAP" prefHeight="235.0" prefWidth="259.0" styleClass="dashbuttons" stylesheets="@../css/style1.css">
+                           <graphic>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/flask.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </ToggleButton>
+                        <ToggleButton fx:id="tglMenuCustom" layoutX="792.0" layoutY="147.0" onAction="#tglMenuCustomAP" prefHeight="235.0" prefWidth="259.0" styleClass="dashbuttons" stylesheets="@../css/style1.css">
+                           <graphic>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/CookingPNG.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </ToggleButton>
+                        <ToggleButton fx:id="tglFunctionBooking" layoutX="468.0" layoutY="147.0" onAction="#tglFunctionBookingAP" prefHeight="235.0" prefWidth="259.0" styleClass="dashbuttons" stylesheets="@../css/style1.css">
+                           <graphic>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/calendar_icon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </ToggleButton>
+                        <Label layoutX="184.0" layoutY="345.0" text="Guest Management" textFill="#001114">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="825.0" layoutY="343.0" text="Room Customization" textFill="#001114">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="540.0" layoutY="343.0" text="Reservation" textFill="#001114">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Label>
+                        <ToggleButton fx:id="tglKitchenRequest" layoutX="155.0" layoutY="433.0" onAction="#tglKitchenRequestAP" prefHeight="235.0" prefWidth="259.0" styleClass="dashbuttons" stylesheets="@../css/style1.css">
+                           <graphic>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/cheficon.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </ToggleButton>
+                        <ToggleButton fx:id="tglPayement" layoutX="471.0" layoutY="433.0" onAction="#tglPayementAP" prefHeight="235.0" prefWidth="259.0" styleClass="dashbuttons" stylesheets="@../css/style1.css">
+                           <graphic>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/coin-money-6.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </ToggleButton>
+                        <ToggleButton fx:id="tglReporting" layoutX="792.0" layoutY="433.0" onAction="#tglReportingAP" prefHeight="235.0" prefWidth="259.0" styleClass="dashbuttons" stylesheets="@../css/style1.css">
+                           <graphic>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/report_icn.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </ToggleButton>
+                        <Label layoutX="867.0" layoutY="632.0" text="Reportings" textFill="#001114">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="544.0" layoutY="633.0" text="Payement" textFill="#001114">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="186.0" layoutY="631.0" text="Kitchen Request Form" textFill="#001114">
+                           <font>
+                              <Font name="System Bold" size="21.0" />
+                           </font>
+                        </Label>
+                        <Pane opacity="0.74" prefHeight="76.0" prefWidth="1225.0" style="-fx-background-color: #00c3ff;">
+                           <children>
+                              <ImageView fitHeight="132.0" fitWidth="168.0" layoutX="130.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/loga.PNG" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="317.0" layoutY="8.0" text="Refresh Hikkaduwa">
+                                 <font>
+                                    <Font size="50.0" />
+                                 </font>
+                              </Label>
+                              <JFXButton fx:id="btnSignout" buttonType="RAISED" layoutX="1017.0" layoutY="24.0" onAction="#btnSignoutAP" prefHeight="39.0" prefWidth="76.0" text="Sign Out" underline="true" />
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+               </children></AnchorPane>
+  </items>
+</SplitPane>
+</children>
+</AnchorPane>
