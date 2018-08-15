@@ -135,7 +135,13 @@ public class MainWindowController implements Initializable {
     
     @FXML
     private void mtmUserAP(ActionEvent event) {
-        
+          try {
+            AnchorPane root = FXMLLoader.load(Main.class.getResource("UserUI.fxml"));
+            apnRight.getChildren().clear();
+            apnRight.getChildren().add(root);
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @FXML
