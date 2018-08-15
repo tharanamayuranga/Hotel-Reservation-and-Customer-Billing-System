@@ -154,7 +154,114 @@ public class DesignationUIController implements Initializable {
         
     }
 
-   
+    @FXML
+    private void btnAddAP(ActionEvent event) {
+         
+        String errors = getErrors();
+        
+        
+        if ( errors.isEmpty() ) {
+            
+            String details =  "\nName :         \t\t" + designation.getName();
+            
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Add Designation");
+            alert.setHeaderText("Are you sure you need to add the following Designation??????");
+            alert.setContentText(details);
+            
+            Optional<ButtonType> result = alert.showAndWait();
+            
+            if (result.get() == ButtonType.OK) {
+                
+                DesignationDao.add(designation);
+                
+                loadTable();
+                loadForm();
+                
+            }
+            
+            
+        }else{
+            
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("You need to fill the following Designation");
+            alert.setContentText(errors);
+            alert.showAndWait();
+            
+        }
+
+    }
+
+    @FXML
+    private void btnClearAP(ActionEvent event) {
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        
+        alert.setTitle(" Designation Management");
+        alert.setHeaderText("Clear Form");
+        alert.setContentText("Are you sure you need to clear form ?????? ");
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        
+        if (result.get() == ButtonType.OK) {
+            
+            loadForm();
+            loadTable();
+        }
+    }
+
+    @FXML
+    private void btnUpdateAP(ActionEvent event) {
+        String errors = getErrors();
+        
+        if ( errors.isEmpty() ) {
+            
+            String updates = getUpdates();
+            
+            if (!updates.isEmpty()) {
+                
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                
+                alert.setTitle("Update Designation");
+                alert.setHeaderText("Are you sure you need to update the following Designation List??????");
+                alert.setContentText(updates);
+                
+                Optional<ButtonType> result = alert.showAndWait();
+                
+                if (result.get() == ButtonType.OK) {
+                    
+                    DesignationDao.update(designation);
+                    
+                    loadForm();
+                    loadTable();
+                    
+                }
+                
+            } else {
+                
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                
+                alert.setTitle("Update Designation");
+                alert.setHeaderText("There is nothing to Update!!!");
+                alert.setContentText("Nothing to Update!!!");
+                alert.showAndWait();
+                
+            }
+            
+        } else {
+            
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            
+            alert.setTitle("Error - Designation Update");
+            alert.setHeaderText("Form Data Error");
+            alert.setContentText(errors);
+            alert.showAndWait();
+            
+        }
+    }
+
+
 
     
 }
