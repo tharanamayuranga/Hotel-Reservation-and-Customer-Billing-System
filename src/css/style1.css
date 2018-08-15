@@ -1,0 +1,107 @@
+/*
+ * Empty Stylesheet file.
+#00c3ff
+ */
+ .root{
+/*     -fx-background-image:url("image/home-banner.jpg");*/
+        -fx-background-color: white;
+/*        -fx-control-inner-background:#F8F8F8;*/
+
+ }
+ 
+ .innerpane{
+     
+     -fx-background-color: rgba(248, 248, 248, 0.6);
+     -fx-background-radius: 10;
+     -fx-border-radius: 10;
+     -fx-border-color: #C8C8C8;
+/*     -fx-opacity: 0.8;*/
+ }
+
+.mainFxmlClass {
+    -fx-background-color: linear-gradient(to top,  #00c3ff, derive(#007599,30%));
+}
+
+.moduletopic{ -fx-font-family: calibri; -fx-font-size:24px; -fx-text-fill:#fff;  
+
+}
+
+.moduletopicback{ -fx-background-color: #007599;
+                     
+                     /*rgb(112,76,115);*/ 
+} 
+
+.dashbuttons{
+    -fx-background-color:rgba(0, 117, 153,0.8);
+    
+}
+
+.dashbuttons:hover{
+ -fx-background-color: linear-gradient(to top, #00c3ff, derive( #007599,30%));
+-fx-text-fill:#00c3ff;
+-fx-border-color: none;
+    
+}
+
+.textMenu{-fx-text-fill:white;}
+
+.button:hover {
+-fx-background-color: linear-gradient(to top, #00c3ff, derive( #007599,30%));
+-fx-text-fill:rgb(50,50,50);
+-fx-border-color: none;
+}
+
+.button {
+-fx-background-color:#007599;
+/*-fx-border-color: 5;*/
+-fx-background-radius: 10 10 0 0;
+-fx-border-radius: 10 10 0 0;
+-fx-text-fill:white;
+
+
+}
+
+.textField{
+    -fx-prompt-text-fill:black;
+}
+
+
+.datePicke{
+    -fx-prompt-text-fill:black;
+}
+
+.toggleButton {
+/*-fx-background-color:   linear-gradient(to top, #00c3ff, derive(#007599,30%));*/
+-fx-background-color:rgb(60,60,60);
+-fx-border-color: white;
+
+
+
+}
+ 
+.toogleButton:hover {
+-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+-fx-color:#00c3ff;
+/*-fx-border-color:rgb(80,80,80);*/
+-fx-text-fill:black;
+}
+
+
+.TableView .column-header{
+
+-fx-background-color: #007599;
+-fx-border-color: #ffffff;
+
+}
+
+.TableView .column-header .label{
+     -fx-text-fill: white;
+    
+}
+
+.table-view{
+    -fx-background-color: #F0F0F0;
+    -fx-border-color: #007599;
+    
+    
+}
