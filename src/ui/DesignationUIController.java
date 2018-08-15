@@ -261,7 +261,82 @@ public class DesignationUIController implements Initializable {
         }
     }
 
+    @FXML
+    private void btnDeleteAP(ActionEvent event) {
+        
+         String details = "\nName  \t: \t: " + oldDesignation.getName();
+        
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Designation");
+        alert.setHeaderText("Are you sure you need to delete the following Designation?");
+        alert.setContentText(details);
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        
+        if (result.get() == ButtonType.OK) {
+            
+            DesignationDao.delete(oldDesignation);
+            
+            loadTable();
+            loadForm();
+            
+        }
+    }
 
+    @FXML
+    private void lstDesignationMC(MouseEvent event) {
+        
+        fillForm();
+    }
+    @FXML
+    private void lstDesignationKR(KeyEvent event) {
+        
+        fillForm();
+    }
+    private void fillForm(){
+        
+        if (lstDesignation.getSelectionModel().getSelectedItem() != null) {
+            
+            dissableButtons(false, true, false, false);
+            setStyle(valid);
+            
+            oldDesignation = DesignationDao.getById(lstDesignation.getSelectionModel().getSelectedItem().getId());
+            designation = DesignationDao.getById(lstDesignation.getSelectionModel().getSelectedItem().getId());
+            
+            txtDesignation.setText(oldDesignation.getName());
+            
+            
+        }
+        
+    }
+    
+    private String getErrors(){
+        
+        String errors = "";
+        
+        if (designation.getName() == null) {
+            errors = errors + "Name \t\tis Invalid or already in\n";
+        }
+        
+        return errors;
+        
+    }
+        private String getUpdates(){
+        
+        String updates = "";
+        
+        if (oldDesignation != null) {
+            
+            if (designation.getName() != null && !designation.getName().equals(oldDesignation.getName())) {
+                updates = updates + oldDesignation.getName() + " chnaged to " + designation.getName() + "\n";
+            }
+            
+        }
+        
+        return updates;
+        
+    }
 
     
 }
