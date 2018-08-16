@@ -457,7 +457,235 @@ public class UserUIController implements Initializable {
         
     }
 //</editor-fold>
+        //<editor-fold defaultstate="collapsed" desc="Operation-Methods">
+       @FXML
+    private void btnAddAP(ActionEvent event) {
+        
+        String errors = getErrors();
+                 
+//        for (int i = 0; i < arr.length; i++) {
+//            Object arr = arr[i];
+//            
+//        }
+        
+        if ( errors.isEmpty() ) {
+            
+            String details = "Ara you sure you need to add this Employee with following details\n "
+                    + "\nEmployee       \t:" + userForForm.getEmployeeId().getName()
+                    + "\nUsername\t:" + userForForm.getUsername()
+                    + "\nRoles          \t:" + userForForm.getRoleList().toString();
+                
+            
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Add User");
+            alert.setHeaderText("Are you sure you need to add the following User??");
+            alert.setContentText(details);
+            
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForConfirmation");
+            
+            Optional<ButtonType> result = alert.showAndWait();
+            
+            if (result.get() == ButtonType.OK) {
+                
+                userForForm.setDisable(0);
+                
+                UserDao.add(userForForm);
+
+                loadTable();
+                loadForm();
+            
+            }
+            
+            
+        }else{
+            
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("You need to fill the following User");
+            alert.setContentText(errors);
+            
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForError");
+            
+//            Optional<ButtonType> result = alert.showAndWait();
+//            
+//            if (result.get() == ButtonType.OK) {    }
+            
+            alert.showAndWait();
+            
+        }
+        
+    }
     
+    private String getErrors(){
+        
+        String errors = "";
+        
+        if (userForForm.getUsername() == null) {
+            errors = errors + "Username \t\tis Invalid or already in.\n";
+        }
+        if (userForForm.getEmployeeId() == null) {
+            errors = errors + "Employee \t\tis Not Selected.\n";
+        }
+        if (userForForm.getRoleList() == null) {
+            errors = errors + "Roles \t\t\tare Not Selected.\n";
+        }
+        if (userForForm.getPassword() == null) {
+            errors = errors + "Password \t\tis Invalid.\n";
+        }
+        
+        if (!pswPassword.getText().equals(pswRetypePassword.getText())) {
+            errors = errors + "Confirm Password \t\tis Mismatch.\n";
+        }
+        
+        if (txtHint.getText() != null && !userForForm.setHint(txtHint.getText().trim())) {
+            errors = errors + "Hint \t\tshoud have at least two letter.\n";
+        }
+        
+        return errors;
+        
+    }
+    private String getUpdates(){
+        
+        String updates = "";
+        
+        if(oldUserForForm != null ){
+            
+            if(userForForm.getEmployeeId() != null && !userForForm.getEmployeeId().equals(oldUserForForm.getEmployeeId())){
+            
+                updates = updates + oldUserForForm.getEmployeeId().getName() + " changed to " + userForForm.getEmployeeId().getName() + "\n";
+            
+            }
+            
+            if(userForForm.getUsername() != null && !userForForm.getUsername().equals(oldUserForForm.getUsername())){
+            
+                updates = updates + oldUserForForm.getUsername() + " changed to " + userForForm.getUsername() + "\n";
+            
+            }
+            
+//            if(userForForm.getPassword() != null && !userForForm.getPassword().equals(oldUserForForm.getPassword())){
+//            
+//                updates = updates + oldUserForForm.getPassword() + " changed to " + userForForm.getPassword() + "\n";
+//            
+//            }
+
+            if(userForForm.getPassword() != null && !userForForm.getPassword().equals(oldUserForForm.getPassword())){
+            
+                updates = updates + "Password is going to change\n";
+            
+            }
+            
+//            if(userForForm.getRoleList() != null && !userForForm.getRoleList().equals(oldUserForForm.getRoleList())){
+//            
+//                updates = updates + oldUserForForm.getRoleList().toString() + " changed to " + userForForm.getRoleList().toString() + "\n";
+//            
+//            }
+            
+             if( !(userForForm.getRoleList().containsAll(oldUserForForm.getRoleList()) && oldUserForForm.getRoleList().containsAll(userForForm.getRoleList()))){
+            
+                updates = updates + oldUserForForm.getRoleList().toString() + " changed to " + userForForm.getRoleList().toString() + "\n";
+            
+            }
+             
+            if (!(oldUserForForm.getHint() != null && userForForm.getHint() != null && oldUserForForm.getHint().equals(userForForm.getHint()))) {
+
+                if (oldUserForForm.getHint() != userForForm.getHint()) {
+
+                    updates = updates
+                            + (oldUserForForm.getHint() == null ? "Nothing" : oldUserForForm.getHint())
+                            
+                            + " chnaged to "
+                            
+                            + (userForForm.getHint() == null ? "Nothing" : userForForm.getHint())
+                            
+                            + "\n";
+
+                }
+                
+            }
+
+        }
+
+        return updates;
+        
+        
+    }
+    
+    @FXML
+    private void btnClearAP(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle(" User Management");
+        alert.setHeaderText("Clear Form");
+        alert.setContentText("Are you sure you need to clear form???");
+
+        DialogPane dialogPane = alert.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+        
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            
+           // Notification.Notifier.INSTANCE.notifySuccess("Clear Form", "The Form is cleared!" );
+
+            loadForm();     
+
+        }
+    }
+    
+    @FXML
+    private void btnUpdateAP(ActionEvent event) {
+    }
+    @FXML
+    private void btnDeleteAP(ActionEvent event) {
+         String details =
+                  "\nEmployee                   \t: " + oldUserForForm.getEmployeeId().getName()
+                + "\nUsername Type          \t: " + oldUserForForm.getUsername()
+                + "\nRole List Type         \t: " + oldUserForForm.getRoleList().toString();
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete User");
+        alert.setHeaderText("Are you sure you need to delete the following User?");
+        alert.setContentText(details);
+        
+        DialogPane dialogPane = alert.getDialogPane();
+        
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            
+//            userForForm.setRoleList(null);
+
+//            UserDao.delete(oldUserForForm);
+
+            oldUserForForm.setDisable(1);
+            
+          //  Notification.Notifier.INSTANCE.notifySuccess("Delete",  oldUserForForm.getEmployeeId().getName() + " is deleted!" );
+
+            UserDao.update(oldUserForForm);
+
+//            loadTable();
+
+            fillTable(UserDao.getAll()); 
+            loadForm();
+
+            pagination.setCurrentPageIndex(page);
+            tblUser.getSelectionModel().select(row);
+            
+        }
+    }
+     
+//</editor-fold>
 
     
 
