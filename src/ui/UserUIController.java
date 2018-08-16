@@ -684,7 +684,64 @@ public class UserUIController implements Initializable {
             
         }
     }
-     
+        @FXML
+    private void tblUserMC(MouseEvent event) {
+        fillForm();
+    }
+
+    @FXML
+    private void tblUserKR(KeyEvent event) {
+        fillForm();
+    }
+    private void fillForm(){
+    
+        if (tblUser.getSelectionModel().getSelectedItem() != null ) {
+            
+            oldUserForForm = UserDao.getById(tblUser.getSelectionModel().getSelectedItem().getId());
+            userForForm = UserDao.getById(tblUser.getSelectionModel().getSelectedItem().getId());
+            
+            txtUsername.setText(String.valueOf(oldUserForForm.getUsername()));
+            pswPassword.setText(Security.decrypt(oldUserForForm.getPassword()));
+                
+            if (oldUserForForm.getHint() != null) {
+                
+                txtHint.setText(oldUserForForm.getHint());
+                
+            }else{
+                
+                txtHint.setText("");
+        
+            }
+
+            cmbEmployee.getItems().clear();
+            cmbEmployee.getItems().add((Employee) oldUserForForm.getEmployeeId());
+            cmbEmployee.getSelectionModel().select(oldUserForForm.getEmployeeId());
+            
+            pswRetypePassword.setText(Security.decrypt(oldUserForForm.getPassword()));
+
+            lstRight.setItems(FXCollections.observableArrayList(oldUserForForm.getRoleList()));  //problem
+            System.out.println("fuck");
+            lstLeft.setItems(RoleDao.getAll());
+            lstLeft.getItems().removeAll(FXCollections.observableArrayList(oldUserForForm.getRoleList()));
+            
+            setStyle(valid);
+            
+            dissableButtons(true, true, false, false);
+            
+            validateList();
+            
+            page = pagination.getCurrentPageIndex();                   
+            row = tblUser.getSelectionModel().getSelectedIndex();
+            
+            txtSearchEmpName.setStyle(initial);
+            txtSearchUsername.setStyle(initial);
+            cmbSearchRole.setStyle(initial);
+            
+           // Notification.Notifier.INSTANCE.notifyInfo("Selected", oldUserForForm.getEmployeeId().getName() + " is selected!");
+            
+        }
+    
+    }
 //</editor-fold>
 
     
