@@ -236,6 +236,230 @@ public class UserUIController implements Initializable {
     
 //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Binding-Methods">
     
+    
+    @FXML
+    private void cmbEmployeeAP(ActionEvent event) {
+        
+         boolean validity = userForForm.setEmployeeId(cmbEmployee.getSelectionModel().getSelectedItem());
+
+        if (validity) {
+
+            if (oldUserForForm != null && !userForForm.getEmployeeId().equals(oldUserForForm.getEmployeeId())) {
+
+                cmbEmployee.setStyle(updated);
+
+            } else {
+
+                cmbEmployee.setStyle(valid);
+
+            }
+
+        }
+        
+    }
+    
+    
+    @FXML
+    private void txtUsernameKR(KeyEvent event) {
+              
+        if(txtUsername.getText().trim().matches("[A-Za-z0-9]{3}[A-Za-z0-9]+")){
+        
+            if ( UserDao.getUnassignedUsername(txtUsername.getText().trim()).isEmpty() ) {
+                
+                userForForm.setUsername(txtUsername.getText().trim());
+
+//                if (oldUserForForm != null && !userForForm.getUsername().equals(oldUserForForm.getUsername())) {
+//                    
+//                    if (UserDao.getUnassignedUsername(txtUsername.getText().trim()).isEmpty()) {
+//
+//                        txtUsername.setStyle(updated);
+//                        
+//                    } else {
+//                        
+//                       userForForm.setUsername(null);
+//                        
+//                    }
+//                    
+//                } else {
+//                    
+//                    txtUsername.setStyle(valid);
+//                    
+//                }
+                
+                if (oldUserForForm != null && !userForForm.getUsername().equals(oldUserForForm.getUsername())) {
+
+                    txtUsername.setStyle(updated);
+
+                } else {
+
+                    txtUsername.setStyle(valid);
+
+                }
+
+            }else{
+            
+                txtUsername.setStyle(invalid);
+                userForForm.setUsername(null);
+                           
+            }
+        
+        }else{
+        
+            txtUsername.setStyle(invalid);
+            userForForm.setUsername(null);
+            
+        }
+    }
+    
+    @FXML
+    private void pswPasswordKR(KeyEvent event) {
+        
+        if( userForForm.setPassword(pswPassword.getText().trim()) ){
+        
+            if (oldUserForForm != null && !userForForm.getPassword().equals(oldUserForForm.getPassword())) {
+
+                pswPassword.setStyle(updated);
+
+            } else {
+
+                pswPassword.setStyle(valid);
+
+            }
+            
+            getConfirmPasswordValidation();
+        
+        }else{
+        
+            pswPassword.setStyle(invalid);
+            
+        }
+    }
+   
+    
+    @FXML
+    private void pswRetypePasswordKR(KeyEvent event) {
+        
+        if (pswPassword.getText().trim().equals(pswRetypePassword.getText().trim())) {                
+
+            pswRetypePassword.setStyle(valid);
+
+        } else {
+
+            pswRetypePassword.setStyle(invalid);
+
+        }
+    }
+    private void getConfirmPasswordValidation() {
+       
+        if (pswPassword.getText().trim().equals(pswRetypePassword.getText().trim())) {                
+
+            pswRetypePassword.setStyle(valid);
+
+        } else {
+
+            pswRetypePassword.setStyle(invalid);
+
+        }
+        
+    }
+    
+    @FXML
+    private void txtHintKR(KeyEvent event) {
+       //       if (txtHint.getText().trim() != null ) {
+            
+            if (userForForm.setHint(txtHint.getText().trim())) {
+                
+                if (oldUserForForm != null && oldUserForForm.getHint() != null && userForForm.getHint() != null && oldUserForForm.getHint().equals(userForForm.getHint())) {
+                    
+                    txtHint.setStyle(valid);
+                    
+                } else if (oldUserForForm != null && oldUserForForm.getHint() != userForForm.getHint()) {
+                    
+                    txtHint.setStyle(updated);
+                    
+                } else {
+                    
+                    txtHint.setStyle(valid);
+                    
+                }
+                
+            } else {
+                
+                txtHint.setStyle(invalid);
+                
+            }
+            
+    //  }
+    }
+    
+    @FXML
+    private void btnRightAllAP(ActionEvent event) {
+        lstRight.setItems(RoleDao.getAll());
+        lstLeft.getItems().clear();
+        validateList(); 
+    }
+    
+    @FXML
+    private void btnRightAP(ActionEvent event) {
+        lstRight.getItems().addAll(lstLeft.getSelectionModel().getSelectedItems());
+        lstLeft.getItems().removeAll(lstLeft.getSelectionModel().getSelectedItems()); 
+        validateList();
+    }
+    
+    @FXML
+    private void btnLeftAP(ActionEvent event) {
+        
+        lstLeft.getItems().addAll(lstRight.getSelectionModel().getSelectedItems());
+        lstRight.getItems().removeAll(lstRight.getSelectionModel().getSelectedItems()); 
+        validateList();
+    }
+    
+    @FXML
+    private void btnLeftAllAP(ActionEvent event) {
+        lstLeft.setItems(RoleDao.getAll());
+        lstRight.getItems().clear();
+        validateList();
+    }
+        private void validateList(){
+        
+        if (userForForm.setRoleList(lstRight.getItems())) {
+            lstRight.setStyle(valid);
+        } else {
+            lstRight.setStyle(invalid);
+        }
+
+        if (lstLeft.getItems().isEmpty()) {
+            
+            btnRight.setDisable(true);
+            btnRightAll.setDisable(true);
+            btnLeft.setDisable(false);
+            btnLeftAll.setDisable(false);
+            
+        } else if (lstRight.getItems().isEmpty()) {
+            
+            btnRight.setDisable(false);
+            btnRightAll.setDisable(false);
+            btnLeft.setDisable(true);
+            btnLeftAll.setDisable(true);
+            
+        } else {
+            
+            btnRight.setDisable(false);
+            btnRightAll.setDisable(false);
+            btnLeft.setDisable(false);
+            btnLeftAll.setDisable(false);
+
+        }
+        
+//        userForForm.setRoleList();
+        
+    }
+//</editor-fold>
+    
+
+    
+
     
 }
