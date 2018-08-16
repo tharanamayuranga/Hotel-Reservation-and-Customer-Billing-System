@@ -743,7 +743,24 @@ public class UserUIController implements Initializable {
     
     }
 //</editor-fold>
-
+    //<editor-fold defaultstate="collapsed" desc="Search-Methods">
+    
+    @FXML
+    private void btnSearchClearAP(ActionEvent event) {
+    }
+    @FXML
+    private void txtSearchUsernameKR(KeyEvent event) {
+    }
+    
+    @FXML
+    private void txtSearchEmpNameKR(KeyEvent event) {
+    }
+    
+    @FXML
+    private void cmbSearchRoleAP(ActionEvent event) {
+    }
+    
+//</editor-fold>
     
 
     
