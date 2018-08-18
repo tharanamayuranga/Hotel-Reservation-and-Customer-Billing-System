@@ -76,5 +76,21 @@ public class EmployeeDao {
         
     }
 
+    public static ObservableList<Employee> getAllByDesignation(Designation designation) {
+        HashMap hmap = new HashMap();
+        hmap.put("designation", designation); 
+        System.out.println(hmap);
+        return CommonDao.select("Employee.findAllByDesignation", hmap);
+        
+    }
+
+    public static ObservableList<Employee> getAllByStatus(Employeestatus status) {
+        HashMap hmap = new HashMap();
+        hmap.put("status", status);
+
+        return CommonDao.select("Employee.findAllByStatus", hmap);
+        
+    }
+
 
 }
