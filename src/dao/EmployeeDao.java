@@ -92,5 +92,30 @@ public class EmployeeDao {
         
     }
 
+    public static ObservableList<Employee> getAllByNameStatus(String name, Employeestatus status) {
+                HashMap hmap = new HashMap();
+        hmap.put("status", status);
+        hmap.put("name" , name + "%");
+        
+        return CommonDao.select("Employee.findAllByNameStatus", hmap);
+        
+    }
 
+    public static ObservableList<Employee> getAllByNameDesignation(String name, Designation designation) {
+        HashMap hmap = new HashMap();
+        hmap.put("designation", designation);
+        hmap.put("name" , name + "%");
+        
+        return CommonDao.select("Employee.findAllByNameDesignation", hmap);
+    }
+
+    public static ObservableList<Employee> getAllByStatusDesignation(Employeestatus status, Designation designation) {
+        HashMap hmap = new HashMap();
+        hmap.put("designation", designation);
+        hmap.put("status" ,status );
+        
+        return CommonDao.select("Employee.findAllByStatusDesignation", hmap);
+    }
+
+   
 }
