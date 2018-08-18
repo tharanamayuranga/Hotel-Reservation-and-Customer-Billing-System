@@ -65,5 +65,16 @@ public class EmployeeDao {
         
     }
 
+    public static ObservableList<Employee> getAllByName(String name) {
+        
+        HashMap hmap = new HashMap();
+        hmap.put("name", "%" + name + "%" );
+        
+//        System.out.println(hmap);
+
+        return CommonDao.select("Employee.findAllByName", hmap);
+        
+    }
+
 
 }
