@@ -28,5 +28,42 @@ public class EmployeeDao {
         CommonDao.insert(employee);
     }
     
+    public static Integer getLastJobId() {
+       
+        ObservableList<Employee> list = CommonDao.select("Employee.getEmployeeId");
+        
+        if (list.isEmpty()) {
+            
+            return null;
+            
+        } else {
+            
+            return list.get(0).getId();
+            
+        }
+        
+    }
+    
+    public static Employee getById(Integer id) {
+        
+        HashMap hmap = new HashMap();
+        hmap.put("id", id);
+
+        ObservableList<Employee> list = CommonDao.select("Employee.findById", hmap);
+        
+        if (list == null) {
+            return null;
+        } else {
+            return list.get(0);
+        }
+        
+    }
+    
+    public static void update(Employee employee) {
+        
+        CommonDao.update(employee);
+        
+    }
+
 
 }
