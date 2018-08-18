@@ -117,5 +117,17 @@ public class EmployeeDao {
         return CommonDao.select("Employee.findAllByStatusDesignation", hmap);
     }
 
-   
+    public static ObservableList<Employee> getAllByNameStatusDesignation(String name, Employeestatus status, Designation designation) {
+        HashMap hmap = new HashMap();
+        hmap.put("designation", designation);
+        hmap.put("status" ,status );
+        hmap.put("name" , name + "%");
+        
+        return CommonDao.select("Employee.findAllByNameStatusDesignation", hmap);
+    }
+    public static ObservableList<Employee> getAllExceptUsers() {  // To select Employees who do not have user accounts
+        
+       return  CommonDao.select("Employee.findAllExceptUsers");
+       
+    }
 }
