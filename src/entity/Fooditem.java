@@ -38,7 +38,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Fooditem.findByUnitprice", query = "SELECT f FROM Fooditem f WHERE f.unitprice = :unitprice")
 
 
+     //Serach Querys
     
+    , @NamedQuery(name = "Fooditem.findAllByName", query = "SELECT f FROM Fooditem f WHERE f.name LIKE :name "),
+    @NamedQuery(name = "Fooditem.findAllByCategory", query = "SELECT f FROM Fooditem f WHERE f.fooditemcategoryId = :category "),
+    @NamedQuery(name = "Fooditem.findAllByCode", query = "SELECT f FROM Fooditem f WHERE f.code LIKE :code"),
+    @NamedQuery(name = "Fooditem.findAllByNameCode", query = "SELECT f FROM Fooditem f WHERE f.code = :code AND f.name LIKE :name "),
+    @NamedQuery(name = "Fooditem.findAllByNameCategory", query = "SELECT f FROM Fooditem f WHERE f.fooditemcategoryId = :category AND f.name LIKE :name "),
+    @NamedQuery(name = "Fooditem.findAllByCodeCategory", query = "SELECT f FROM Fooditem f WHERE f.code LIKE :code AND f.fooditemcategoryId = :category "),
+    @NamedQuery(name = "Fooditem.findAllByNameCodeCategory", query = "SELECT f FROM Fooditem f WHERE f.code = :code AND f.fooditemcategoryId = :category AND f.name LIKE :name"),
+        
 })
 public class Fooditem implements Serializable {
 
