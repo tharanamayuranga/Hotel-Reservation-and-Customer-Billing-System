@@ -45,7 +45,10 @@ import util.Security;
     , @NamedQuery(name = "User.findByDisable", query = "SELECT u FROM User u WHERE u.disable = :disable")
      
 
-     
+     //get unassigned usernames
+    , @NamedQuery(name = "User.findUnassignedUsername", query = "SELECT u FROM User u WHERE u.username = :username AND u.disable = 0")
+    
+      
 
 })
     
