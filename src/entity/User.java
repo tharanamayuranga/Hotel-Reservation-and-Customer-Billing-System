@@ -53,7 +53,12 @@ import util.Security;
     ,@NamedQuery(name = "User.findAllByUsername", query = "SELECT u FROM User u WHERE u.username LIKE :username AND u.disable = 0")
     ,@NamedQuery(name = "User.findAllByRole", query = "SELECT u FROM User u INNER JOIN u.roleList r WHERE r.id = :role AND u.disable = 0")
     
-    
+    ,@NamedQuery(name = "User.findAllByNameUsername", query = "SELECT u FROM User u WHERE u.employeeId.name LIKE :employeename AND u.username LIKE :username AND u.disable = 0")
+    ,@NamedQuery(name = "User.findAllByNameRole", query = "SELECT u FROM User u INNER JOIN u.roleList r WHERE r.id = :role AND u.employeeId.name LIKE :employeename AND u.disable = 0")
+    ,@NamedQuery(name = "User.findAllByRoleUsername", query = "SELECT u FROM User u INNER JOIN u.roleList r WHERE r.id = :role AND u.username LIKE :username AND u.disable = 0")
+    ,@NamedQuery(name = "User.findAllByNameRoleUsername", query = "SELECT u FROM User u INNER JOIN u.roleList r WHERE r.id = :role AND u.username LIKE :username AND u.employeeId.name LIKE :employeename AND u.disable = 0")
+       
+
 })
     
 public class User implements Serializable {
