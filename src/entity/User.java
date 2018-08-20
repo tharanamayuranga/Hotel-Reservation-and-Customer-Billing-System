@@ -48,8 +48,12 @@ import util.Security;
      //get unassigned usernames
     , @NamedQuery(name = "User.findUnassignedUsername", query = "SELECT u FROM User u WHERE u.username = :username AND u.disable = 0")
     
-      
-
+    //search queries    
+    ,@NamedQuery(name = "User.findAllByEmployeeName", query = "SELECT u FROM User u WHERE u.employeeId.name LIKE :employeename AND u.disable = 0")
+    ,@NamedQuery(name = "User.findAllByUsername", query = "SELECT u FROM User u WHERE u.username LIKE :username AND u.disable = 0")
+    ,@NamedQuery(name = "User.findAllByRole", query = "SELECT u FROM User u INNER JOIN u.roleList r WHERE r.id = :role AND u.disable = 0")
+    
+    
 })
     
 public class User implements Serializable {
