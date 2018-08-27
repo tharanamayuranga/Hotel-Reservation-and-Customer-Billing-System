@@ -691,7 +691,90 @@ public class FoodItemManagementUIController implements Initializable {
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Searching-Methods">
+ @FXML
+    private void txtSearchByItemKR(KeyEvent event) {
+        updateTable();
+    }
 
+    @FXML
+    private void cmbSearchByCategoryAP(ActionEvent event) {
+        updateTable();
+    }
+
+    @FXML
+    private void btnSearchClearAP(ActionEvent event) {
+        
+         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            
+            alert.setTitle(" Food Item Management");
+            alert.setHeaderText("Clear Search Form");
+            alert.setContentText("Are you sure you need to clear search form ????");
+            
+            DialogPane dialogPane = alert.getDialogPane();
+            
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForConfirmation");
+            
+            Optional<ButtonType> result = alert.showAndWait();
+            
+            if (result.get() == ButtonType.OK) {
+                
+                loadTable();
+//            if (privilege.get("Employee_select")) {
+//
+//                //Notification.Notifier.INSTANCE.notifySuccess("Search Form", "The Search Fields are cleared!" );
+//
+//
+//
+//            }
+
+            }
+    }
+
+    @FXML
+    private void txtSearchByCodeKR(KeyEvent event) {
+            updateTable();
+    }
+
+    @FXML
+    private void btnNewFoodItemCategoryAP(ActionEvent event) {
+    }
+        private void updateTable() {
+
+        String name = txtSearchByItem.getText().trim();
+        boolean sname = !name.isEmpty();
+        String code = txtSearchByCode.getText().trim();
+        boolean scode = !code.isEmpty();
+        Fooditemcategory category = cmbSearchByCategory.getSelectionModel().getSelectedItem();
+        boolean scategory = cmbSearchByCategory.getSelectionModel().getSelectedIndex() != -1;
+        
+
+            if (!sname && !scode && !scategory) {
+                fillTable(FoodItemDao.getAll());
+            }
+            if (sname && !scode && !scategory) {
+                fillTable(FoodItemDao.getAllByName(name));
+            }
+            if (!sname && !scode && scategory) {
+                fillTable(FoodItemDao.getAllByCategory(category));
+            }
+            if (!sname && scode && !scategory) {
+                fillTable(FoodItemDao.getAllByCode(code));
+            }
+            if (sname && scode && !scategory) {
+                fillTable(FoodItemDao.getAllByNameCode(name, code));
+            }
+            if (sname && !scode&& scategory) {
+                fillTable(FoodItemDao.getAllByNameCategory(name, category));
+            }
+            if (!sname && scode && scategory) {
+                fillTable(FoodItemDao.getAllByCodeCategory(code, category));
+            }
+            if (sname && scode && scategory) {
+                fillTable(FoodItemDao.getAllByNameCodeCategory(name, code, category));
+            }
+        
+    }
 //</editor-fold>
 
 }
