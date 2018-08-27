@@ -770,14 +770,17 @@ public class UserUIController implements Initializable {
     }
     @FXML
     private void txtSearchUsernameKR(KeyEvent event) {
+		updateTable();
     }
     
     @FXML
     private void txtSearchEmpNameKR(KeyEvent event) {
+		updateTable();
     }
     
     @FXML
     private void cmbSearchRoleAP(ActionEvent event) {
+		updateTable();
     }
     
 //</editor-fold>
