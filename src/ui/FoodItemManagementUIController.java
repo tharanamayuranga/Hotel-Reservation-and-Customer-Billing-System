@@ -234,7 +234,28 @@ public class FoodItemManagementUIController implements Initializable {
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Binding-Methods">
+ @FXML
+    private void txtDescriptionKR(KeyEvent event) {
 
+        if (foodItem.setDescription(txtDescription.getText().trim())) {
+            
+            if (oldFoodItem != null && !foodItem.getDescription().equals(oldFoodItem.getDescription())) {
+                
+                ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(updated);
+                
+            } else {
+                
+                ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(valid);
+                
+            }
+            
+        } else {
+            
+            ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(invalid);
+            
+        }
+
+    }
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Operation-Methods">
