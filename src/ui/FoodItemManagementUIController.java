@@ -448,6 +448,207 @@ public class FoodItemManagementUIController implements Initializable {
 //
 //        loadForm();
     }
+	 @FXML
+    private void btnClearAP(ActionEvent event) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        DialogPane dialogPane = alert.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        alert.setTitle(" Food Item Management");
+        alert.setHeaderText("Clear Form");
+        alert.setContentText("Are you sure you need to clear form?? ");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+
+            loadForm();
+
+        }
+    }
+
+    @FXML
+    private void btnUpdateAP(ActionEvent event) {
+        String errors = getErrors();
+
+        if (errors.isEmpty()) {
+
+//            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//
+//            try {
+//
+//                employee.setDob(java.sql.Date.valueOf(format.format(format.parse(actualDob))));
+//
+//            } catch (ParseException ex) {
+//
+//                System.out.println(ex);
+//
+//            }
+            String updates = getUpdates();
+
+            if (!updates.isEmpty()) {
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+                alert.setTitle("Update Module");
+                alert.setHeaderText("Are you sure you need to update the following Module");
+                alert.setContentText(updates);
+
+                DialogPane dialogPane = alert.getDialogPane();
+
+                dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.get() == ButtonType.OK) {
+
+                    //  Notification.Notifier.INSTANCE.notifySuccess("Update", employee.getName() + " is updated!");
+                    FoodItemDao.update(foodItem);
+
+                    loadForm();
+                    loadTable();
+
+                }
+
+            } else {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                alert.setTitle("Update Module");
+                alert.setHeaderText("There is nothing to Update!!!");
+                alert.setContentText("Nothing to Update!!!");
+
+                DialogPane dialogPane = alert.getDialogPane();
+
+                dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialogForInformation");
+
+                alert.showAndWait();
+
+            }
+
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+
+            alert.setTitle("Error - Employee Update");
+            alert.setHeaderText("Form Data Error");
+            alert.setContentText(errors);
+
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForError");
+
+            alert.showAndWait();
+
+        }
+    }
+
+    @FXML
+    private void btnDeleteAP(ActionEvent event) {
+        String details
+                = "\nItem Code          \t\t: " + foodItem.getCode()
+                + "\nItem Name        \t\t: " + foodItem.getName()
+                + "\nItem Categoery  \t\t: " + foodItem.getFooditemcategoryId().getName()
+                + "\nUnit Price       \t\t: " + foodItem.getUnitprice()
+                + "\nDescription   \t\t: " + foodItem.getDescription();
+
+        Alert alertForDelete = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alertForDelete.setTitle("Delete Module");
+        alertForDelete.setHeaderText("Are you sure you need to delete the following Module?");
+        alertForDelete.setContentText(details);
+
+        DialogPane dialogPane = alertForDelete.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        Optional<ButtonType> result = alertForDelete.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+
+//            EmployeeDao.delete(oldEmployee);
+//oldFoodItem.setDisable(1);
+            FoodItemDao.delete(foodItem);
+
+//            fillTable(EmployeeDao.getAll());
+            loadTable();
+
+            loadForm();
+
+            pagination.setCurrentPageIndex(page);
+            tblFoodItem.getSelectionModel().select(row);
+
+        }
+    }
+
+    private String getErrors() {
+
+        String errors = "";
+
+        if (foodItem.getName() == null) {
+            errors = errors + "Name \t\tis Invalid\n";
+        }
+
+        if (foodItem.getFooditemcategoryId() == null) {
+            errors = errors + "FoodItem Category \t\tis Not Selected\n";
+        }
+
+        if (foodItem.getCode() == null) {
+            errors = errors + "Item Code \tis Not Selected\n";
+        }
+
+        if (foodItem.getDescription() == null) {
+            errors = errors + "Description \t\tis Invalid\n";
+        }
+
+        if (foodItem.getUnitprice() == null) {
+            errors = errors + "Unit Price  \t\tis Invalid \n";
+        }
+
+        return errors;
+
+    }
+
+    private String getUpdates() {
+
+        String updates = "";
+
+        if (oldFoodItem != null) {
+
+            if (foodItem.getName() != null && !foodItem.getName().equals(oldFoodItem.getName())) {
+                updates = updates + oldFoodItem.getName() + " chnaged to " + foodItem.getName() + "\n";
+            }
+
+            if (foodItem.getCode() != null && !foodItem.getCode().equals(oldFoodItem.getCode())) {
+                updates = updates + oldFoodItem.getCode() + " chnaged to " + foodItem.getCode() + "\n";
+            }
+
+            if (foodItem.getUnitprice() != null && !foodItem.getUnitprice().equals(oldFoodItem.getUnitprice())) {
+                updates = updates + oldFoodItem.getUnitprice() + " chnaged to " + foodItem.getUnitprice() + "\n";
+            }
+
+//            if (!(oldEmployee.getLand() != null && employee.getLand() != null && oldEmployee.getLand().equals(employee.getLand()))) {
+//                if (oldEmployee.getLand() != employee.getLand()) {
+//                    updates = updates + oldEmployee.getLand() + " chnaged to " + employee.getLand() + "\n";
+//                }
+//            }
+            if (foodItem.getDescription() != null && !foodItem.getDescription().equals(oldFoodItem.getDescription())) {
+                updates = updates + oldFoodItem.getDescription() + " chnaged to " + foodItem.getDescription() + "\n";
+            }
+
+        }
+
+        return updates;
+
+    }
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Searching-Methods">
