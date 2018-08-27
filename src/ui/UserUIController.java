@@ -747,6 +747,26 @@ public class UserUIController implements Initializable {
     
     @FXML
     private void btnSearchClearAP(ActionEvent event) {
+		 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle(" User Management");
+        alert.setHeaderText("Clear Search Form");
+        alert.setContentText("Are you sure you need to clear  search form???");
+        
+        DialogPane dialogPane = alert.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            
+            // Notification.Notifier.INSTANCE.notifySuccess("Search Form", "The Search Fields are cleared!" );
+
+            loadTable();
+
+        }
     }
     @FXML
     private void txtSearchUsernameKR(KeyEvent event) {
