@@ -649,6 +649,45 @@ public class FoodItemManagementUIController implements Initializable {
         return updates;
 
     }
+	 @FXML
+    private void tblFoodItemKR(KeyEvent event) {
+        fillForm();
+    }
+
+    @FXML
+    private void tblFoodItemMC(MouseEvent event) {
+        fillForm();
+    }
+
+    private void fillForm() {
+
+        if (tblFoodItem.getSelectionModel().getSelectedItem() != null) {
+
+            dissableButtons(false, true, false, false);
+            setStyle(valid);
+
+            oldFoodItem = FoodItemDao.getById(tblFoodItem.getSelectionModel().getSelectedItem().getId());
+            foodItem = FoodItemDao.getById(tblFoodItem.getSelectionModel().getSelectedItem().getId());
+
+//            cmbSearchDesignation.setStyle(initial);
+//            cmbSearchStatus.setStyle(initial);
+//            txtSearchName.setStyle(initial);
+            txtCode.setText(foodItem.getCode());
+            txtItemName.setText(foodItem.getName());
+            cmbItemCategory.getSelectionModel().select((Fooditemcategory) foodItem.getFooditemcategoryId());
+            txtDescription.setText(foodItem.getDescription());
+            txtUnitPrice.setText(foodItem.getUnitprice().toString());
+            
+            page = pagination.getCurrentPageIndex();
+            row = tblFoodItem.getSelectionModel().getSelectedIndex();
+
+//            oldNicWithOldFormateWithV = oldEmployee.getNic().substring(2, 7) + oldEmployee.getNic().substring(8) + "v";
+//            oldNicWithOldFormateWithX = oldEmployee.getNic().substring(2, 7) + oldEmployee.getNic().substring(8) + "x";
+//            lblDob.setText(oldEmployee.getDob().toString());
+//            lblGender.setText(oldEmployee.getGenderId().getName());
+        }
+
+    }
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Searching-Methods">
