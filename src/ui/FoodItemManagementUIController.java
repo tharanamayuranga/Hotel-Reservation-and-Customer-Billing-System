@@ -320,6 +320,63 @@ public class FoodItemManagementUIController implements Initializable {
         return  new BigDecimal("0");
         
     }
+	 @FXML
+    private void txtCodeKR(KeyEvent event) {
+
+        if (foodItem.setCode(txtCode.getText().trim())) {
+
+            if (oldFoodItem != null && !foodItem.getCode().equals(oldFoodItem.getCode())) {
+
+                txtCode.setStyle(updated);
+
+            } else {
+
+                txtCode.setStyle(valid);
+
+            }
+
+        } else {
+
+            txtCode.setStyle(invalid);
+
+        }
+    }
+
+    @FXML
+    private void txtItemNameKR(KeyEvent event) {
+        if (foodItem.setName(txtItemName.getText().trim())) {
+
+            if (oldFoodItem != null && !foodItem.getName().equals(oldFoodItem.getName())) {
+
+                txtItemName.setStyle(updated);
+
+            } else {
+
+                txtItemName.setStyle(valid);
+
+            }
+
+        } else {
+
+            txtItemName.setStyle(invalid);
+
+        }
+    }
+
+    @FXML
+    private void cmbItemCategoryAP(ActionEvent event) {
+        foodItem.setFooditemcategoryId(cmbItemCategory.getSelectionModel().getSelectedItem());
+
+        if (oldFoodItem != null && !foodItem.getFooditemcategoryId().equals(oldFoodItem.getFooditemcategoryId())) {
+
+            cmbItemCategory.setStyle(updated);
+
+        } else {
+
+            cmbItemCategory.setStyle(valid);
+
+        }
+    }
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Operation-Methods">
