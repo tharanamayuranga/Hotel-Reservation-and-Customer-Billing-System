@@ -256,6 +256,70 @@ public class FoodItemManagementUIController implements Initializable {
         }
 
     }
+	@FXML
+    private void txtUnitPriceKR(KeyEvent event) {
+
+   
+        if (txtUnitPrice.getText().trim().matches("[0-9]{1}[0-9]*.[0-9]{1}[0-9]") || txtUnitPrice.getText().trim().matches("[0-9]{1}[0-9]*") || txtUnitPrice.getText().trim().matches("[0-9]{1}[0-9]*.[0-9]{1}") || txtUnitPrice.getText().trim().matches("[0-9]{1}[0-9]*.") ) {
+            
+            unitCost = new BigDecimal( txtUnitPrice.getText().trim() );
+
+            foodItem.setUnitprice(toGetTextColor(txtUnitPrice.getText().trim()));
+                
+            if (oldFoodItem != null && !foodItem.getUnitprice().equals(oldFoodItem.getUnitprice())) {
+
+                txtUnitPrice.setStyle(updated);
+
+            } else {
+
+                txtUnitPrice.setStyle(valid);
+
+            }  
+
+        } else {
+            
+            txtUnitPrice.setStyle(invalid);
+            
+            foodItem.setUnitprice(null);
+            
+        }
+    }
+    private BigDecimal toGetTextColor(String string) {
+
+        if (!string.contains(".") && !"".equals(txtUnitPrice.getText().trim())) {
+
+            return new BigDecimal(string + ".00");
+
+        } else if (string.contains(".") && !"".equals(txtUnitPrice.getText().trim())) {
+
+            try {
+                
+                String[] x = string.split("[.]");
+                
+                if (x[1].length() == 2) {
+                    
+                    return new BigDecimal(string);
+                    
+                } else if (x[1].length() == 1) {
+                    
+                    return new BigDecimal(string + "0");
+                    
+                }
+                
+            } catch (Exception e) {
+                                               
+//                System.out.println(e);
+                
+                return new BigDecimal(string + "00");
+
+                
+            }
+
+        }
+        
+        return  new BigDecimal("0");
+        
+    }
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Operation-Methods">
