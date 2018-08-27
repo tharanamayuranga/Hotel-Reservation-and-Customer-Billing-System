@@ -782,6 +782,41 @@ public class UserUIController implements Initializable {
     private void cmbSearchRoleAP(ActionEvent event) {
 		updateTable();
     }
+	private void updateTable() {
+        
+        String name = txtSearchEmployeeName.getText().trim();
+        boolean sname = !name.isEmpty();
+        Role role = cmbSearchRole.getSelectionModel().getSelectedItem();
+        boolean srole = cmbSearchRole.getSelectionModel().getSelectedIndex() != -1;
+        String userForFormname = txtSearchUsername.getText().trim();
+        boolean suserForFormname = !userForFormname.isEmpty();
+        
+        if (!sname && !srole && !suserForFormname) {
+            fillTable(UserDao.getAll());
+        }
+        if (sname && !srole && !suserForFormname) {
+            fillTable(UserDao.getAllByName(name));
+        }
+        if (!sname && !srole && suserForFormname) {
+            fillTable(UserDao.getAllByUser(userForFormname));
+        }
+        if (!sname && srole && !suserForFormname) {
+            fillTable(UserDao.getAllByRole(role));
+        }
+        if (sname && srole && !suserForFormname) {
+            fillTable(UserDao.getAllByNameRole(name, role));
+        }
+        if (sname && !srole && suserForFormname) {
+            fillTable(UserDao.getAllByNameUsername(name, userForFormname));
+        }
+        if (!sname && srole && suserForFormname) {
+            fillTable(UserDao.getAllByRoleUsername(role, userForFormname));
+        }
+        if (sname && srole && suserForFormname) {
+            fillTable(UserDao.getAllByNameRoleUsername(name, role , userForFormname ));
+        }
+        
+    }
     
 //</editor-fold>
     
