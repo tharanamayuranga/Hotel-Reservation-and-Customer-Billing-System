@@ -380,7 +380,74 @@ public class FoodItemManagementUIController implements Initializable {
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Operation-Methods">
+ private void btnAddAP(ActionEvent event) {
+        //        employee.setName(txtName.getText());
+//        employee.setNic(txtNIC.getText());
+//        employee.setMobile(txtMobileNumber.getText());
+//        employee.setAddress(txtAddress.getText());
+//        employee.setEmail(txtEmail.getText());
+//        employee.setLand(txtLandNumber.getText());
+//        employee.setGenderId(cmbGender.getSelectionModel().getSelectedItem());
+//        employee.setCivilstatusId(cmbCivilstatus.getSelectionModel().getSelectedItem());
+//        employee.setDesignationId(cmbDesignation.getSelectionModel().getSelectedItem());
+//
 
+        String errors = getErrors();
+
+        if (errors.isEmpty()) {
+
+            String details
+                    = "\nItem Code          \t\t: " + foodItem.getCode()
+                    + "\nItem Name        \t\t: " + foodItem.getName()
+                    + "\nItem Categoery  \t\t: " + foodItem.getFooditemcategoryId().getName()
+                    + "\nUnit Price       \t\t: " + foodItem.getUnitprice()
+                    + "\nDescription   \t\t: " + foodItem.getDescription();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Add Module");
+            alert.setHeaderText("Are you sure you need to add the following Food Item???");
+            alert.setContentText(details);
+
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+
+                // employee.setDisable(0);
+                FoodItemDao.add(foodItem);
+
+                loadForm();
+
+                loadTable();
+
+            }
+
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("You need to fill the following Employee");
+            alert.setContentText(errors);
+
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForError");
+
+            alert.showAndWait();
+
+        }
+
+//        EmployeeDao.add(employee);
+//
+//        loadTable();
+//
+//        loadForm();
+    }
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Searching-Methods">
