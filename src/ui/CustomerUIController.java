@@ -704,6 +704,118 @@ public class CustomerUIController implements Initializable {
         }
 
     }
+	 private String getErrors() {
+
+        String errors = "";
+
+        if (customer.getName() == null) {
+            errors = errors + "Name \t\tis Invalid\n";
+        }
+
+        if (customer.getCustomertypeId() == null) {
+            errors = errors + "Customer Type \t\tis Not Selected\n";
+        }
+
+        if (customer.getIdtypeId() == null) {
+            errors = errors + "ID Type \tis Not Selected\n";
+        }
+
+        if (customer.getGenderId() == null) {
+            errors = errors + "gender \t\tis Invalid\n";
+        }
+
+        if (customer.getDobirth() == null) {
+
+            if (dtpDOBDate.getValue() == null) {
+
+                errors = errors + "Birth Date \tis not seleted\n";
+
+            } else {
+
+                errors = errors + "Birth Date \tAge is less than 18\n";
+
+            }
+
+        }
+
+        if (customer.getMobile() == null) {
+            errors = errors + "Mobile No. \t\tis Invalid or Already in\n";
+        }
+
+        if (customer.getEmail() == null) {
+            errors = errors + "Email  \tis Invalid\n";
+        }
+
+        if (customer.getCountryId() == null) {
+            errors = errors + "Country \t\tis Invalid\n";
+        }
+
+        if (customer.getAddress() == null) {
+            errors = errors + "Address \tis Not Selected\n";
+        }
+
+        if (customer.getAssigned() == null) {
+            errors = errors + "Assign Date \tis Invalid\n";
+        }
+
+        return errors;
+
+    }
+    private String getUpdates() {
+
+        String updates = "";
+
+        if (oldCustomer != null) {
+
+            if (customer.getName() != null && !customer.getName().equals(oldCustomer.getName())) {
+                updates = updates + oldCustomer.getName() + " chnaged to " + customer.getName() + "\n";
+            }
+             if (customer.getCustomertypeId()!= null && !customer.getCustomertypeId().equals(oldCustomer.getCustomertypeId())) {
+                updates = updates + oldCustomer.getCustomertypeId()+ " chnaged to " + customer.getCustomertypeId()+ "\n";
+            }
+            
+            if (!customer.getIdtypeId().equals(oldCustomer.getIdtypeId())) {
+                updates = updates + oldCustomer.getIdtypeId() + " chnaged to " + customer.getIdtypeId() + "\n";
+            }
+            
+            if (!customer.getIdno().equals(oldCustomer.getIdno())) {
+                updates = updates + oldCustomer.getIdno() + " chnaged to " + customer.getIdno() + "\n";
+            }
+            
+            if (!customer.getGenderId().equals(oldCustomer.getGenderId())) {
+                updates = updates + oldCustomer.getGenderId() + " chnaged to " + customer.getGenderId() + "\n";
+            }
+            
+             if (customer.getDobirth() != null && !customer.getDobirth().equals(oldCustomer.getDobirth())) {
+                updates = updates + oldCustomer.getDobirth().toString() + "(dob)" + " chnaged to " + customer.getDobirth().toString() + "\n";
+            }
+             
+            if (customer.getMobile() != null && !customer.getMobile().equals(oldCustomer.getMobile())) {
+                updates = updates + oldCustomer.getMobile() + " chnaged to " + customer.getMobile() + "\n";
+            }
+            
+            if (!(oldCustomer.getEmail() != null && customer.getEmail() != null && oldCustomer.getEmail().equals(customer.getEmail()))) {
+                if (oldCustomer.getEmail() != customer.getEmail()) {
+                    updates = updates + oldCustomer.getEmail() + " chnaged to " + customer.getEmail() + "\n";
+                }
+            }
+            
+            if (!customer.getCountryId().equals(oldCustomer.getCountryId())) {
+                updates = updates + oldCustomer.getCountryId() + " chnaged to " + customer.getCountryId() + "\n";
+            }
+            
+            if (!customer.getAddress().equals(oldCustomer.getAddress())) {
+                updates = updates + oldCustomer.getAddress() + " chnaged to " + customer.getAddress() + "\n";
+            }
+            
+            if (customer.getAssigned() != null && !customer.getAssigned().equals(oldCustomer.getAssigned())) {
+                updates = updates + oldCustomer.getAssigned().toString() + " chnaged to " + customer.getAssigned().toString() + "\n";
+            }
+
+        }
+
+        return updates;
+    }
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Search-Methods">
