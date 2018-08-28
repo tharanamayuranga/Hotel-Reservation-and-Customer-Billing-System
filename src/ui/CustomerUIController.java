@@ -213,6 +213,73 @@ public class CustomerUIController implements Initializable {
         btnDelete.setDisable(delete);
 
     }
+	 private void loadTable() {
+
+        cmbSearchCustomerType.setItems(CustomerTypeDao.getAll());
+        cmbSearchCustomerType.getSelectionModel().clearSelection();
+
+        txtSearchByGuest.setText("");
+        txtSearchByID.setText("");
+
+        colName.setCellValueFactory(new PropertyValueFactory("name"));
+        colMobile.setCellValueFactory(new PropertyValueFactory("mobile"));
+        colEmail.setCellValueFactory(new PropertyValueFactory("email"));
+
+////        tblEmployee.setRowFactory(new Callback<TableView<Employee>, TableRow<Employee>>() {
+////
+////            @Override
+////            public TableRow<Employee> call(TableView<Employee> dateTableView) {
+////
+////                return new TableRow<Employee>() {
+////
+////                    @Override
+////                    protected void updateItem(Employee date, boolean b) {
+////                        super.updateItem(date, b);
+////
+////                        setStyle("-fx-background-color: linear-gradient(#04ef57 1%, #FFFFFF 100%);");
+////
+////                    }
+////
+////                };
+////
+////            }
+////
+////        });
+        row = 0;
+        page = 0;
+
+        fillTable(CustomerDao.getAll());
+
+        pagination.setCurrentPageIndex(0);
+
+    }
+	private void fillTable(ObservableList<Customer> employees) {
+
+        if (employees != null && !employees.isEmpty()) {
+
+            int rowsCount = 5;
+            int pageCount = ((employees.size() - 1) / rowsCount) + 1;
+            pagination.setPageCount(pageCount);
+
+            pagination.setPageFactory((Integer pageIndex) -> {
+                int start = pageIndex * rowsCount;
+                int end = pageIndex == pageCount - 1 ? employees.size() : pageIndex * rowsCount + rowsCount;
+                tblCustomer.getItems().clear();
+                tblCustomer.setItems(FXCollections.observableArrayList(employees.subList(start, end)));
+                return tblCustomer;
+            });
+
+        } else {
+
+            pagination.setPageCount(1);
+            tblCustomer.getItems().clear();
+
+        }
+
+        pagination.setCurrentPageIndex(page);
+        tblCustomer.getSelectionModel().select(row);
+
+    }
 
 
 
