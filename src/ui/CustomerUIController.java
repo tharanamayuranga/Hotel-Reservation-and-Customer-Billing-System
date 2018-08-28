@@ -285,7 +285,228 @@ public class CustomerUIController implements Initializable {
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Binding-Methods">
-   
+   @FXML
+    private void cmbIDTypeAP(ActionEvent event) {
+
+        customer.setIdtypeId(cmbIDType.getSelectionModel().getSelectedItem());
+
+        if (oldCustomer != null && !customer.getIdtypeId().equals(oldCustomer.getIdtypeId())) {
+
+            cmbIDType.setStyle(updated);
+
+        } else {
+
+            cmbIDType.setStyle(valid);
+
+        }
+
+    }
+
+    @FXML
+    private void cmbGenderAP(ActionEvent event) {
+        customer.setGenderId(cmbGender.getSelectionModel().getSelectedItem());
+
+        if (oldCustomer != null && !customer.getGenderId().equals(oldCustomer.getGenderId())) {
+            cmbGender.setStyle(updated);
+        } else {
+            cmbGender.setStyle(valid);
+        }
+    }
+
+    @FXML
+    private void dtpDOBDateAP(ActionEvent event) {
+        if (dtpDOBDate.getValue() != null) {
+            Date today = new Date();
+            today.setYear(today.getYear() - 18);
+            Date dob = java.sql.Date.valueOf(dtpDOBDate.getValue());
+
+            if (dob.before(today)) {
+                customer.setDobirth(dob);
+                if (oldCustomer != null && !customer.getDobirth().equals(oldCustomer.getDobirth())) {
+                    dtpDOBDate.setStyle(updated);
+                } else {
+                    dtpDOBDate.setStyle(valid);
+                }
+            } else {
+                dtpDOBDate.setStyle(invalid);
+            }
+        }
+    }
+
+    @FXML
+    private void txtIDKR(KeyEvent event) {
+        
+        if (customer.setIdno(txtID.getText().trim())) {
+
+            if (oldCustomer != null && !customer.getIdno().equals(oldCustomer.getIdno())) {
+
+                txtID.setStyle(updated);
+
+            } else {
+
+                txtID.setStyle(valid);
+
+            }
+
+        } else {
+
+            txtID.setStyle(invalid);
+
+        }
+    }
+
+    @FXML
+    private void txtNameKR(KeyEvent event) {
+        if (customer.setName(txtName.getText().trim())) {
+
+            if (oldCustomer != null && !customer.getName().equals(oldCustomer.getName())) {
+
+                txtName.setStyle(updated);
+
+            } else {
+
+                txtName.setStyle(valid);
+
+            }
+
+        } else {
+
+            txtName.setStyle(invalid);
+
+        }
+    }
+
+    @FXML
+    private void txtMobileKR(KeyEvent event) {
+        if (customer.setMobile(txtMobile.getText().trim())) {
+
+            if (oldCustomer != null && !customer.getMobile().equals(oldCustomer.getMobile())) {
+
+                txtMobile.setStyle(updated);
+
+            } else {
+
+                txtMobile.setStyle(valid);
+
+            }
+
+        } else {
+
+            txtMobile.setStyle(invalid);
+
+        }
+    }
+
+    @FXML
+    private void txtEmailKR(KeyEvent event) {
+        if (customer.setEmail(txtEmail.getText().trim())) {
+
+            if (oldCustomer != null && oldCustomer.getEmail() != null && customer.getEmail() != null && oldCustomer.getEmail().equals(customer.getEmail())) {
+
+                txtEmail.setStyle(valid);
+
+            } else if (oldCustomer != null && oldCustomer.getEmail() != customer.getEmail()) {
+
+                txtEmail.setStyle(updated);
+
+            } else {
+
+                txtEmail.setStyle(valid);
+
+            }
+
+        } else {
+
+            txtEmail.setStyle(invalid);
+
+        }
+    }
+
+    @FXML
+    private void cmbCustomerTypeAP(ActionEvent event) {
+
+        customer.setCustomertypeId(cmbCustomerType.getSelectionModel().getSelectedItem());
+
+        if (oldCustomer != null && !customer.getCustomertypeId().equals(oldCustomer.getCustomertypeId())) {
+
+            cmbCustomerType.setStyle(updated);
+
+        } else {
+
+            cmbCustomerType.setStyle(valid);
+
+        }
+
+    }
+
+    @FXML
+    private void dtpAssignedDateAP(ActionEvent event) {
+
+        if (dtpAssignedDate.getValue() != null) {
+
+            Date today = new Date();
+            Date assign = java.sql.Date.valueOf(dtpAssignedDate.getValue());
+
+            if (assign.before(today)) {
+
+                customer.setAssigned(assign);
+
+                if (oldCustomer != null && !customer.getAssigned().equals(oldCustomer.getAssigned())) {
+
+                    dtpAssignedDate.getEditor().setStyle(updated);
+
+                } else {
+
+                    dtpAssignedDate.getEditor().setStyle(valid);
+
+                }
+
+            } else {
+
+                dtpAssignedDate.getEditor().setStyle(invalid);
+                customer.setAssigned(null);
+
+            }
+
+        }
+    }
+
+    @FXML
+    private void cmbCountryAP(ActionEvent event) {
+
+        customer.setCountryId(cmbCountry.getSelectionModel().getSelectedItem());
+
+        if (oldCustomer != null && !customer.getCountryId().equals(oldCustomer.getCountryId())) {
+
+            cmbCountry.setStyle(updated);
+
+        } else {
+
+            cmbCountry.setStyle(valid);
+
+        }
+    }
+
+    @FXML
+    private void txtAddressKR(KeyEvent event) {
+        if (customer.setAddress(txtAddress.getText().trim())) {
+
+            if (oldCustomer != null && !customer.getAddress().equals(oldCustomer.getAddress())) {
+
+                ((ScrollPane) txtAddress.getChildrenUnmodifiable().get(0)).getContent().setStyle(updated);
+
+            } else {
+
+                ((ScrollPane) txtAddress.getChildrenUnmodifiable().get(0)).getContent().setStyle(valid);
+
+            }
+
+        } else {
+
+            ((ScrollPane) txtAddress.getChildrenUnmodifiable().get(0)).getContent().setStyle(invalid);
+
+        }
+    }
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Operation-Methods">
