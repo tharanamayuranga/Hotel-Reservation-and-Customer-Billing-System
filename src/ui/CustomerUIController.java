@@ -569,6 +569,29 @@ public class CustomerUIController implements Initializable {
 
         }
     }
+	    @FXML
+    private void btnClearAP(ActionEvent event) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle(" Guest Management");
+        alert.setHeaderText("Clear Form");
+        alert.setContentText("Are you sure you need to clear form ");
+
+        DialogPane dialogPane = alert.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+
+            loadForm();
+
+            // Notification.Notifier.INSTANCE.notifySuccess("Clear Form", "The Form is cleared!" );
+        }
+    }
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Search-Methods">
