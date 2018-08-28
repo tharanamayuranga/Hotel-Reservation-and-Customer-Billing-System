@@ -592,6 +592,48 @@ public class CustomerUIController implements Initializable {
             // Notification.Notifier.INSTANCE.notifySuccess("Clear Form", "The Form is cleared!" );
         }
     }
+	    @FXML
+    private void btnDeleteAP(ActionEvent event) {
+        String details
+                = "\nName       \t: " + oldCustomer.getName()
+                + "\nGuest Type           \t: " + oldCustomer.getCustomertypeId()
+                + "\nID Type   \t: " + oldCustomer.getIdtypeId()
+                + "\nID No  \t: " + oldCustomer.getIdno()
+                + "\nGender   \t: " + oldCustomer.getGenderId()
+                + "\nBirth Date          \t: " + oldCustomer.getDobirth().toString()
+                + "\nMobile No     \t: " + oldCustomer.getMobile()
+                + "\nEmail           \t: " + oldCustomer.getEmail()
+                + "\nCountry          \t: " + oldCustomer.getCountryId()
+                + "\nAddress     \t: " + oldCustomer.getAddress();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Module");
+        alert.setHeaderText("Are you sure you need to delete the following Module?");
+        alert.setContentText(details);
+
+        DialogPane dialogPane = alert.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+
+            // Notification.Notifier.INSTANCE.notifySuccess("Delete", ( rdbPerson.isSelected() ? customer.getName() : customer.getCompanyname() ) + " is deleted!");
+//            CustomerDao.delete(oldCustomer);
+            oldCustomer.setDisable(1);
+
+            CustomerDao.update(oldCustomer);
+
+            fillTable(CustomerDao.getAll());
+            loadForm();
+
+            pagination.setCurrentPageIndex(page);
+            tblCustomer.getSelectionModel().select(row);
+
+        }
+    }
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Search-Methods">
