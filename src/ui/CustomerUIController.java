@@ -634,6 +634,76 @@ public class CustomerUIController implements Initializable {
 
         }
     }
+	    @FXML
+    private void btnUpdateAP(ActionEvent event) {
+        
+         String errors = getErrors();
+        
+        if ( errors.isEmpty() ) {
+
+            String updates = getUpdates();
+
+            if (!updates.isEmpty()) {
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+                alert.setTitle("Update Module");
+                alert.setHeaderText("Are you sure you need to update the following Module????");
+                alert.setContentText(updates);
+                
+                DialogPane dialogPane = alert.getDialogPane();
+
+                dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.get() == ButtonType.OK) {
+                    
+              //      Notification.Notifier.INSTANCE.notifySuccess("Delete", ( rdbPerson.isSelected() ? customer.getName() : customer.getCompanyname() ) + " is updated!");
+
+                    CustomerDao.update(customer);
+
+                    loadForm();
+                    loadTable();
+
+                }
+
+            } else {
+                
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                alert.setTitle("Update Module");
+                alert.setHeaderText("There is nothing to Update!!!");
+                alert.setContentText("Nothing to Update!!!");
+                
+                DialogPane dialogPane = alert.getDialogPane();
+
+                dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialogForInformation");
+                
+                alert.showAndWait();
+                
+            }
+            
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+
+            alert.setTitle("Error - Customer Update");
+            alert.setHeaderText("Form Data Error");
+            alert.setContentText(errors);
+            
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForError");
+            
+            alert.showAndWait();
+
+        }
+
+    }
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Search-Methods">
