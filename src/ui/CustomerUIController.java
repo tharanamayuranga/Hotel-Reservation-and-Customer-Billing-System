@@ -816,6 +816,68 @@ public class CustomerUIController implements Initializable {
 
         return updates;
     }
+	    @FXML
+    private void tblCustomerMC(MouseEvent event) {
+        fillForm();
+    }
+
+    @FXML
+    private void tblCustomerKR(KeyEvent event) {
+        fillForm();
+    }
+	 private void fillForm() {
+        
+        if (tblCustomer.getSelectionModel().getSelectedItem() != null) {
+            
+//            photoSelected = false;
+            
+            dissableButtons(false, true, false, false);
+            
+            setStyle(valid);
+            
+//            cmbStatus.setDisable(false);
+            
+            cmbSearchCustomerType.setStyle(initial);
+            txtSearchByID.setStyle(initial);
+            txtSearchByGuest.setStyle(initial);
+            
+            oldCustomer = CustomerDao.getById(tblCustomer.getSelectionModel().getSelectedItem().getId());
+            customer = CustomerDao.getById(tblCustomer.getSelectionModel().getSelectedItem().getId());
+            
+              cmbGender.getSelectionModel().select((Gender) oldCustomer.getGenderId());
+//            cmbIDType.getSelectionModel().select((Idtype) customer.getIdtypeId());
+//            cmbCountry.getSelectionModel().select((Country) customer.getCountryId());
+//            cmbCustomerType.getSelectionModel().select((Customertype) customer.getCustomertypeId());
+
+            txtName.setText(oldCustomer.getName());
+            txtAddress.setText(oldCustomer.getAddress());
+            txtID.setText(oldCustomer.getIdno());
+            txtMobile.setText(oldCustomer.getMobile());
+            txtEmail.setText(oldCustomer.getEmail());
+            
+            
+            dtpDOBDate.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(oldCustomer.getDobirth())));
+            dtpDOBDate.getEditor().setText(new SimpleDateFormat("yyyy-MM-dd").format(oldCustomer.getDobirth()));
+//            oldNicWithOldFormateWithV = oldEmployee.getNic().substring(2, 7) + oldEmployee.getNic().substring(8) + "v";
+//            oldNicWithOldFormateWithX = oldEmployee.getNic().substring(2, 7) + oldEmployee.getNic().substring(8) + "x";
+
+
+//            lblDob.setText(oldEmployee.getDob().toString());
+//            lblGender.setText(oldEmployee.getGenderId().getName());
+
+            dtpAssignedDate.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(oldCustomer.getAssigned())));
+            dtpAssignedDate.getEditor().setText(new SimpleDateFormat("yyyy-MM-dd").format(oldCustomer.getAssigned()));
+
+
+
+            lblCustomerID.setText(String.format("%06d", oldCustomer.getId() ));
+
+            page = pagination.getCurrentPageIndex();
+            row = tblCustomer.getSelectionModel().getSelectedIndex();
+
+        }
+        
+    }
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Search-Methods">
