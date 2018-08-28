@@ -510,7 +510,65 @@ public class CustomerUIController implements Initializable {
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Operation-Methods">
-    
+    @FXML
+    private void btnAddAP(ActionEvent event) {
+
+        String errors = getErrors();
+
+        if (errors.isEmpty()) {
+
+            String details
+                    = "\nName       \t: " + customer.getName()
+                    + "\nGuest Type           \t: " + customer.getCustomertypeId()
+                    + "\nID Type   \t: " + customer.getIdtypeId()
+                    + "\nID No  \t: " + customer.getIdno()
+                    + "\nGender   \t: " + customer.getGenderId()
+                    + "\nBirth Date          \t: " + customer.getDobirth().toString()
+                    + "\nMobile No     \t: " + customer.getMobile()
+                    + "\nEmail           \t: " + customer.getEmail()
+                    + "\nCountry          \t: " + customer.getCountryId()
+                    + "\nAddress     \t: " + customer.getAddress();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Add Module");
+            alert.setHeaderText("Are you sure you need to add the following Employee");
+            alert.setContentText(details);
+
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+
+                //  Notification.Notifier.INSTANCE.notifySuccess("Add", ( rdbPerson.isSelected() ? customer.getName() : customer.getCompanyname() ) + " is added!");
+                customer.setDisable(0);
+
+                CustomerDao.add(customer);
+
+                loadTable();
+                loadForm();
+
+            }
+
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("You need to fill the following Employee");
+            alert.setContentText(errors);
+
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForError");
+
+            alert.showAndWait();
+
+        }
+    }
 
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Search-Methods">
