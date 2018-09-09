@@ -133,5 +133,74 @@ public class LiquorItemManagementUIController implements Initializable {
         setStyle(initial);
 
     }
+	private void setStyle(String style) {
+
+        cmbItemCategory.setStyle(style);
+
+        txtCode.setStyle(style);
+        txtItemName.setStyle(style);
+        txtUnitPrice.setStyle(style);
+        txtDescription.setStyle(style);
+
+        if (!txtDescription.getChildrenUnmodifiable().isEmpty()) {
+
+            ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(style);
+
+        }
+
+        cmbSearchByCategory.setStyle(style);
+        txtSearchByCode.setStyle(style);
+        txtSearchByItem.setStyle(style);
+
+    }
+
+    private void dissableButtons(boolean select, boolean insert, boolean update, boolean delete) {
+
+        btnAdd.setDisable(insert);
+        btnUpdate.setDisable(update);
+        btnDelete.setDisable(delete);
+
+    }
+
+    private void loadTable() {
+
+        cmbSearchByCategory.setItems(LiquorItemCategoryDao.getAll());
+        cmbSearchByCategory.getSelectionModel().clearSelection();
+
+        txtSearchByCode.setText("");
+        txtSearchByItem.setText("");
+
+        colCode.setCellValueFactory(new PropertyValueFactory("code"));
+        colItem.setCellValueFactory(new PropertyValueFactory("name"));
+        colCategory.setCellValueFactory(new PropertyValueFactory("liquoritemcategoryId"));
+
+//        tblEmployee.setRowFactory(new Callback<TableView<Employee>, TableRow<Employee>>() {
+//
+//            @Override
+//            public TableRow<Employee> call(TableView<Employee> dateTableView) {
+//
+//                return new TableRow<Employee>() {
+//
+//                    @Override
+//                    protected void updateItem(Employee date, boolean b) {
+//                        super.updateItem(date, b);
+//
+//                        setStyle("-fx-background-color: linear-gradient(#04ef57 1%, #FFFFFF 100%);");
+//
+//                    }
+//
+//                };
+//
+//            }
+//
+//        });
+        row = 0;
+        page = 0;
+
+        fillTable(LiquorItemDao.getAll());
+
+        pagination.setCurrentPageIndex(0);
+
+    }
 
 }
