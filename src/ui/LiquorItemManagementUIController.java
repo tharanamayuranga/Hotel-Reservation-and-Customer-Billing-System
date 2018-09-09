@@ -231,4 +231,150 @@ public class LiquorItemManagementUIController implements Initializable {
     }
 //</editor-fold>
 
+ //<editor-fold defaultstate="collapsed" desc="Binding Methods">
+    @FXML
+    private void txtUnitPriceKR(KeyEvent event) {
+
+        if (txtUnitPrice.getText().trim().matches("[0-9]{1}[0-9]*.[0-9]{1}[0-9]") || txtUnitPrice.getText().trim().matches("[0-9]{1}[0-9]*") || txtUnitPrice.getText().trim().matches("[0-9]{1}[0-9]*.[0-9]{1}") || txtUnitPrice.getText().trim().matches("[0-9]{1}[0-9]*.")) {
+
+            unitCost = new BigDecimal(txtUnitPrice.getText().trim());//check it
+
+            liquorItem.setUnitprice(toGetTextColor(txtUnitPrice.getText().trim()));
+
+            if (oldLiquorItem != null && !liquorItem.getUnitprice().equals(oldLiquorItem.getUnitprice())) {
+
+                txtUnitPrice.setStyle(updated);
+
+            } else {
+
+                txtUnitPrice.setStyle(valid);
+
+            }
+
+        } else {
+
+            txtUnitPrice.setStyle(invalid);
+
+            liquorItem.setUnitprice(null);
+
+        }
+    }
+
+    private BigDecimal toGetTextColor(String string) {
+
+        if (!string.contains(".") && !"".equals(txtUnitPrice.getText().trim())) {
+
+            return new BigDecimal(string + ".00");
+
+        } else if (string.contains(".") && !"".equals(txtUnitPrice.getText().trim())) {
+
+            try {
+
+                String[] x = string.split("[.]");
+
+                if (x[1].length() == 2) {
+
+                    return new BigDecimal(string);
+
+                } else if (x[1].length() == 1) {
+
+                    return new BigDecimal(string + "0");
+
+                }
+
+            } catch (Exception e) {
+
+//                System.out.println(e);
+                return new BigDecimal(string + "00");
+
+            }
+
+        }
+
+        return new BigDecimal("0");
+
+    }
+
+    @FXML
+    private void txtDescriptionKR(KeyEvent event) {
+        if (liquorItem.setDescription(txtDescription.getText().trim())) {
+
+            if (oldLiquorItem != null && !liquorItem.getDescription().equals(oldLiquorItem.getDescription())) {
+
+                ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(updated);
+
+            } else {
+
+                ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(valid);
+
+            }
+
+        } else {
+
+            ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(invalid);
+
+        }
+    }
+
+    @FXML
+    private void txtCodeKR(KeyEvent event) {
+
+        if (liquorItem.setCode(txtCode.getText().trim())) {
+
+            if (oldLiquorItem != null && !liquorItem.getCode().equals(oldLiquorItem.getCode())) {
+
+                txtCode.setStyle(updated);
+
+            } else {
+
+                txtCode.setStyle(valid);
+
+            }
+
+        } else {
+
+            txtCode.setStyle(invalid);
+
+        }
+    }
+
+    @FXML
+    private void txtItemNameKR(KeyEvent event) {
+
+        if (liquorItem.setName(txtItemName.getText().trim())) {
+
+            if (oldLiquorItem != null && !liquorItem.getName().equals(oldLiquorItem.getName())) {
+
+                txtItemName.setStyle(updated);
+
+            } else {
+
+                txtItemName.setStyle(valid);
+
+            }
+
+        } else {
+
+            txtItemName.setStyle(invalid);
+
+        }
+    }
+
+    @FXML
+    private void cmbItemCategoryAP(ActionEvent event) {
+        liquorItem.setLiquoritemcategoryId(cmbItemCategory.getSelectionModel().getSelectedItem());
+
+        if (oldLiquorItem != null && !liquorItem.getLiquoritemcategoryId().equals(oldLiquorItem.getLiquoritemcategoryId())) {
+
+            cmbItemCategory.setStyle(updated);
+
+        } else {
+
+            cmbItemCategory.setStyle(valid);
+
+        }
+    }
+
+//</editor-fold>
+
 }
