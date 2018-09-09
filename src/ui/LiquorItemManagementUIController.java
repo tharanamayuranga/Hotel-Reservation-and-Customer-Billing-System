@@ -667,5 +667,129 @@ public class LiquorItemManagementUIController implements Initializable {
 
     }
 //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Searching Methods">
+    @FXML
+    private void cmbSearchByCategoryAP(ActionEvent event) {
+        updateTable();
+    }
+
+    @FXML
+    private void btnSearchClearAP(ActionEvent event) {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle(" Liquor Item Management");
+        alert.setHeaderText("Clear Search Form");
+        alert.setContentText("Are you sure you need to clear search form ????");
+
+        DialogPane dialogPane = alert.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+
+            loadTable();
+//            if (privilege.get("Employee_select")) {
+//
+//                //Notification.Notifier.INSTANCE.notifySuccess("Search Form", "The Search Fields are cleared!" );
+//
+//
+//
+//            }
+
+        }
+    }
+
+    @FXML
+    private void txtSearchByCodeKR(KeyEvent event) {
+        updateTable();
+    }
+
+    @FXML
+    private void txtSearchByItemKR(KeyEvent event) {
+        updateTable();
+    }
+
+    private void updateTable() {
+
+        String name = txtSearchByItem.getText().trim();
+        boolean sname = !name.isEmpty();
+        String code = txtSearchByCode.getText().trim();
+        boolean scode = !code.isEmpty();
+        Liquoritemcategory category = cmbSearchByCategory.getSelectionModel().getSelectedItem();
+        boolean scategory = cmbSearchByCategory.getSelectionModel().getSelectedIndex() != -1;
+
+        if (!sname && !scode && !scategory) {
+            fillTable(LiquorItemDao.getAll());
+        }
+        if (sname && !scode && !scategory) {
+            fillTable(LiquorItemDao.getAllByName(name));
+        }
+        if (!sname && !scode && scategory) {
+            fillTable(LiquorItemDao.getAllByCategory(category));
+        }
+        if (!sname && scode && !scategory) {
+            fillTable(LiquorItemDao.getAllByCode(code));
+        }
+        if (sname && scode && !scategory) {
+            fillTable(LiquorItemDao.getAllByNameCode(name, code));
+        }
+        if (sname && !scode && scategory) {
+            fillTable(LiquorItemDao.getAllByNameCategory(name, category));
+        }
+        if (!sname && scode && scategory) {
+            fillTable(LiquorItemDao.getAllByCodeCategory(code, category));
+        }
+        if (sname && scode && scategory) {
+            fillTable(LiquorItemDao.getAllByNameCodeCategory(name, code, category));
+        }
+
+    }
+
+    @FXML
+    private void btnNewLiquorItemCategoryAP(ActionEvent event) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("LiquorCategoryUI.fxml"));
+
+        Scene scene = new Scene(root);
+
+        liquorStage = new Stage();
+        liquorStage.setScene(scene);
+
+        liquorStage.setOnCloseRequest(e -> {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+            alert.setTitle(" WINDOW CLOSE");
+            alert.setHeaderText("Close Form");
+            alert.setContentText("Are you sure you need to close this form?? ");
+
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+
+                liquorStage.close();
+
+            }
+
+            e.consume();
+
+        });
+
+        liquorStage.initModality(Modality.WINDOW_MODAL);
+        liquorStage.initOwner(stageBasic);
+        liquorStage.setResizable(false);
+        liquorStage.setTitle("Liquor Category Management System");
+        liquorStage.show();
+    }
+//</editor-fold>
 
 }
