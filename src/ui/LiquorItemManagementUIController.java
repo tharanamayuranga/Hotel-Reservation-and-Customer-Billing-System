@@ -376,5 +376,184 @@ public class LiquorItemManagementUIController implements Initializable {
     }
 
 //</editor-fold>
+//<editor-fold defaultstate="collapsed" desc="Operation Methods">
+    @FXML
+    private void btnAddAP(ActionEvent event) {
+        String errors = getErrors();
+
+        if (errors.isEmpty()) {
+
+            String details = "\nName :         \t\t" + liquorCategory.getName();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Add Designation");
+            alert.setHeaderText("Are you sure you need to add the following Designation??????");
+            alert.setContentText(details);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+
+                LiquorItemCategoryDao.add(liquorCategory);
+
+                loadTable();
+                loadForm();
+
+            }
+
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("You need to fill the following Designation");
+            alert.setContentText(errors);
+            alert.showAndWait();
+
+        }
+    }
+
+    @FXML
+    private void btnClearAP(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle(" Designation Management");
+        alert.setHeaderText("Clear Form");
+        alert.setContentText("Are you sure you need to clear form ?????? ");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+
+            loadForm();
+            loadTable();
+        }
+    }
+
+    @FXML
+    private void btnUpdateAP(ActionEvent event) {
+        String errors = getErrors();
+
+        if (errors.isEmpty()) {
+
+            String updates = getUpdates();
+
+            if (!updates.isEmpty()) {
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+                alert.setTitle("Update Liquor category");
+                alert.setHeaderText("Are you sure you need to update the following Liquor Category List??????");
+                alert.setContentText(updates);
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.get() == ButtonType.OK) {
+
+                    LiquorItemCategoryDao.update(liquorCategory);
+
+                    loadForm();
+                    loadTable();
+
+                }
+
+            } else {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                alert.setTitle("Update Designation");
+                alert.setHeaderText("There is nothing to Update!!!");
+                alert.setContentText("Nothing to Update!!!");
+                alert.showAndWait();
+
+            }
+
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+
+            alert.setTitle("Error - Designation Update");
+            alert.setHeaderText("Form Data Error");
+            alert.setContentText(errors);
+            alert.showAndWait();
+
+        }
+    }
+
+    @FXML
+    private void btnDeleteAP(ActionEvent event) {
+        String details = "\nName  \t: \t: " + oldLiquorCategory.getName();
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Designation");
+        alert.setHeaderText("Are you sure you need to delete the following Designation?");
+        alert.setContentText(details);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+
+            LiquorItemCategoryDao.delete(oldLiquorCategory);
+
+            loadTable();
+            loadForm();
+
+        }
+    }
+
+    private String getErrors() {
+
+        String errors = "";
+
+        if (liquorCategory.getName() == null) {
+            errors = errors + "Name \t\tis Invalid or already in\n";
+        }
+
+        return errors;
+
+    }
+
+    private String getUpdates() {
+
+        String updates = "";
+
+        if (oldLiquorCategory != null) {
+
+            if (liquorCategory.getName() != null && !liquorCategory.getName().equals(oldLiquorCategory.getName())) {
+                updates = updates + oldLiquorCategory.getName() + " chnaged to " + liquorCategory.getName() + "\n";
+            }
+
+        }
+
+        return updates;
+
+    }
+
+    @FXML
+    private void lstCategoryTypeMC(MouseEvent event) {
+        fillForm();
+    }
+
+    @FXML
+    private void lstCategoryTypeKR(KeyEvent event) {
+        fillForm();
+    }
+
+    private void fillForm() {
+
+        if (lstCategoryType.getSelectionModel().getSelectedItem() != null) {
+
+            dissableButtons(false, true, false, false);
+            setStyle(valid);
+
+            oldLiquorCategory = LiquorItemCategoryDao.getById(lstCategoryType.getSelectionModel().getSelectedItem().getId());
+            liquorCategory = LiquorItemCategoryDao.getById(lstCategoryType.getSelectionModel().getSelectedItem().getId());
+
+            txtCategoryType.setText(oldLiquorCategory.getName());
+
+        }
+
+    }
+
+//</editor-fold>
 
 }
