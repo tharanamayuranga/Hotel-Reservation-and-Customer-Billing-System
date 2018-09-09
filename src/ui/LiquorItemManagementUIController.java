@@ -202,5 +202,33 @@ public class LiquorItemManagementUIController implements Initializable {
         pagination.setCurrentPageIndex(0);
 
     }
+	 private void fillTable(ObservableList<Liquoritem> employees) {
+
+        if (employees != null && !employees.isEmpty()) {
+
+            int rowsCount = 5;
+            int pageCount = ((employees.size() - 1) / rowsCount) + 1;
+            pagination.setPageCount(pageCount);
+
+            pagination.setPageFactory((Integer pageIndex) -> {
+                int start = pageIndex * rowsCount;
+                int end = pageIndex == pageCount - 1 ? employees.size() : pageIndex * rowsCount + rowsCount;
+                tblLiquorItem.getItems().clear();
+                tblLiquorItem.setItems(FXCollections.observableArrayList(employees.subList(start, end)));
+                return tblLiquorItem;
+            });
+
+        } else {
+
+            pagination.setPageCount(1);
+            tblLiquorItem.getItems().clear();
+
+        }
+
+        pagination.setCurrentPageIndex(page);
+        tblLiquorItem.getSelectionModel().select(row);
+
+    }
+//</editor-fold>
 
 }
