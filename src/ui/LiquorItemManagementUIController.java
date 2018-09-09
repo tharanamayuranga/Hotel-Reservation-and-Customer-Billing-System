@@ -102,6 +102,36 @@ public class LiquorItemManagementUIController implements Initializable {
     Stage liquorStage;
 //</editor-fold>
 
-   
+   //<editor-fold defaultstate="collapsed" desc="Initializing Methods">
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        initial = Style.initial;
+        valid = Style.valid;
+        invalid = Style.invalid;
+        updated = Style.updated;
+
+        loadForm();
+
+        loadTable();
+    }
+
+    public void loadForm() {
+
+        liquorItem = new Liquoritem();
+        oldLiquorItem = null;
+
+        cmbItemCategory.setItems(LiquorItemCategoryDao.getAll());
+        cmbItemCategory.getSelectionModel().clearSelection();
+
+        txtCode.setText("");
+        txtItemName.setText("");
+        txtUnitPrice.setText("");
+        txtDescription.setText("");
+
+        dissableButtons(false, false, true, true);
+
+        setStyle(initial);
+
+    }
 
 }
