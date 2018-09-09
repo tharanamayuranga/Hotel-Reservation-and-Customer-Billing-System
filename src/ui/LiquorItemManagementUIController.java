@@ -383,21 +383,33 @@ public class LiquorItemManagementUIController implements Initializable {
 
         if (errors.isEmpty()) {
 
-            String details = "\nName :         \t\t" + liquorCategory.getName();
+            String details
+                    = "\nItem Code          \t\t: " + liquorItem.getCode()
+                    + "\nItem Name        \t\t: " + liquorItem.getName()
+                    + "\nItem Categoery  \t\t: " + liquorItem.getLiquoritemcategoryId().getName()
+                    + "\nUnit Price       \t\t: " + liquorItem.getUnitprice()
+                    + "\nDescription   \t\t: " + liquorItem.getDescription();
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Add Designation");
-            alert.setHeaderText("Are you sure you need to add the following Designation??????");
+            alert.setTitle("Add Module");
+            alert.setHeaderText("Are you sure you need to add the following Food Item???");
             alert.setContentText(details);
+
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForConfirmation");
 
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == ButtonType.OK) {
 
-                LiquorItemCategoryDao.add(liquorCategory);
+                // employee.setDisable(0);
+                LiquorItemDao.add(liquorItem);
+
+                loadForm();
 
                 loadTable();
-                loadForm();
 
             }
 
@@ -405,8 +417,14 @@ public class LiquorItemManagementUIController implements Initializable {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("You need to fill the following Designation");
+            alert.setHeaderText("You need to fill the following Employee");
             alert.setContentText(errors);
+
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForError");
+
             alert.showAndWait();
 
         }
@@ -416,16 +434,21 @@ public class LiquorItemManagementUIController implements Initializable {
     private void btnClearAP(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
-        alert.setTitle(" Designation Management");
+        DialogPane dialogPane = alert.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        alert.setTitle(" Liquor Item Management");
         alert.setHeaderText("Clear Form");
-        alert.setContentText("Are you sure you need to clear form ?????? ");
+        alert.setContentText("Are you sure you need to clear form?? ");
 
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.OK) {
 
             loadForm();
-            loadTable();
+
         }
     }
 
@@ -435,21 +458,38 @@ public class LiquorItemManagementUIController implements Initializable {
 
         if (errors.isEmpty()) {
 
+//            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//
+//            try {
+//
+//                employee.setDob(java.sql.Date.valueOf(format.format(format.parse(actualDob))));
+//
+//            } catch (ParseException ex) {
+//
+//                System.out.println(ex);
+//
+//            }
             String updates = getUpdates();
 
             if (!updates.isEmpty()) {
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
-                alert.setTitle("Update Liquor category");
-                alert.setHeaderText("Are you sure you need to update the following Liquor Category List??????");
+                alert.setTitle("Update Module");
+                alert.setHeaderText("Are you sure you need to update the following Module");
                 alert.setContentText(updates);
+
+                DialogPane dialogPane = alert.getDialogPane();
+
+                dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialogForConfirmation");
 
                 Optional<ButtonType> result = alert.showAndWait();
 
                 if (result.get() == ButtonType.OK) {
 
-                    LiquorItemCategoryDao.update(liquorCategory);
+                    //  Notification.Notifier.INSTANCE.notifySuccess("Update", employee.getName() + " is updated!");
+                    LiquorItemDao.update(liquorItem);
 
                     loadForm();
                     loadTable();
@@ -460,9 +500,15 @@ public class LiquorItemManagementUIController implements Initializable {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
-                alert.setTitle("Update Designation");
+                alert.setTitle("Update Module");
                 alert.setHeaderText("There is nothing to Update!!!");
                 alert.setContentText("Nothing to Update!!!");
+
+                DialogPane dialogPane = alert.getDialogPane();
+
+                dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialogForInformation");
+
                 alert.showAndWait();
 
             }
@@ -471,9 +517,15 @@ public class LiquorItemManagementUIController implements Initializable {
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
 
-            alert.setTitle("Error - Designation Update");
+            alert.setTitle("Error - Employee Update");
             alert.setHeaderText("Form Data Error");
             alert.setContentText(errors);
+
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForError");
+
             alert.showAndWait();
 
         }
@@ -481,31 +533,76 @@ public class LiquorItemManagementUIController implements Initializable {
 
     @FXML
     private void btnDeleteAP(ActionEvent event) {
-        String details = "\nName  \t: \t: " + oldLiquorCategory.getName();
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Delete Designation");
-        alert.setHeaderText("Are you sure you need to delete the following Designation?");
-        alert.setContentText(details);
+        String details
+                = "\nItem Code          \t\t: " + liquorItem.getCode()
+                + "\nItem Name        \t\t: " + liquorItem.getName()
+                + "\nItem Categoery  \t\t: " + liquorItem.getLiquoritemcategoryId().getName()
+                + "\nUnit Price       \t\t: " + liquorItem.getUnitprice()
+                + "\nDescription   \t\t: " + liquorItem.getDescription();
 
-        Optional<ButtonType> result = alert.showAndWait();
+        Alert alertForDelete = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alertForDelete.setTitle("Delete Module");
+        alertForDelete.setHeaderText("Are you sure you need to delete the following Module?");
+        alertForDelete.setContentText(details);
+
+        DialogPane dialogPane = alertForDelete.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        Optional<ButtonType> result = alertForDelete.showAndWait();
 
         if (result.get() == ButtonType.OK) {
 
-            LiquorItemCategoryDao.delete(oldLiquorCategory);
+//            EmployeeDao.delete(oldEmployee);
+//oldFoodItem.setDisable(1);
+            LiquorItemDao.delete(liquorItem);
 
+//            fillTable(EmployeeDao.getAll());
             loadTable();
+
             loadForm();
 
+            pagination.setCurrentPageIndex(page);
+            tblLiquorItem.getSelectionModel().select(row);
+
         }
+    }
+
+    @FXML
+    private void tblLiquorItemMC(MouseEvent event) {
+        fillForm();
+    }
+
+    @FXML
+    private void tblLiquorItemKR(KeyEvent event) {
+        fillForm();
     }
 
     private String getErrors() {
 
         String errors = "";
 
-        if (liquorCategory.getName() == null) {
-            errors = errors + "Name \t\tis Invalid or already in\n";
+        if (liquorItem.getName() == null) {
+            errors = errors + "Name \t\tis Invalid\n";
+        }
+
+        if (liquorItem.getLiquoritemcategoryId() == null) {
+            errors = errors + "FoodItem Category \t\tis Not Selected\n";
+        }
+
+        if (liquorItem.getCode() == null) {
+            errors = errors + "Item Code \tis Not Selected\n";
+        }
+
+        if (liquorItem.getDescription() == null) {
+            errors = errors + "Description \t\tis Invalid\n";
+        }
+
+        if (liquorItem.getUnitprice() == null) {
+            errors = errors + "Unit Price  \t\tis Invalid \n";
         }
 
         return errors;
@@ -516,10 +613,22 @@ public class LiquorItemManagementUIController implements Initializable {
 
         String updates = "";
 
-        if (oldLiquorCategory != null) {
+        if (oldLiquorItem != null) {
 
-            if (liquorCategory.getName() != null && !liquorCategory.getName().equals(oldLiquorCategory.getName())) {
-                updates = updates + oldLiquorCategory.getName() + " chnaged to " + liquorCategory.getName() + "\n";
+            if (liquorItem.getName() != null && !liquorItem.getName().equals(oldLiquorItem.getName())) {
+                updates = updates + oldLiquorItem.getName() + " chnaged to " + liquorItem.getName() + "\n";
+            }
+
+            if (liquorItem.getCode() != null && !liquorItem.getCode().equals(oldLiquorItem.getCode())) {
+                updates = updates + oldLiquorItem.getCode() + " chnaged to " + liquorItem.getCode() + "\n";
+            }
+
+            if (liquorItem.getUnitprice() != null && !liquorItem.getUnitprice().equals(oldLiquorItem.getUnitprice())) {
+                updates = updates + oldLiquorItem.getUnitprice() + " chnaged to " + liquorItem.getUnitprice() + "\n";
+            }
+
+            if (liquorItem.getDescription() != null && !liquorItem.getDescription().equals(oldLiquorItem.getDescription())) {
+                updates = updates + oldLiquorItem.getDescription() + " chnaged to " + liquorItem.getDescription() + "\n";
             }
 
         }
@@ -528,32 +637,35 @@ public class LiquorItemManagementUIController implements Initializable {
 
     }
 
-    @FXML
-    private void lstCategoryTypeMC(MouseEvent event) {
-        fillForm();
-    }
-
-    @FXML
-    private void lstCategoryTypeKR(KeyEvent event) {
-        fillForm();
-    }
-
     private void fillForm() {
 
-        if (lstCategoryType.getSelectionModel().getSelectedItem() != null) {
+        if (tblLiquorItem.getSelectionModel().getSelectedItem() != null) {
 
             dissableButtons(false, true, false, false);
             setStyle(valid);
 
-            oldLiquorCategory = LiquorItemCategoryDao.getById(lstCategoryType.getSelectionModel().getSelectedItem().getId());
-            liquorCategory = LiquorItemCategoryDao.getById(lstCategoryType.getSelectionModel().getSelectedItem().getId());
+            oldLiquorItem = LiquorItemDao.getById(tblLiquorItem.getSelectionModel().getSelectedItem().getId());
+            liquorItem = LiquorItemDao.getById(tblLiquorItem.getSelectionModel().getSelectedItem().getId());
 
-            txtCategoryType.setText(oldLiquorCategory.getName());
+//            cmbSearchDesignation.setStyle(initial);
+//            cmbSearchStatus.setStyle(initial);
+//            txtSearchName.setStyle(initial);
+            txtCode.setText(oldLiquorItem.getCode());
+            txtItemName.setText(liquorItem.getName());
+            cmbItemCategory.getSelectionModel().select((Liquoritemcategory) liquorItem.getLiquoritemcategoryId());
+            txtDescription.setText(liquorItem.getDescription());
+            txtUnitPrice.setText(liquorItem.getUnitprice().toString());
 
+            page = pagination.getCurrentPageIndex();
+            row = tblLiquorItem.getSelectionModel().getSelectedIndex();
+
+//            oldNicWithOldFormateWithV = oldEmployee.getNic().substring(2, 7) + oldEmployee.getNic().substring(8) + "v";
+//            oldNicWithOldFormateWithX = oldEmployee.getNic().substring(2, 7) + oldEmployee.getNic().substring(8) + "x";
+//            lblDob.setText(oldEmployee.getDob().toString());
+//            lblGender.setText(oldEmployee.getGenderId().getName());
         }
 
     }
-
 //</editor-fold>
 
 }
