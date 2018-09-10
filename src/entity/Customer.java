@@ -43,6 +43,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Customer.findByAssigned", query = "SELECT c FROM Customer c WHERE c.assigned = :assigned")
 
 
+    //user define
+
+    // get last id
+    , @NamedQuery(name = "Customer.getCustomerId", query = "SELECT c FROM Customer c WHERE c.id = ( SELECT MAX(c.id) FROM Customer c )")
+    
       
         
 })
