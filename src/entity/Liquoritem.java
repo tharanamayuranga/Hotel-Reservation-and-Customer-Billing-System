@@ -37,7 +37,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Liquoritem.findByUnitprice", query = "SELECT l FROM Liquoritem l WHERE l.unitprice = :unitprice")
     , @NamedQuery(name = "Liquoritem.findByDescription", query = "SELECT l FROM Liquoritem l WHERE l.description = :description")
 
- 
+//Serach Querys
+    
+    , @NamedQuery(name = "Liquoritem.findAllByName", query = "SELECT l FROM Liquoritem l WHERE l.name LIKE :name "),
+    @NamedQuery(name = "Liquoritem.findAllByCategory", query = "SELECT l FROM Liquoritem l WHERE l.liquoritemcategoryId = :category "),
+    @NamedQuery(name = "Liquoritem.findAllByCode", query = "SELECT l FROM Liquoritem l WHERE l.code LIKE :code"),
+    @NamedQuery(name = "Liquoritem.findAllByNameCode", query = "SELECT l FROM Liquoritem l WHERE l.code = :code AND l.name LIKE :name "),
+    @NamedQuery(name = "Liquoritem.findAllByNameCategory", query = "SELECT l FROM Liquoritem l WHERE l.liquoritemcategoryId = :category AND l.name LIKE :name "),
+    @NamedQuery(name = "Liquoritem.findAllByCodeCategory", query = "SELECT l FROM Liquoritem l WHERE l.code LIKE :code AND l.liquoritemcategoryId = :category "),
+    @NamedQuery(name = "Liquoritem.findAllByNameCodeCategory", query = "SELECT l FROM Liquoritem l WHERE l.code LIKE :code AND l.liquoritemcategoryId = :category AND l.name LIKE :name"),
+     
 })
 public class Liquoritem implements Serializable {
 
