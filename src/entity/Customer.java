@@ -48,7 +48,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     // get last id
     , @NamedQuery(name = "Customer.getCustomerId", query = "SELECT c FROM Customer c WHERE c.id = ( SELECT MAX(c.id) FROM Customer c )")
     
-      
+    //Serach Querys
+    
+    , @NamedQuery(name = "Customer.findAllByName", query = "SELECT c FROM Customer c WHERE c.name LIKE :name  AND c.disable = 0")
+    , @NamedQuery(name = "Customer.findAllById", query = "SELECT c FROM Customer c WHERE c.idno LIKE :idno AND c.disable = 0")
+    , @NamedQuery(name = "Customer.findAllByCustomerType", query = "SELECT c FROM Customer c WHERE c.customertypeId = :customertype AND c.disable = 0 ")
+    , @NamedQuery(name = "Customer.findAllByNameId", query = "SELECT c FROM Customer c WHERE c.idno LIKE :idno AND c.name LIKE :name AND c.disable = 0")
+    , @NamedQuery(name = "Customer.findAllByNameCustomerType", query = "SELECT c FROM Customer c WHERE c.customertypeId = :customertype AND c.name LIKE :name AND c.disable = 0 ")
+    , @NamedQuery(name = "Customer.findAllByIdCustomerType", query = "SELECT c FROM Customer c WHERE c.idno LIKE :idno AND c.customertypeId = :customertype AND c.disable = 0 ")
+    , @NamedQuery(name = "Customer.findAllByNameIdCustomerType", query = "SELECT c FROM Customer c WHERE c.idno LIKE :idno AND c.customertypeId = :customertype AND c.name LIKE :name AND c.disable = 0 ")
+        
         
 })
 public class Customer implements Serializable {
