@@ -57,7 +57,42 @@ public class CustomerDao {
        
     }
 
-   
+    public static ObservableList<Customer> getAllByName(String name) {
+        HashMap hmap = new HashMap();
+        hmap.put("name", "%" + name + "%" );
+        
+//      System.out.println(hmap);
+
+        return CommonDao.select("Customer.findAllByName", hmap);
+        
+    }
+
+    public static ObservableList<Customer> getAllByCustomerType(Customertype customerType) {
+        HashMap hmap = new HashMap();
+        hmap.put("customertype", customerType);
+
+        return CommonDao.select("Customer.findAllByCustomerType", hmap);
+    }
+
+    public static ObservableList<Customer> getAllById(String id) {
+        HashMap hmap = new HashMap();
+        hmap.put("idno", "%" + id + "%" );
+        
+//      System.out.println(hmap);
+
+        return CommonDao.select("Customer.findAllById", hmap);
+    }
+
+    public static ObservableList<Customer> getAllByNameId(String name, String id) {
+        HashMap hmap = new HashMap();
+        hmap.put("name", "%" + name + "%" );
+        hmap.put("idno", "%" + id + "%" );
+//      System.out.println(hmap);
+
+        return CommonDao.select("Customer.findAllByNameId", hmap);
+    }
+
+
 
 
 }
