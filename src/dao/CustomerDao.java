@@ -49,7 +49,15 @@ public class CustomerDao {
         
     }
 
+    public static Customer getById(Integer id) {
+        HashMap hmap = new HashMap();
+        hmap.put("id", id);
 
+        return (Customer) CommonDao.select("Customer.findById", hmap).get(0);
+       
+    }
+
+   
 
 
 }
