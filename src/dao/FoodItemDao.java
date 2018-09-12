@@ -42,4 +42,29 @@ public class FoodItemDao {
        
     }
 
+    public static ObservableList<Fooditem> getAllByName(String name) {
+        HashMap hmap = new HashMap();
+        hmap.put("name", "%" + name + "%" );
+        
+//        System.out.println(hmap);
+
+        return CommonDao.select("Fooditem.findAllByName", hmap);
+    }
+
+    public static ObservableList<Fooditem> getAllByCategory(Fooditemcategory category) {
+        HashMap hmap = new HashMap();
+        hmap.put("category", category);
+
+        return CommonDao.select("Fooditem.findAllByCategory", hmap);
+    }
+
+    public static ObservableList<Fooditem> getAllByCode(String code) {
+        HashMap hmap = new HashMap();
+        hmap.put("code","%"+ code + "%");
+
+        return CommonDao.select("Fooditem.findAllByCode", hmap);
+    
+    }
+
+
 }
