@@ -51,5 +51,28 @@ public class UserDao {
         }
     }
 
+    public static ObservableList<User> getAllByName(String employeename) {
+        HashMap hmap = new HashMap();
+        hmap.put("employeename", "%" + employeename + "%");
+
+        return CommonDao.select("User.findAllByEmployeeName", hmap);
+    }
+
+    public static ObservableList<User> getAllByUser(String username) {
+        HashMap hmap = new HashMap();
+        hmap.put("username", "%" + username + "%");
+
+        return CommonDao.select("User.findAllByUsername", hmap);
+    
+    }
+
+    public static ObservableList<User> getAllByRole(Role role) {
+        HashMap hmap = new HashMap();
+        
+        hmap.put("role", role.getId() ); 
+        
+        return CommonDao.select("User.findAllByRole", hmap);    
+    }
+
 
 }
