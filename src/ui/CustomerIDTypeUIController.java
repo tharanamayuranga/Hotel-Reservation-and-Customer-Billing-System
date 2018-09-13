@@ -57,6 +57,97 @@ public class CustomerIDTypeUIController implements Initializable {
     
 //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Initializing Methods">
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+       initial = Style.initial;
+       valid = Style.valid;
+       invalid = Style.invalid;
+       updated = Style.updated;
+       
+       loadForm();
+       
+       loadTable();
+    }
+    
+        private void loadForm() {
+        
+        idType = new Idtype();
+        oldIdType = null;
+        
+        txtCustomerIDType.setText("");
+        
+        dissableButtons(false, false, true, true);
+        
+        setStyle(initial);
+        
+    }
+    
+    private void setStyle(String style){
+        
+        txtCustomerIDType.setStyle(style);
+        
+    }
+    
+    private void dissableButtons( boolean select , boolean insert , boolean update , boolean delete ){
+        
+        btnAdd.setDisable(insert);
+        btnUpdate.setDisable(update);
+        btnDelete.setDisable(delete);
+        
+    }
+    
+     private void loadTable(){
+        
+        lstCustomerIDType.setItems(IDTypeDao.getAll());
+        lstCustomerIDType.refresh();
+        
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Binding Methods">
+    @FXML
+    private void txtCustomerIDTypeKR(KeyEvent event) {
+        
+           List dename = IDTypeDao.getAllByName(txtCustomerIDType.getText().trim());
+        
+       if ( idType.setName(txtCustomerIDType.getText().trim()) ) {
+
+            if ( dename.isEmpty() ) {
+
+                if ( oldIdType != null && !idType.getName().equals(oldIdType.getName()) ) {
+
+                    txtCustomerIDType.setStyle(updated);
+
+                } else {
+
+                    txtCustomerIDType.setStyle(valid);
+
+                }
+
+            } else {
+
+                if ( oldIdType != null && oldIdType.getName().equals(idType.getName()) ) {
+
+                    txtCustomerIDType.setStyle(valid);
+
+                } else {
+
+                  txtCustomerIDType.setStyle(invalid);  
+                  idType.setName(null);
+
+                }
+
+            }
+
+        } else {
+
+            txtCustomerIDType.setStyle(invalid);
+
+        }
+    }
+//</editor-fold>
+    
 
 
     
