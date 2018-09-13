@@ -148,7 +148,184 @@ public class CustomerIDTypeUIController implements Initializable {
     }
 //</editor-fold>
     
-
+    //<editor-fold defaultstate="collapsed" desc="Operation Methods">
+    @FXML
+    private void btnAddAP(ActionEvent event) {
+         String errors = getErrors();
+        
+        
+        if ( errors.isEmpty() ) {
+            
+            String details =  "\nName :         \t\t" + idType.getName();
+            
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Add ID Type");
+            alert.setHeaderText("Are you sure you need to add the following ID Type??????");
+            alert.setContentText(details);
+            
+            Optional<ButtonType> result = alert.showAndWait();
+            
+            if (result.get() == ButtonType.OK) {
+                
+                IDTypeDao.add(idType);
+                
+                loadTable();
+                loadForm();
+                
+            }
+            
+            
+        }else{
+            
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("You need to fill the following ID Type");
+            alert.setContentText(errors);
+            alert.showAndWait();
+            
+        }
+    }
+    
+    @FXML
+    private void btnClearAP(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        
+        alert.setTitle(" ID Type Management");
+        alert.setHeaderText("Clear Form");
+        alert.setContentText("Are you sure you need to clear form ?????? ");
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        
+        if (result.get() == ButtonType.OK) {
+            
+            loadForm();
+            loadTable();
+        }
+    }
+    
+    @FXML
+    private void btnUpdateAP(ActionEvent event) {
+        String errors = getErrors();
+        
+        if ( errors.isEmpty() ) {
+            
+            String updates = getUpdates();
+            
+            if (!updates.isEmpty()) {
+                
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                
+                alert.setTitle("Update ID Type");
+                alert.setHeaderText("Are you sure you need to update the following Designation List??????");
+                alert.setContentText(updates);
+                
+                Optional<ButtonType> result = alert.showAndWait();
+                
+                if (result.get() == ButtonType.OK) {
+                    
+                    IDTypeDao.update(idType);
+                    
+                    loadForm();
+                    loadTable();
+                    
+                }
+                
+            } else {
+                
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                
+                alert.setTitle("Update ID Type");
+                alert.setHeaderText("There is nothing to Update!!!");
+                alert.setContentText("Nothing to Update!!!");
+                alert.showAndWait();
+                
+            }
+            
+        } else {
+            
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            
+            alert.setTitle("Error - ID Type Update");
+            alert.setHeaderText("Form Data Error");
+            alert.setContentText(errors);
+            alert.showAndWait();
+            
+        }
+    }
+    
+    @FXML
+    private void btnDeleteAP(ActionEvent event) {
+         String details = "\nName  \t: \t: " + oldIdType.getName();
+        
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Designation");
+        alert.setHeaderText("Are you sure you need to delete the following ID Type?");
+        alert.setContentText(details);
+        
+        Optional<ButtonType> result = alert.showAndWait();
+        
+        if (result.get() == ButtonType.OK) {
+            
+            IDTypeDao.delete(oldIdType);
+            
+            loadTable();
+            loadForm();
+            
+        }
+    }
+    
+    @FXML
+    private void lstCustomerIDTypeMC(MouseEvent event) {
+        fillForm();
+    }
+    @FXML
+    private void lstCustomerIDTypeKR(KeyEvent event) {
+        fillForm();
+    }
+    private void fillForm(){
+        
+        if (lstCustomerIDType.getSelectionModel().getSelectedItem() != null) {
+            
+            dissableButtons(false, true, false, false);
+            setStyle(valid);
+            
+            oldIdType = IDTypeDao.getById(lstCustomerIDType.getSelectionModel().getSelectedItem().getId());
+            idType = IDTypeDao.getById(lstCustomerIDType.getSelectionModel().getSelectedItem().getId());
+            
+            txtCustomerIDType.setText(oldIdType.getName());
+            
+            
+        }
+        
+    }
+    private String getErrors(){
+        
+        String errors = "";
+        
+        if (idType.getName() == null) {
+            errors = errors + "Name \t\tis Invalid or already in\n";
+        }
+        
+        return errors;
+        
+    }
+        private String getUpdates(){
+        
+        String updates = "";
+        
+        if (oldIdType != null) {
+            
+            if (idType.getName() != null && !idType.getName().equals(oldIdType.getName())) {
+                updates = updates + oldIdType.getName() + " chanaged to " + idType.getName() + "\n";
+            }
+            
+        }
+        
+        return updates;
+        
+    }
+//</editor-fold>
 
     
     
