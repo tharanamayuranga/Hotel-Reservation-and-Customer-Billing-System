@@ -64,5 +64,35 @@ public class SpaPackageDao {
     
     }
 
+    public static ObservableList<Spapackage> getAllByNameCode(String name, String code) {
+        HashMap hmap = new HashMap();
+        hmap.put("code", code + "%");
+        hmap.put("name" , name + "%");
+        return CommonDao.select("Spapackage.findAllByNameCode", hmap);
+    }
 
+    public static ObservableList<Spapackage> getAllByNameCategory(String name, Spapackagecategory category) {
+         HashMap hmap = new HashMap();
+        hmap.put("category", category);
+        hmap.put("name" , name + "%");
+        return CommonDao.select("Spapackage.findAllByNameCategory", hmap);
+    }
+
+    public static ObservableList<Spapackage> getAllByCodeCategory(String code, Spapackagecategory category) {
+        HashMap hmap = new HashMap();
+        hmap.put("category", category);
+        hmap.put("code", code + "%");
+        return CommonDao.select("Spapackage.findAllByCodeCategory", hmap);
+    
+
+    }
+
+    public static ObservableList<Spapackage> getAllByNameCodeCategory(String name, String code, Spapackagecategory category) {
+        HashMap hmap = new HashMap();
+        hmap.put("category", category);
+        hmap.put("code", code + "%");
+        hmap.put("name" , name + "%");
+        return CommonDao.select("Spapackage.findAllByNameCodeCategory", hmap);
+        
+    }
 }
