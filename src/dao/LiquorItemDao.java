@@ -66,5 +66,35 @@ public class LiquorItemDao {
     
     }
 
+    public static ObservableList<Liquoritem> getAllByNameCode(String name, String code) {
+        HashMap hmap = new HashMap();
+        hmap.put("code", code + "%");
+        hmap.put("name" , name + "%");
+        return CommonDao.select("Liquoritem.findAllByNameCode", hmap);
+    }
 
+    public static ObservableList<Liquoritem> getAllByNameCategory(String name, Liquoritemcategory category) {
+         HashMap hmap = new HashMap();
+        hmap.put("category", category);
+        hmap.put("name" , name + "%");
+        return CommonDao.select("Liquoritem.findAllByNameCategory", hmap);
+    }
+
+    public static ObservableList<Liquoritem> getAllByCodeCategory(String code, Liquoritemcategory category) {
+        HashMap hmap = new HashMap();
+        hmap.put("category", category);
+        hmap.put("code", code + "%");
+        return CommonDao.select("Liquoritem.findAllByCodeCategory", hmap);
+    
+
+    }
+
+    public static ObservableList<Liquoritem> getAllByNameCodeCategory(String name, String code, Liquoritemcategory category) {
+        HashMap hmap = new HashMap();
+        hmap.put("category", category);
+        hmap.put("code", code + "%");
+        hmap.put("name" , name + "%");
+        return CommonDao.select("Liquoritem.findAllByNameCodeCategory", hmap);
+        
+    }
 }
