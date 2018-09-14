@@ -689,5 +689,80 @@ public class SpaPackageManagementUIController implements Initializable {
 
     }
 //</editor-fold>
+  @FXML
+    private void txtSearchByPackageKR(KeyEvent event) {
+        updateTable();
+    }
+    @FXML
+    private void cmbSearchByCategoryAP(ActionEvent event) {
+        updateTable();
+    }
+    
+    @FXML
+    private void btnSearchClearAP(ActionEvent event) {
+         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle(" Liquor Item Management");
+        alert.setHeaderText("Clear Search Form");
+        alert.setContentText("Are you sure you need to clear search form ????");
+
+        DialogPane dialogPane = alert.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+
+            loadTable();
+//            if (privilege.get("Employee_select")) {
+//
+//                //Notification.Notifier.INSTANCE.notifySuccess("Search Form", "The Search Fields are cleared!" );
+//
+//
+//
+//            }
+
+        }
+    }
+    @FXML
+    private void txtSearchByCodeKR(KeyEvent event) {
+        updateTable();
+    }
+    private void updateTable() {
+
+        String name = txtSearchByPackage.getText().trim();
+        boolean sname = !name.isEmpty();
+        String code = txtSearchByCode.getText().trim();
+        boolean scode = !code.isEmpty();
+        Spapackagecategory category = cmbSearchByCategory.getSelectionModel().getSelectedItem();
+        boolean scategory = cmbSearchByCategory.getSelectionModel().getSelectedIndex() != -1;
+
+        if (!sname && !scode && !scategory) {
+            fillTable(SpaPackageDao.getAll());
+        }
+        if (sname && !scode && !scategory) {
+            fillTable(SpaPackageDao.getAllByName(name));
+        }
+        if (!sname && !scode && scategory) {
+            fillTable(SpaPackageDao.getAllByCategory(category));
+        }
+        if (!sname && scode && !scategory) {
+            fillTable(SpaPackageDao.getAllByCode(code));
+        }
+        if (sname && scode && !scategory) {
+            fillTable(SpaPackageDao.getAllByNameCode(name, code));
+        }
+        if (sname && !scode && scategory) {
+            fillTable(SpaPackageDao.getAllByNameCategory(name, category));
+        }
+        if (!sname && scode && scategory) {
+            fillTable(SpaPackageDao.getAllByCodeCategory(code, category));
+        }
+        if (sname && scode && scategory) {
+            fillTable(SpaPackageDao.getAllByNameCodeCategory(name, code, category));
+        }
+//</editor-fold>
     
 }
