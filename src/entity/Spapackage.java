@@ -37,7 +37,16 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Spapackage.findByPackageprice", query = "SELECT s FROM Spapackage s WHERE s.packageprice = :packageprice")
     , @NamedQuery(name = "Spapackage.findByDescription", query = "SELECT s FROM Spapackage s WHERE s.description = :description")
 
-    
+        //search query
+        
+    , @NamedQuery(name = "Spapackage.findAllByName", query = "SELECT s FROM Spapackage s WHERE s.name LIKE :name "),
+    @NamedQuery(name = "Spapackage.findAllByCategory", query = "SELECT s FROM Spapackage s WHERE s.spapackagecategoryId = :category "),
+    @NamedQuery(name = "Spapackage.findAllByCode", query = "SELECT s FROM Spapackage s WHERE s.code LIKE :code"),
+    @NamedQuery(name = "Spapackage.findAllByNameCode", query = "SELECT s FROM Spapackage s WHERE s.code = :code AND s.name LIKE :name "),
+    @NamedQuery(name = "Spapackage.findAllByNameCategory", query = "SELECT s FROM Spapackage s WHERE s.spapackagecategoryId = :category AND s.name LIKE :name "),
+    @NamedQuery(name = "Spapackage.findAllByCodeCategory", query = "SELECT s FROM Spapackage s WHERE s.code LIKE :code AND s.spapackagecategoryId = :category "),
+    @NamedQuery(name = "Spapackage.findAllByNameCodeCategory", query = "SELECT s FROM Spapackage s WHERE s.code LIKE :code AND s.spapackagecategoryId = :category AND s.name LIKE :name"),
+     
 
 })
 public class Spapackage implements Serializable {
