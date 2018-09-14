@@ -215,69 +215,150 @@ public class SpaPackageManagementUIController implements Initializable {
         tblPackage.getSelectionModel().select(row);
 
     }   
-
+//</editor-fold>
+ //<editor-fold defaultstate="collapsed" desc="Binding-Methods">
     @FXML
-    private void txtSearchByCodeKR(KeyEvent event) {
+    private void txtPackagePriceKR(KeyEvent event) {
+        
+        if (txtPackagePrice.getText().trim().matches("[0-9]{1}[0-9]*.[0-9]{1}[0-9]") || txtPackagePrice.getText().trim().matches("[0-9]{1}[0-9]*") || txtPackagePrice.getText().trim().matches("[0-9]{1}[0-9]*.[0-9]{1}") || txtPackagePrice.getText().trim().matches("[0-9]{1}[0-9]*.")) {
+
+            packageCost = new BigDecimal(txtPackagePrice.getText().trim());//check it
+
+            spaPackage.setPackageprice(toGetTextColor(txtPackagePrice.getText().trim()));
+
+            if (oldSpaPackage != null && !spaPackage.getPackageprice().equals(oldSpaPackage.getPackageprice())) {
+
+                txtPackagePrice.setStyle(updated);
+
+            } else {
+
+                txtPackagePrice.setStyle(valid);
+
+            }
+
+        } else {
+
+            txtPackagePrice.setStyle(invalid);
+
+            spaPackage.setPackageprice(null);
+
+        }
     }
 
-    @FXML
-    private void txtUnitPriceKR(KeyEvent event) {
-    }
+    private BigDecimal toGetTextColor(String string) {
 
-    @FXML
-    private void btnNewFoodItemCategoryAP(ActionEvent event) {
-    }
+        if (!string.contains(".") && !"".equals(txtPackagePrice.getText().trim())) {
 
+            return new BigDecimal(string + ".00");
+
+        } else if (string.contains(".") && !"".equals(txtPackagePrice.getText().trim())) {
+
+            try {
+
+                String[] x = string.split("[.]");
+
+                if (x[1].length() == 2) {
+
+                    return new BigDecimal(string);
+
+                } else if (x[1].length() == 1) {
+
+                    return new BigDecimal(string + "0");
+
+                }
+
+            } catch (Exception e) {
+
+//                System.out.println(e);
+                return new BigDecimal(string + "00");
+
+            }
+
+        }
+
+        return new BigDecimal("0");
+
+    }
+    
+    
+    
     @FXML
     private void txtDescriptionKR(KeyEvent event) {
-    }
+        if (spaPackage.setDescription(txtDescription.getText().trim())) {
 
+            if (oldSpaPackage != null && !spaPackage.getDescription().equals(oldSpaPackage.getDescription())) {
+
+                ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(updated);
+
+            } else {
+
+                ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(valid);
+
+            }
+
+        } else {
+
+            ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(invalid);
+
+        }
+    }
+    
     @FXML
     private void txtCodeKR(KeyEvent event) {
-    }
+                if (spaPackage.setCode(txtCode.getText().trim())) {
 
-    @FXML
-    private void txtItemNameKR(KeyEvent event) {
-    }
+            if (oldSpaPackage != null && !spaPackage.getCode().equals(oldSpaPackage.getCode())) {
 
-    @FXML
-    private void cmbItemCategoryAP(ActionEvent event) {
-    }
+                txtCode.setStyle(updated);
 
-    @FXML
-    private void btnAddAP(ActionEvent event) {
-    }
+            } else {
 
-    @FXML
-    private void btnClearAP(ActionEvent event) {
-    }
+                txtCode.setStyle(valid);
 
-    @FXML
-    private void btnUpdateAP(ActionEvent event) {
-    }
+            }
 
-    @FXML
-    private void btnDeleteAP(ActionEvent event) {
-    }
+        } else {
 
-    @FXML
-    private void txtSearchByItemKR(KeyEvent event) {
-    }
+            txtCode.setStyle(invalid);
 
-    @FXML
-    private void tblFoodItemMC(MouseEvent event) {
+        }
     }
+    
+    @FXML
+    private void txtPackageNameKR(KeyEvent event) {
+         if (spaPackage.setName(txtPackageName.getText().trim())) {
 
-    @FXML
-    private void tblFoodItemKR(KeyEvent event) {
-    }
+            if (oldSpaPackage != null && !spaPackage.getName().equals(oldSpaPackage.getName())) {
 
-    @FXML
-    private void cmbSearchByCategoryAP(ActionEvent event) {
-    }
+                txtPackageName.setStyle(updated);
 
-    @FXML
-    private void btnSearchClearAP(ActionEvent event) {
+            } else {
+
+                txtPackageName.setStyle(valid);
+
+            }
+
+        } else {
+
+            txtPackageName.setStyle(invalid);
+
+        }
     }
+    
+    @FXML
+    private void cmbPackageCategoryAP(ActionEvent event) {
+           spaPackage.setSpapackagecategoryId(cmbPackageCategory.getSelectionModel().getSelectedItem());
+
+        if (oldSpaPackage != null && !spaPackage.getSpapackagecategoryId().equals(oldSpaPackage.getSpapackagecategoryId())) {
+
+            cmbPackageCategory.setStyle(updated);
+
+        } else {
+
+            cmbPackageCategory.setStyle(valid);
+
+        }
+    }
+//</editor-fold>
     
 }
