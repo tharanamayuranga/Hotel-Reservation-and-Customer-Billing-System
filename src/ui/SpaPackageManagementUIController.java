@@ -85,10 +85,136 @@ public class SpaPackageManagementUIController implements Initializable {
 
     //public static File lastDirectory;
 //</editor-fold>
+     //<editor-fold defaultstate="collapsed" desc="Initializing-Methods">
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        initial = Style.initial;
+        valid = Style.valid;
+        invalid = Style.invalid;
+        updated = Style.updated;
+
+        loadForm();
+
+        loadTable();
+    }
+    public void loadForm() {
+
+        spaPackage = new Spapackage();
+        oldSpaPackage = null;
+
+        cmbPackageCategory.setItems(SpaPackageCategoryDao.getAll());//get all cmb details
+        cmbPackageCategory.getSelectionModel().clearSelection();//clear the selected item
+
+        txtCode.setText("");
+        txtPackageName.setText("");
+        txtPackagePrice.setText("");
+        txtDescription.setText("");
+
+        dissableButtons(false, false, true, true);
+
+        setStyle(initial);
+
+    }
+
+    private void setStyle(String style) {
+
+        cmbPackageCategory.setStyle(style);
+
+        txtCode.setStyle(style);
+        txtPackageName.setStyle(style);
+        txtPackagePrice.setStyle(style);
+        txtDescription.setStyle(style);
+
+        if (!txtDescription.getChildrenUnmodifiable().isEmpty()) {
+
+            ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(style);
+
+        }
+
+        cmbSearchByCategory.setStyle(style);
+        txtSearchByCode.setStyle(style);
+        txtSearchByPackage.setStyle(style);
+
+    }
+
+    private void dissableButtons(boolean select, boolean insert, boolean update, boolean delete) {
+
+        btnAdd.setDisable(insert);
+        btnUpdate.setDisable(update);
+        btnDelete.setDisable(delete);
+
+    }
+
+    private void loadTable() {
+
+        cmbSearchByCategory.setItems(SpaPackageCategoryDao.getAll());
+        cmbSearchByCategory.getSelectionModel().clearSelection();
+
+        txtSearchByCode.setText("");
+        txtSearchByPackage.setText("");
+
+        colCode.setCellValueFactory(new PropertyValueFactory("code"));
+        colItem.setCellValueFactory(new PropertyValueFactory("name"));
+        colCategory.setCellValueFactory(new PropertyValueFactory("spapackagecategoryId"));
+
+//        tblEmployee.setRowFactory(new Callback<TableView<Employee>, TableRow<Employee>>() {
+//
+//            @Override
+//            public TableRow<Employee> call(TableView<Employee> dateTableView) {
+//
+//                return new TableRow<Employee>() {
+//
+//                    @Override
+//                    protected void updateItem(Employee date, boolean b) {
+//                        super.updateItem(date, b);
+//
+//                        setStyle("-fx-background-color: linear-gradient(#04ef57 1%, #FFFFFF 100%);");
+//
+//                    }
+//
+//                };
+//
+//            }
+//
+//        });
+
+
+        row = 0;
+        page = 0;
+
+        fillTable(SpaPackageDao.getAll());
+
+        pagination.setCurrentPageIndex(0);
+
+    }
+
+    private void fillTable(ObservableList<Spapackage> employees) {
+
+        if (employees != null && !employees.isEmpty()) {
+
+            int rowsCount = 5;
+            int pageCount = ((employees.size() - 1) / rowsCount) + 1;
+            pagination.setPageCount(pageCount);
+
+            pagination.setPageFactory((Integer pageIndex) -> {
+                int start = pageIndex * rowsCount;
+                int end = pageIndex == pageCount - 1 ? employees.size() : pageIndex * rowsCount + rowsCount;
+                tblPackage.getItems().clear();
+                tblPackage.setItems(FXCollections.observableArrayList(employees.subList(start, end)));
+                return tblPackage;
+            });
+
+        } else {
+
+            pagination.setPageCount(1);
+            tblPackage.getItems().clear();
+
+        }
+
+        pagination.setCurrentPageIndex(page);
+        tblPackage.getSelectionModel().select(row);
+
+    }   
 
     @FXML
     private void txtSearchByCodeKR(KeyEvent event) {
