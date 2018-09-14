@@ -360,5 +360,334 @@ public class SpaPackageManagementUIController implements Initializable {
         }
     }
 //</editor-fold>
+ //<editor-fold defaultstate="collapsed" desc="Operation-Methods">
+    @FXML
+    private void btnAddAP(ActionEvent event) {
+         String errors = getErrors();
+
+        if (errors.isEmpty()) {
+
+            String details
+                    = "\nItem Code          \t\t: " + spaPackage.getCode()
+                    + "\nItem Name        \t\t: " + spaPackage.getName()
+                    + "\nItem Categoery  \t\t: " + spaPackage.getSpapackagecategoryId().getName()
+                    + "\nUnit Price       \t\t: " + spaPackage.getPackageprice()
+                    + "\nDescription   \t\t: " + spaPackage.getDescription();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Add Module");
+            alert.setHeaderText("Are you sure you need to add the following Spa PAckage?");
+            alert.setContentText(details);
+
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+
+                // employee.setDisable(0);
+                SpaPackageDao.add(spaPackage);
+
+                loadForm();
+
+                loadTable();
+
+            }
+
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("You need to fill the following Employee");
+            alert.setContentText(errors);
+
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForError");
+
+            alert.showAndWait();
+
+        }
+    }
+    
+    @FXML
+    private void btnClearAP(ActionEvent event) {
+         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        DialogPane dialogPane = alert.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        alert.setTitle(" Liquor Item Management");
+        alert.setHeaderText("Clear Form");
+        alert.setContentText("Are you sure you need to clear form?? ");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+
+            loadForm();
+
+        }
+    }
+    
+    @FXML
+    private void btnUpdateAP(ActionEvent event) {
+         String errors = getErrors();
+
+        if (errors.isEmpty()) {
+
+//            DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//
+//            try {
+//
+//                employee.setDob(java.sql.Date.valueOf(format.format(format.parse(actualDob))));
+//
+//            } catch (ParseException ex) {
+//
+//                System.out.println(ex);
+//
+//            }
+            String updates = getUpdates();
+
+            if (!updates.isEmpty()) {
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+                alert.setTitle("Update Module");
+                alert.setHeaderText("Are you sure you need to update the following Module");
+                alert.setContentText(updates);
+
+                DialogPane dialogPane = alert.getDialogPane();
+
+                dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.get() == ButtonType.OK) {
+
+                    //  Notification.Notifier.INSTANCE.notifySuccess("Update", employee.getName() + " is updated!");
+                    SpaPackageDao.update(spaPackage);
+
+                    loadForm();
+                    loadTable();
+
+                }
+
+            } else {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                alert.setTitle("Update Module");
+                alert.setHeaderText("There is nothing to Update!!!");
+                alert.setContentText("Nothing to Update!!!");
+
+                DialogPane dialogPane = alert.getDialogPane();
+
+                dialogPane.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialogForInformation");
+
+                alert.showAndWait();
+
+            }
+
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+
+            alert.setTitle("Error - Employee Update");
+            alert.setHeaderText("Form Data Error");
+            alert.setContentText(errors);
+
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForError");
+
+            alert.showAndWait();
+
+        }
+    }
+    
+    @FXML
+    private void btnDeleteAP(ActionEvent event) {
+         String details
+                    = "\nItem Code          \t\t: " + spaPackage.getCode()
+                    + "\nItem Name        \t\t: " + spaPackage.getName()
+                    + "\nItem Categoery  \t\t: " + spaPackage.getSpapackagecategoryId().getName()
+                    + "\nUnit Price       \t\t: " + spaPackage.getPackageprice()
+                    + "\nDescription   \t\t: " + spaPackage.getDescription();
+
+        Alert alertForDelete = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alertForDelete.setTitle("Delete Module");
+        alertForDelete.setHeaderText("Are you sure you need to delete the following Module?");
+        alertForDelete.setContentText(details);
+
+        DialogPane dialogPane = alertForDelete.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        Optional<ButtonType> result = alertForDelete.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+
+//            EmployeeDao.delete(oldEmployee);
+//oldFoodItem.setDisable(1);
+            SpaPackageDao.delete(spaPackage);
+
+//            fillTable(EmployeeDao.getAll());
+            loadTable();
+
+            loadForm();
+
+            pagination.setCurrentPageIndex(page);
+            tblPackage.getSelectionModel().select(row);
+
+        }
+    }
+    
+    @FXML
+    private void tblFoodItemMC(MouseEvent event) {
+        fillForm();
+    }
+    
+    @FXML
+    private void tblFoodItemKR(KeyEvent event) {
+        fillForm();
+    }
+    @FXML
+    private void btnNewFoodItemCategoryAP(ActionEvent event) throws IOException {
+        
+        Parent root = FXMLLoader.load(getClass().getResource("SpaPackageCategoryUI.fxml"));
+
+        Scene scene = new Scene(root);
+
+        spaPackageCategoryStage = new Stage();
+        spaPackageCategoryStage.setScene(scene);
+
+        spaPackageCategoryStage.setOnCloseRequest(e -> {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+            alert.setTitle(" WINDOW CLOSE");
+            alert.setHeaderText("Close Form");
+            alert.setContentText("Are you sure you need to close this form?? ");
+
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+
+                spaPackageCategoryStage.close();
+
+            }
+
+            e.consume();
+
+        });
+
+        spaPackageCategoryStage.initModality(Modality.WINDOW_MODAL);
+        spaPackageCategoryStage.initOwner(stageBasic);
+        spaPackageCategoryStage.setResizable(false);
+        spaPackageCategoryStage.setTitle("Liquor Category Management System");
+        spaPackageCategoryStage.show();
+    }
+     private String getErrors() {
+
+        String errors = "";
+
+        if (spaPackage.getName() == null) {
+            errors = errors + "Name \t\tis Invalid\n";
+        }
+
+        if (spaPackage.getSpapackagecategoryId() == null) {
+            errors = errors + "FoodItem Category \t\tis Not Selected\n";
+        }
+
+        if (spaPackage.getCode() == null) {
+            errors = errors + "Item Code \tis Not Selected\n";
+        }
+
+        if (spaPackage.getDescription() == null) {
+            errors = errors + "Description \t\tis Invalid\n";
+        }
+
+        if (spaPackage.getPackageprice() == null) {
+            errors = errors + "Unit Price  \t\tis Invalid \n";
+        }
+
+        return errors;
+
+    }
+
+    private String getUpdates() {
+
+        String updates = "";
+
+        if (oldSpaPackage != null) {
+
+            if (spaPackage.getName() != null && !spaPackage.getName().equals(oldSpaPackage.getName())) {
+                updates = updates + oldSpaPackage.getName() + " chnaged to " + spaPackage.getName() + "\n";
+            }
+
+            if (spaPackage.getCode() != null && !spaPackage.getCode().equals(oldSpaPackage.getCode())) {
+                updates = updates + oldSpaPackage.getCode() + " chnaged to " + spaPackage.getCode() + "\n";
+            }
+
+            if (spaPackage.getPackageprice() != null && !spaPackage.getPackageprice().equals(oldSpaPackage.getPackageprice())) {
+                updates = updates + oldSpaPackage.getPackageprice() + " chnaged to " + spaPackage.getPackageprice() + "\n";
+            }
+
+            if (spaPackage.getDescription() != null && !spaPackage.getDescription().equals(oldSpaPackage.getDescription())) {
+                updates = updates + oldSpaPackage.getDescription() + " chnaged to " + spaPackage.getDescription() + "\n";
+            }
+
+        }
+
+        return updates;
+
+    }
+    private void fillForm() {
+
+        if (tblPackage.getSelectionModel().getSelectedItem() != null) {
+
+            dissableButtons(false, true, false, false);
+            setStyle(valid);
+
+            oldSpaPackage = SpaPackageDao.getById(tblPackage.getSelectionModel().getSelectedItem().getId());
+            spaPackage = SpaPackageDao.getById(tblPackage.getSelectionModel().getSelectedItem().getId());
+
+//            cmbSearchDesignation.setStyle(initial);
+//            cmbSearchStatus.setStyle(initial);
+//            txtSearchName.setStyle(initial);
+            txtCode.setText(oldSpaPackage.getCode());
+            txtPackageName.setText(spaPackage.getName());
+            cmbPackageCategory.getSelectionModel().select((Spapackagecategory) spaPackage.getSpapackagecategoryId());
+            txtDescription.setText(spaPackage.getDescription());
+            txtPackagePrice.setText(spaPackage.getPackageprice().toString());
+
+            page = pagination.getCurrentPageIndex();
+            row = tblPackage.getSelectionModel().getSelectedIndex();
+
+//            oldNicWithOldFormateWithV = oldEmployee.getNic().substring(2, 7) + oldEmployee.getNic().substring(8) + "v";
+//            oldNicWithOldFormateWithX = oldEmployee.getNic().substring(2, 7) + oldEmployee.getNic().substring(8) + "x";
+//            lblDob.setText(oldEmployee.getDob().toString());
+//            lblGender.setText(oldEmployee.getGenderId().getName());
+        }
+
+    }
+//</editor-fold>
     
 }
