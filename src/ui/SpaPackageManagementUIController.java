@@ -66,9 +66,25 @@ public class SpaPackageManagementUIController implements Initializable {
     @FXML
     private JFXButton btnSearchClear;
 
-    /**
-     * Initializes the controller class.
-     */
+       //<editor-fold defaultstate="collapsed" desc="Form-Data">
+    Spapackage spaPackage;
+    Spapackage oldSpaPackage;
+
+    Stage spaPackageCategoryStage;
+
+    String initial;
+    String valid;
+    String invalid;
+    String updated;
+
+    int page;
+    int row;
+
+    //boolean photoSelected;
+    BigDecimal packageCost;
+
+    //public static File lastDirectory;
+//</editor-fold>
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
