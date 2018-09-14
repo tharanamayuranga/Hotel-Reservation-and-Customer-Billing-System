@@ -8,17 +8,37 @@ package ui;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import dao.SpaPackageCategoryDao;
+import dao.SpaPackageDao;
+import entity.Spapackage;
+import entity.Spapackagecategory;
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Pagination;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import static ui.Main.stageBasic;
 
 /**
  * FXML Controller class
@@ -27,6 +47,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class SpaPackageManagementUIController implements Initializable {
 
+    //<editor-fold defaultstate="collapsed" desc="FXML-Data">
     @FXML
     private JFXTextField txtSearchByCode;
     @FXML
@@ -40,7 +61,7 @@ public class SpaPackageManagementUIController implements Initializable {
     @FXML
     private JFXTextField txtPackageName;
     @FXML
-    private JFXComboBox<?> cmbPackageCategory;
+    private JFXComboBox<Spapackagecategory> cmbPackageCategory;
     @FXML
     private JFXButton btnAdd;
     @FXML
@@ -54,19 +75,20 @@ public class SpaPackageManagementUIController implements Initializable {
     @FXML
     private Pagination pagination;
     @FXML
-    private TableView<?> tblPackage;
+    private TableView<Spapackage> tblPackage;
     @FXML
-    private TableColumn<?, ?> colCode;
+    private TableColumn<Spapackage, String> colCode;
     @FXML
-    private TableColumn<?, ?> colItem;
+    private TableColumn<Spapackage, String> colItem;
     @FXML
-    private TableColumn<?, ?> colCategory;
+    private TableColumn<Spapackage, Spapackagecategory> colCategory;
     @FXML
-    private JFXComboBox<?> cmbSearchByCategory;
+    private JFXComboBox<Spapackagecategory> cmbSearchByCategory;
     @FXML
     private JFXButton btnSearchClear;
-
-       //<editor-fold defaultstate="collapsed" desc="Form-Data">
+//</editor-fold>
+   
+    //<editor-fold defaultstate="collapsed" desc="Form-Data">
     Spapackage spaPackage;
     Spapackage oldSpaPackage;
 
@@ -85,7 +107,8 @@ public class SpaPackageManagementUIController implements Initializable {
 
     //public static File lastDirectory;
 //</editor-fold>
-     //<editor-fold defaultstate="collapsed" desc="Initializing-Methods">
+    
+    //<editor-fold defaultstate="collapsed" desc="Initializing-Methods">
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         initial = Style.initial;
@@ -214,9 +237,10 @@ public class SpaPackageManagementUIController implements Initializable {
         pagination.setCurrentPageIndex(page);
         tblPackage.getSelectionModel().select(row);
 
-    }   
+    }
 //</editor-fold>
- //<editor-fold defaultstate="collapsed" desc="Binding-Methods">
+    
+    //<editor-fold defaultstate="collapsed" desc="Binding-Methods">
     @FXML
     private void txtPackagePriceKR(KeyEvent event) {
         
@@ -360,7 +384,8 @@ public class SpaPackageManagementUIController implements Initializable {
         }
     }
 //</editor-fold>
- //<editor-fold defaultstate="collapsed" desc="Operation-Methods">
+    
+    //<editor-fold defaultstate="collapsed" desc="Operation-Methods">
     @FXML
     private void btnAddAP(ActionEvent event) {
          String errors = getErrors();
@@ -689,7 +714,9 @@ public class SpaPackageManagementUIController implements Initializable {
 
     }
 //</editor-fold>
-  @FXML
+    
+    //<editor-fold defaultstate="collapsed" desc="Searching-Methods">
+    @FXML
     private void txtSearchByPackageKR(KeyEvent event) {
         updateTable();
     }
@@ -765,4 +792,5 @@ public class SpaPackageManagementUIController implements Initializable {
         }
 //</editor-fold>
     
+}
 }
