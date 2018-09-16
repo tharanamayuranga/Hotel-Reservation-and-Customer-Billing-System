@@ -41,5 +41,18 @@ public class PrivilegeDao {
         CommonDao.delete(privilege);
     }
 
+    public static Privilege getById(Integer id) {
+         HashMap hmap = new HashMap();
+        hmap.put("id", id);
+
+        ObservableList<Privilege> list = CommonDao.selectAllPrivilege("Privilege.findById", hmap);
+        
+        if (list == null) {
+            return null;
+        } else {
+            return list.get(0);
+        }
+    }
+    
 
 }
