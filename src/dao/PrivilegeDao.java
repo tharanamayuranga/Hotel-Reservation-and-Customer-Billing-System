@@ -29,5 +29,17 @@ public class PrivilegeDao {
         
     }
 
+    public static void add(Privilege privilege) {
+        CommonDao.insert(privilege);
+    }
+    public static void update(Privilege privilege) {
+        
+        CommonDao.update(privilege);
+    }
+    public static void delete(Privilege privilege) {
+        
+        CommonDao.delete(privilege);
+    }
+
 
 }
