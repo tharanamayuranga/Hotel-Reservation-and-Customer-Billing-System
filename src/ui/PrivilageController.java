@@ -712,6 +712,70 @@ public class PrivilageController implements Initializable {
     }
 //</editor-fold>
     
- 
+    //<editor-fold defaultstate="collapsed" desc="Search Methods">
+
+    @FXML
+    private void btnSearchClearAP(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle(" Privilege Management");
+        alert.setHeaderText("Clear Search Form");
+        alert.setContentText("Are you sure you need to clear search form ????");
+        
+        DialogPane dialogPane = alert.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            
+            //Notification.Notifier.INSTANCE.notifySuccess("Search Form", "The Search Fields are cleared!" );
+
+            loadTable();   
+
+        }
+    }
+
+    @FXML
+    private void cmbSearchModuleAP(ActionEvent event) {
+        if (cmbSearchModule.getSelectionModel().getSelectedItem() != null) {
+
+            updateTable();
+            
+        }
+    }
+
+    @FXML
+    private void cmbSearchRoleAP(ActionEvent event) {
+        if (cmbSearchRole.getSelectionModel().getSelectedItem() != null) {
+
+            updateTable();
+            
+        }
+    }
+    private void updateTable() {
+
+        Role role = cmbSearchRole.getSelectionModel().getSelectedItem();
+        boolean srole = cmbSearchRole.getSelectionModel().getSelectedIndex() != -1;
+        Module module = cmbSearchModule.getSelectionModel().getSelectedItem();
+        boolean smodule = cmbSearchModule.getSelectionModel().getSelectedIndex() != -1;
+
+        if (!srole && !smodule) {
+            fillTable(PrivilegeDao.getAll());
+        }
+        if (srole && !smodule) {
+            fillTable(PrivilegeDao.getAllByRolePrivilege(role));
+        }
+        if (!srole && smodule) {
+            fillTable(PrivilegeDao.getAllByModulePrivilege(module));
+        }
+        if (srole && smodule) {
+            fillTable(PrivilegeDao.getAllByRoleModulePrivilege(role , module));
+        }        
+
+    }
+//</editor-fold>
    
 }
