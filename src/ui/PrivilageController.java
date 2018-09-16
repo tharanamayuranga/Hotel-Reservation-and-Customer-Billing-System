@@ -360,6 +360,59 @@ public class PrivilageController implements Initializable {
     }
 //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Binding Methods">
+
+    @FXML
+    private void cmbModuleAP(ActionEvent event) {
+        
+         if (cmbModule.getSelectionModel().getSelectedItem() != null) {
+            
+            privilegeForForm.setModuleId(cmbModule.getSelectionModel().getSelectedItem());
+            
+//            System.out.println(privilegeForForm.getModuleId());
+//            System.out.println(oldPrivilegeForForm.getModuleId());
+            
+            if (oldPrivilegeForForm != null && !privilegeForForm.getModuleId().getId().equals(oldPrivilegeForForm.getModuleId().getId())) {
+                
+                cmbModule.setStyle(updated);
+                
+            } else {
+                
+                cmbModule.setStyle(valid);
+                
+            }
+            
+        }
+        
+    }
+
+    @FXML
+    private void cmbRoleAP(ActionEvent event) {
+        
+                if (cmbRole.getSelectionModel().getSelectedItem() != null) {
+            
+            privilegeForForm.setRoleId(cmbRole.getSelectionModel().getSelectedItem());
+            
+            if (oldPrivilegeForForm == null) {
+                
+                cmbModule.setItems(ModuleDao.getAllUnassignedToRole(cmbRole.getSelectionModel().getSelectedItem()));
+                
+            }
+            
+            if (oldPrivilegeForForm != null && !privilegeForForm.getRoleId().getId().equals(oldPrivilegeForForm.getRoleId().getId())) {
+                
+                cmbRole.setStyle(updated);
+                
+            } else {
+                
+                cmbRole.setStyle(valid);
+                
+            }
+            
+        }
+    }
+//</editor-fold>
+
 
    
 }
