@@ -35,7 +35,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Privilege.findByUpd", query = "SELECT p FROM Privilege p WHERE p.upd = :upd")
     , @NamedQuery(name = "Privilege.findByDel", query = "SELECT p FROM Privilege p WHERE p.del = :del")
 
-   
+
+    //For Search methods..
+    , @NamedQuery(name = "Privilege.findAllByRole", query = "SELECT p FROM Privilege p WHERE p.roleId = :role")
+    , @NamedQuery(name = "Privilege.findAllByModule", query = "SELECT p FROM Privilege p WHERE p.moduleId = :module")
+    , @NamedQuery(name = "Privilege.findAllByRoleModule", query = "SELECT p FROM Privilege p WHERE p.roleId = :role AND p.moduleId = :module")
+        
 })
 public class Privilege implements Serializable {
 
