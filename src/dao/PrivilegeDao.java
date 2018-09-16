@@ -54,5 +54,24 @@ public class PrivilegeDao {
         }
     }
     
+    public static Privilege getByIdPrivilege(Integer id) {
+         HashMap hmap = new HashMap();
+        hmap.put("id", id);
+
+        ObservableList<Privilege> list = CommonDao.selectAllPrivilege("Privilege.findById", hmap);
+        
+        if (list == null) {
+            return null;
+        } else {
+            return list.get(0);
+        }
+    }
+
+//    public static ObservableList<Privilege> getAllByRole(Role role) {
+//        HashMap hmap = new HashMap();
+//        hmap.put("role", role);
+//
+//        return CommonDao.select("Privilege.findAllByRole", hmap);
+//    }
 
 }
