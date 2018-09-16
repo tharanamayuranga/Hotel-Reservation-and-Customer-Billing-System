@@ -880,8 +880,89 @@ public class CustomerUIController implements Initializable {
     }
 
 //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Search-Methods">
-   
+//<editor-fold defaultstate="collapsed" desc="Search-Methods">
+    @FXML
+    private void cmbSearchCustomerTypeAP(ActionEvent event) {
+        if (cmbSearchCustomerType.getSelectionModel().getSelectedItem() != null) {
+                
+                updateTable();
+                
+            }
+    }
+
+    @FXML
+    private void txtSearchByIDKR(KeyEvent event) {
+        updateTable();
+    }
+
+    @FXML
+    private void txtSearchByGuestKR(KeyEvent event) {
+        updateTable();
+    }
+
+    @FXML
+    private void btnClearSearchAP(ActionEvent event) {
+         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            
+            alert.setTitle(" Customer Management");
+            alert.setHeaderText("Clear Search Form");
+            alert.setContentText("Are you sure you need to clear search form ????");
+            
+            DialogPane dialogPane = alert.getDialogPane();
+            
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForConfirmation");
+            
+            Optional<ButtonType> result = alert.showAndWait();
+            
+            if (result.get() == ButtonType.OK) {
+                
+                loadTable();
+//            if (privilege.get("Employee_select")) {
+//
+//                //Notification.Notifier.INSTANCE.notifySuccess("Search Form", "The Search Fields are cleared!" );
+//
+//
+//
+//            }
+
+            }
+    }
+    private void updateTable() {
+            
+            String name = txtSearchByGuest.getText().trim();
+            boolean sname = !name.isEmpty();
+            String id = txtSearchByID.getText().trim();
+            boolean sid = !id.isEmpty();
+            Customertype customerType = cmbSearchCustomerType.getSelectionModel().getSelectedItem();
+            boolean scustomerType  = cmbSearchCustomerType.getSelectionModel().getSelectedIndex() != -1;
+            
+            if (!sname && !sid && !scustomerType) {
+                fillTable(CustomerDao.getAll());
+            }
+            if (sname && !sid && !scustomerType) {
+                fillTable(CustomerDao.getAllByName(name));
+            }
+            if (!sname && !sid && scustomerType) {
+                fillTable(CustomerDao.getAllByCustomerType(customerType));
+            }
+            if (!sname && sid && !scustomerType) {
+                fillTable(CustomerDao.getAllById(id));
+            }
+            if (sname && sid && !scustomerType) {
+                fillTable(CustomerDao.getAllByNameId(name, id));
+            }
+            if (sname && !sid && scustomerType) {
+                fillTable(CustomerDao.getAllByNameCustomerType(name, customerType));
+            }
+            if (!sname && sid && scustomerType) {
+                fillTable(CustomerDao.getAllByIdCustomerType(id, customerType));
+            }
+            if (sname && sid && scustomerType) {
+                fillTable(CustomerDao.getAllByNameIDCustomerType(name, id, customerType));
+            }
+            
+        }
 //</editor-fold>
 
 }
