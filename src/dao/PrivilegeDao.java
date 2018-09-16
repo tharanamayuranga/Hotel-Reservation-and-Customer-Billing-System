@@ -73,5 +73,40 @@ public class PrivilegeDao {
 //
 //        return CommonDao.select("Privilege.findAllByRole", hmap);
 //    }
+    public static ObservableList<Privilege> getAllByRolePrivilege(Role role) {
+        HashMap hmap = new HashMap();
+        hmap.put("role", role);
 
+        return CommonDao.selectAllByRolePrivilege("Privilege.findAllByRole", hmap);
+    }
+
+//    public static ObservableList<Privilege> getAllByModule(Module module) {
+//        HashMap hmap = new HashMap();
+//        hmap.put("module", module);
+//
+//        return CommonDao.select("Privilege.findAllByModule", hmap);
+//    }
+    public static ObservableList<Privilege> getAllByModulePrivilege(Module module) {
+        HashMap hmap = new HashMap();
+        hmap.put("module", module);
+
+        return CommonDao.selectAllByModulePrivilege("Privilege.findAllByModule", hmap);
+    }
+
+//    public static ObservableList<Privilege> getAllByRoleModule(Role role, Module module) {
+//       HashMap hmap = new HashMap();
+//       hmap.put("role", role);
+//       hmap.put("module", module);
+//
+//       return CommonDao.select("Privilege.findAllByRoleModule", hmap);
+//       
+//    }
+    public static ObservableList<Privilege> getAllByRoleModulePrivilege(Role role, Module module) {
+       HashMap hmap = new HashMap();
+       hmap.put("role", role);
+       hmap.put("module", module);
+
+       return CommonDao.selectAllByRoleModulePrivilege("Privilege.findAllByRoleModule", hmap);
+       
+    }
 }
