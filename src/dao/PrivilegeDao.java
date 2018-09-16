@@ -23,5 +23,11 @@ public class PrivilegeDao {
         
     }
     
+    public static ObservableList<Privilege> getAllPrivilege() {     
+        
+        return CommonDao.selectAllPrivilege("Privilege.findAll");
+        
+    }
+
 
 }
