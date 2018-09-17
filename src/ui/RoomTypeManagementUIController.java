@@ -373,7 +373,156 @@ public class RoomTypeManagementUIController implements Initializable {
               }
 
           });
+            colFun6.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Roomtype, ImageView>, ObservableValue<ImageView>>() {
 
+              @Override
+              public ObservableValue<ImageView> call(TableColumn.CellDataFeatures<Roomtype, ImageView> param) {
+
+                  if (param.getValue().getFun6() == 1) {
+
+                      ImageView img = new ImageView("/image/confirm.jpg");
+
+                      img.setFitHeight(20);
+                      img.setFitWidth(20);
+
+                      return new SimpleObjectProperty(img);
+
+                  } else if (param.getValue().getFun6() == 0) {
+
+                      ImageView img = new ImageView("/image/wrong2.jpg");
+
+                      img.setFitHeight(20);
+                      img.setFitWidth(20);
+
+                      return new SimpleObjectProperty(img);
+
+                  }
+
+                  return null;
+
+              }
+
+          });
+             colFun7.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Roomtype, ImageView>, ObservableValue<ImageView>>() {
+
+              @Override
+              public ObservableValue<ImageView> call(TableColumn.CellDataFeatures<Roomtype, ImageView> param) {
+
+                  if (param.getValue().getFun7() == 1) {
+
+                      ImageView img = new ImageView("/image/confirm.jpg");
+
+                      img.setFitHeight(20);
+                      img.setFitWidth(20);
+
+                      return new SimpleObjectProperty(img);
+
+                  } else if (param.getValue().getFun7() == 0) {
+
+                      ImageView img = new ImageView("/image/wrong2.jpg");
+
+                      img.setFitHeight(20);
+                      img.setFitWidth(20);
+
+                      return new SimpleObjectProperty(img);
+
+                  }
+
+                  return null;
+
+              }
+
+          });
+              colFun8.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Roomtype, ImageView>, ObservableValue<ImageView>>() {
+
+              @Override
+              public ObservableValue<ImageView> call(TableColumn.CellDataFeatures<Roomtype, ImageView> param) {
+
+                  if (param.getValue().getFun8() == 1) {
+
+                      ImageView img = new ImageView("/image/confirm.jpg");
+
+                      img.setFitHeight(20);
+                      img.setFitWidth(20);
+
+                      return new SimpleObjectProperty(img);
+
+                  } else if (param.getValue().getFun8() == 0) {
+
+                      ImageView img = new ImageView("/image/wrong2.jpg");
+
+                      img.setFitHeight(20);
+                      img.setFitWidth(20);
+
+                      return new SimpleObjectProperty(img);
+
+                  }
+
+                  return null;
+
+              }
+
+          });
+               colFun9.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Roomtype, ImageView>, ObservableValue<ImageView>>() {
+
+              @Override
+              public ObservableValue<ImageView> call(TableColumn.CellDataFeatures<Roomtype, ImageView> param) {
+
+                  if (param.getValue().getFun9() == 1) {
+
+                      ImageView img = new ImageView("/image/confirm.jpg");
+
+                      img.setFitHeight(20);
+                      img.setFitWidth(20);
+
+                      return new SimpleObjectProperty(img);
+
+                  } else if (param.getValue().getFun9() == 0) {
+
+                      ImageView img = new ImageView("/image/wrong2.jpg");
+
+                      img.setFitHeight(20);
+                      img.setFitWidth(20);
+
+                      return new SimpleObjectProperty(img);
+
+                  }
+
+                  return null;
+
+              }
+
+          });
+                colFun10.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Roomtype, ImageView>, ObservableValue<ImageView>>() {
+
+              @Override
+              public ObservableValue<ImageView> call(TableColumn.CellDataFeatures<Roomtype, ImageView> param) {
+
+                  if (param.getValue().getFun10() == 1) {
+
+                      ImageView img = new ImageView("/image/confirm.jpg");
+
+                      img.setFitHeight(20);
+                      img.setFitWidth(20);
+
+                      return new SimpleObjectProperty(img);
+
+                  } else if (param.getValue().getFun10() == 0) {
+
+                      ImageView img = new ImageView("/image/wrong2.jpg");
+
+                      img.setFitHeight(20);
+                      img.setFitWidth(20);
+
+                      return new SimpleObjectProperty(img);
+
+                  }
+
+                  return null;
+
+              }
+
+          });
 
         fillTable(RoomTypeDao.getAll());//chang to getAll to getAppprivilege
         
