@@ -128,7 +128,99 @@ public class RoomTypeManagementUIController implements Initializable {
     BigDecimal roomTypeCost;
 //</editor-fold>
  
+    //<editor-fold defaultstate="collapsed" desc="Initializing-Methods">
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        initial = Style.initial;
+        valid = Style.valid;
+        invalid = Style.invalid;
+        updated = Style.updated;
+        
+        loadForm();
+        
+        loadTable();
+            
+        
+    }
+        private void loadForm() {
+        
+        roomtype = new Roomtype();
+        oldRoomtype = null;
+        
+//        cmbModule.setEditable(true);
+        
+//        cmbRole.setItems(RoleDao.getAllUnassignedByRole());
+        txtRoomType.setText("");
+        txtArea.setText("");
+        txtRoomTypePrice.setText("");
+        txtDescription.setText("");
+        
+//        cbxSelect.setSelected(true);
+//        cbxSelect.setDisable(true); 
+        cbxFun1.setSelected(false);
+        cbxFun2.setSelected(false);
+        cbxFun3.setSelected(false);
+        cbxFun4.setSelected(false); 
+        cbxFun5.setSelected(false);
+        cbxFun6.setSelected(false);
+        cbxFun7.setSelected(false);
+        cbxFun8.setSelected(false);
+        cbxFun9.setSelected(false);
+        cbxFun10.setSelected(false);
+        
+        
+        dissableButtons(false, false, true, true);
+        
+        setStyle(initial);
+        
+//        RoleDao.getAll();
+//        ModulaDao.getAllUnassignedByRole();
+        
+    }
+     private void setStyle(String style){
+    
+        
+        txtRoomType.setStyle(style);
+        txtArea.setStyle(style);
+        txtRoomTypePrice.setStyle(style);
+        
 
+        if (!txtDescription.getChildrenUnmodifiable().isEmpty()) {
 
+            ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(style);
+
+        }
+
+        txtSearchRoomType.setStyle(style);
+        
+    
+    }
+    
+   private void dissableButtons( boolean select , boolean insert , boolean update , boolean delete ){
+    
+        btnAdd.setDisable(insert);
+        btnUpdate.setDisable(update );
+        btnDelete.setDisable(delete);
+        
+    
+    }
+    private void loadTable() {
+        
+
+       
+        txtSearchRoomType.setText("");
+        
+        
+       
+        colRoomType.setCellValueFactory(new PropertyValueFactory("name"));
+        
+        
+//        colSelect.setCellValueFactory(new PropertyValueFactory("sel"));
+//        colInsert.setCellValueFactory(new PropertyValueFactory("ins"));
+//        colUpdate.setCellValueFactory(new PropertyValueFactory("upd"));
+//        colDelete.setCellValueFactory(new PropertyValueFactory("del"));
+        
+
+	}
    
 }
