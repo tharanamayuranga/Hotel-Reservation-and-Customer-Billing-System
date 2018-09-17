@@ -659,7 +659,375 @@ public class RoomTypeManagementUIController implements Initializable {
  
     
 //</editor-fold>
+  //<editor-fold defaultstate="collapsed" desc="Operation-Methods">
+    
+    @FXML
+    private void btnAddAP(ActionEvent event) {
+        
+        roomtype.setFun1(cbxFun1.isSelected()?1:0); // validation and binding 
+        roomtype.setFun2(cbxFun2.isSelected()?1:0);
+        roomtype.setFun3(cbxFun3.isSelected()?1:0);
+        roomtype.setFun4(cbxFun4.isSelected()?1:0);
+        roomtype.setFun5(cbxFun5.isSelected()?1:0);
+        roomtype.setFun6(cbxFun6.isSelected()?1:0);
+        roomtype.setFun7(cbxFun7.isSelected()?1:0);
+        roomtype.setFun8(cbxFun8.isSelected()?1:0);
+        roomtype.setFun9(cbxFun9.isSelected()?1:0);
+        roomtype.setFun10(cbxFun10.isSelected()?1:0);
+        
+        String errors = getErrors();       
+        
+        if ( errors.isEmpty() ) {
+            
+             String details = "Are you sure you need to add this Privileges with following details\n "
+                    + "\nRoom Type           \t:" + roomtype.getName()
+                     + "\nArea           \t:" + roomtype.getArea()
+                     + "\nRoom Type Price           \t:" + roomtype.getUnitprice()
+                     + "\nRoom Description           \t:" + roomtype.getDescription()
+                    + "\nSelect         \t:" + ( roomtype.getFun1() == 0 ? "Not Selected" : "Selected") 
+                    + "\nInsert         \t:" + ( roomtype.getFun2() == 0 ? "Not Selected" : "Selected")
+                    + "\nUpdate         \t:" + ( roomtype.getFun3() == 0 ? "Not Selected" : "Selected")
+                    + "\nDelete         \t:" + ( roomtype.getFun4() == 0 ? "Not Selected" : "Selected")
+                    + "\nSelect         \t:" + ( roomtype.getFun5() == 0 ? "Not Selected" : "Selected") 
+                    + "\nInsert         \t:" + ( roomtype.getFun6() == 0 ? "Not Selected" : "Selected")
+                    + "\nUpdate         \t:" + ( roomtype.getFun7() == 0 ? "Not Selected" : "Selected")
+                    + "\nDelete         \t:" + ( roomtype.getFun8() == 0 ? "Not Selected" : "Selected")
+                    + "\nUpdate         \t:" + ( roomtype.getFun9() == 0 ? "Not Selected" : "Selected")
+                    + "\nDelete         \t:" + ( roomtype.getFun10() == 0 ? "Not Selected" : "Selected");
+                   
+            
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Add Privilege");
+            alert.setHeaderText("Are you sure you need to add the following Room Type");
+            alert.setContentText(details);
+            
+            DialogPane dialogPane = alert.getDialogPane();
 
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForConfirmation");
+            
+            Optional<ButtonType> result = alert.showAndWait();
+            
+            if (result.get() == ButtonType.OK) {
+                
+               // Notification.Notifier.INSTANCE.notifySuccess("Save", privilegeForForm.getModuleId().getName() + " is saved!");
+                
+                RoomTypeDao.add(roomtype);
+
+                loadTable();
+                loadForm();
+            
+            }   
+            
+        }else{
+            
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("You need to fill the following Privilege");
+            alert.setContentText(errors);
+            
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForError");
+            
+            alert.showAndWait();
+        
+        }
+    }
+    
+    @FXML
+    private void btnDeleteAP(ActionEvent event) {
+        String details =
+                       "\nRoom Type           \t:" + roomtype.getName()
+                     + "\nArea           \t:" + roomtype.getArea()
+                     + "\nRoom Type Price           \t:" + roomtype.getUnitprice()
+                     + "\nRoom Description           \t:" + roomtype.getDescription()
+                    + "\nSelect         \t:" + ( roomtype.getFun1() == 0 ? "Not Selected" : "Selected") 
+                    + "\nInsert         \t:" + ( roomtype.getFun2() == 0 ? "Not Selected" : "Selected")
+                    + "\nUpdate         \t:" + ( roomtype.getFun3() == 0 ? "Not Selected" : "Selected")
+                    + "\nDelete         \t:" + ( roomtype.getFun4() == 0 ? "Not Selected" : "Selected")
+                    + "\nSelect         \t:" + ( roomtype.getFun5() == 0 ? "Not Selected" : "Selected") 
+                    + "\nInsert         \t:" + ( roomtype.getFun6() == 0 ? "Not Selected" : "Selected")
+                    + "\nUpdate         \t:" + ( roomtype.getFun7() == 0 ? "Not Selected" : "Selected")
+                    + "\nDelete         \t:" + ( roomtype.getFun8() == 0 ? "Not Selected" : "Selected")
+                    + "\nUpdate         \t:" + ( roomtype.getFun9() == 0 ? "Not Selected" : "Selected")
+                    + "\nDelete         \t:" + ( roomtype.getFun10() == 0 ? "Not Selected" : "Selected");
+
+            
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Privilege");
+        alert.setHeaderText("Are you sure you need to delete the following Privilege?");
+        alert.setContentText(details);
+        
+//        DialogPane dialogPane = alert.getDialogPane();
+//
+//        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+//        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            
+           // Notification.Notifier.INSTANCE.notifySuccess("Delete",  oldPrivilegeForForm.getModuleId().getName() + " is deleted!" );
+
+            RoomTypeDao.delete(roomtype);
+
+//            loadTable();
+            fillTable(RoomTypeDao.getAll()); 
+            loadForm();
+            
+
+            pagination.setCurrentPageIndex(page);
+            tblRoomType.getSelectionModel().select(row);
+            
+        }      
+    }
+    
+    @FXML
+    private void btnClearAP(ActionEvent event) {
+          Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+            alert.setTitle(" Privilege Management");
+            alert.setHeaderText("Clear Form");
+            alert.setContentText("Are you sure you need to clear form ???");
+            
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            
+            if (result.get() == ButtonType.OK) {
+                
+                //Notification.Notifier.INSTANCE.notifySuccess("Clear Form", "The Form is cleared!" );
+                
+                loadForm();     
+                
+            }
+    }
+    
+    @FXML
+    private void btnUpdateAP(ActionEvent event) {
+        String errors = getErrors();
+        
+        if ( errors.isEmpty() ) {
+
+            String updates = getUpdates();
+
+            if (!updates.isEmpty()) {
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+                alert.setTitle("Update Module");
+                alert.setHeaderText("Are you sure you need to update the following Module");
+                alert.setContentText(updates);
+                
+                DialogPane dialogPane = alert.getDialogPane();
+
+                dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.get() == ButtonType.OK) {
+                    
+                    //Notification.Notifier.INSTANCE.notifySuccess("Update", privilegeForForm.getModuleId().getName() + " is updated!");
+
+                    RoomTypeDao.update(roomtype);
+
+                    loadForm();
+                    loadTable();
+
+                }
+
+            } else {
+                
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+                alert.setTitle("Update Module");
+                alert.setHeaderText("There is nothing to Update!!!");
+                alert.setContentText("Nothing to Update!!!");
+                
+                DialogPane dialogPane = alert.getDialogPane();
+
+                dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialogForInformation");
+                
+                alert.showAndWait();
+                
+            }
+            
+        } else {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+
+            alert.setTitle("Error - Employee Update");
+            alert.setHeaderText("Form Data Error");
+            alert.setContentText(errors);
+            
+            DialogPane dialogPane = alert.getDialogPane();
+
+            dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+            dialogPane.getStyleClass().add("myDialogForError");
+            
+            alert.showAndWait();
+
+        }
+    }
+    @FXML
+    private void tblRoomTypeMC(MouseEvent event) {
+        fillForm();
+    }
+    
+    @FXML
+    private void tblRoomTypeKR(KeyEvent event) {
+        fillForm();
+    }
+     private String getErrors(){
+    
+        String errors = "";
+        
+        if (roomtype.getName() == null) {
+            errors = errors + "Name \t\tis Invalid\n";
+        }
+        if (roomtype.getArea() == null) {
+            errors = errors + "Area \t\tis Invalid\n";
+        }
+        if (roomtype.getDescription() == null) {
+            errors = errors + "Description \t\tis Invalid\n";
+        }
+
+        if (roomtype.getUnitprice() == null) {
+            errors = errors + "Unit Price  \t\tis Invalid \n";
+        }
+//        if (!(cbxSelect.isSelected()|| cbxInsert.isSelected()|| cbxUpdate.isSelected()|| cbxDelete.isSelected())) {
+//            errors = errors + "Privilege \t\tis Not Selected\n";
+//        }
+        
+        return errors;
+    
+    }
+      private String getUpdates(){
+        
+        String updates = "";
+        
+         if ( roomtype != null ) {
+             
+        roomtype.setFun1(cbxFun1.isSelected()?1:0); // validation and binding 
+        roomtype.setFun2(cbxFun2.isSelected()?1:0);
+        roomtype.setFun3(cbxFun3.isSelected()?1:0);
+        roomtype.setFun4(cbxFun4.isSelected()?1:0);
+        roomtype.setFun5(cbxFun5.isSelected()?1:0);
+        roomtype.setFun6(cbxFun6.isSelected()?1:0);
+        roomtype.setFun7(cbxFun7.isSelected()?1:0);
+        roomtype.setFun8(cbxFun8.isSelected()?1:0);
+        roomtype.setFun9(cbxFun9.isSelected()?1:0);
+        roomtype.setFun10(cbxFun10.isSelected()?1:0);
+             
+            if (roomtype.getName() != null && !roomtype.getName().equals(oldRoomtype.getName())) {
+                updates = updates + oldRoomtype.getName() + " chnaged to " + roomtype.getName() + "\n";
+            }
+
+            if (roomtype.getArea() != null && !roomtype.getArea().equals(oldRoomtype.getArea())) {
+                updates = updates + oldRoomtype.getName() + " chnaged to " + roomtype.getArea() + "\n";
+            }
+
+            if (roomtype.getUnitprice() != null && !roomtype.getUnitprice().equals(oldRoomtype.getUnitprice())) {
+                updates = updates + oldRoomtype.getUnitprice() + " chnaged to " + roomtype.getUnitprice() + "\n";
+            }
+
+            if (roomtype.getDescription() != null && !roomtype.getDescription().equals(oldRoomtype.getDescription())) {
+                updates = updates + oldRoomtype.getDescription() + " chnaged to " + roomtype.getDescription() + "\n";
+            }
+             if (!roomtype.getFun1().equals(oldRoomtype.getFun1())) {
+                 updates = updates + "Select Changed " + ( oldRoomtype.getFun1() == 1 ? "Selecteed" : "Not Selected" ) + " to " + ( roomtype.getFun1()  == 1 ? "Selecteed" : "Not Selected") + "\n";
+             }
+             
+             if (!roomtype.getFun2().equals(oldRoomtype.getFun2())) {
+                 updates = updates + "Insert Changed " + ( oldRoomtype.getFun2()  == 1 ? "Selecteed" : "Not Selected" ) + " to " + ( roomtype.getFun2()  == 1 ? "Selecteed" : "Not Selected") + "\n";
+             }
+             
+             if (!roomtype.getFun3().equals(oldRoomtype.getFun3())) {
+                 updates = updates + "Update Changed " + ( oldRoomtype.getFun3()  == 1 ? "Selecteed" : "Not Selected") + " to " + ( roomtype.getFun3()  == 1 ? "Selecteed" : "Not Selected") + "\n";
+             }
+             if (!roomtype.getFun4().equals(oldRoomtype.getFun4())) {
+                 updates = updates + "Delete Changed " + ( oldRoomtype.getFun4()  == 1 ? "Selecteed" : "Not Selected") + " to " + ( roomtype.getFun4()  == 1 ? "Selecteed" : "Not Selected") + "\n";
+             }
+             if (!roomtype.getFun5().equals(oldRoomtype.getFun5())) {
+                 updates = updates + "Select Changed " + ( oldRoomtype.getFun5() == 1 ? "Selecteed" : "Not Selected" ) + " to " + ( roomtype.getFun5()  == 1 ? "Selecteed" : "Not Selected") + "\n";
+             }
+             
+             if (!roomtype.getFun6().equals(oldRoomtype.getFun6())) {
+                 updates = updates + "Insert Changed " + ( oldRoomtype.getFun6()  == 1 ? "Selecteed" : "Not Selected" ) + " to " + ( roomtype.getFun6()  == 1 ? "Selecteed" : "Not Selected") + "\n";
+             }
+             
+             if (!roomtype.getFun7().equals(oldRoomtype.getFun7())) {
+                 updates = updates + "Update Changed " + ( oldRoomtype.getFun7()  == 1 ? "Selecteed" : "Not Selected") + " to " + ( roomtype.getFun7()  == 1 ? "Selecteed" : "Not Selected") + "\n";
+             }
+             if (!roomtype.getFun8().equals(oldRoomtype.getFun8())) {
+                 updates = updates + "Delete Changed " + ( oldRoomtype.getFun8()  == 1 ? "Selecteed" : "Not Selected") + " to " + ( roomtype.getFun8()  == 1 ? "Selecteed" : "Not Selected") + "\n";
+             }
+             if (!roomtype.getFun9().equals(oldRoomtype.getFun9())) {
+                 updates = updates + "Update Changed " + ( oldRoomtype.getFun9()  == 1 ? "Selecteed" : "Not Selected") + " to " + ( roomtype.getFun9()  == 1 ? "Selecteed" : "Not Selected") + "\n";
+             }
+             if (!roomtype.getFun10().equals(oldRoomtype.getFun10())) {
+                 updates = updates + "Delete Changed " + ( oldRoomtype.getFun10()  == 1 ? "Selecteed" : "Not Selected") + " to " + ( roomtype.getFun10()  == 1 ? "Selecteed" : "Not Selected") + "\n";
+             }
+             
+         }
+
+        return updates;
+     
+     }
+           private void fillForm() {
+          
+         if ( tblRoomType.getSelectionModel().getSelectedItem() != null ) {
+             
+//             cmbModule.setEditable(false);
+             
+             dissableButtons(true, true, false, false);
+             
+             setStyle(valid);
+             
+             txtSearchRoomType.setStyle(initial);
+             
+             
+             oldRoomtype = RoomTypeDao.getById(tblRoomType.getSelectionModel().getSelectedItem().getId());
+             roomtype = RoomTypeDao.getById(tblRoomType.getSelectionModel().getSelectedItem().getId());
+
+//         System.out.println(oldPrivilegeForForm.getModuleId());
+//         System.out.println(privilegeForForm.getModuleId());
+            
+            txtRoomType.setText(roomtype.getName());
+            txtArea.setText(roomtype.getArea().toString());
+            txtDescription.setText(roomtype.getDescription());
+            txtRoomTypePrice.setText(roomtype.getUnitprice().toString());
+             
+             cbxFun1.setSelected(oldRoomtype.getFun1()== 1);
+             cbxFun2.setSelected(oldRoomtype.getFun2()== 1);
+             cbxFun3.setSelected(oldRoomtype.getFun3()== 1);
+             cbxFun4.setSelected(oldRoomtype.getFun4() == 1);
+             cbxFun5.setSelected(oldRoomtype.getFun5()== 1);
+             cbxFun6.setSelected(oldRoomtype.getFun6()== 1);
+             cbxFun7.setSelected(oldRoomtype.getFun7()== 1);
+             cbxFun8.setSelected(oldRoomtype.getFun8() == 1);
+             cbxFun9.setSelected(oldRoomtype.getFun9()== 1);
+             cbxFun10.setSelected(oldRoomtype.getFun10()== 1);
+             
+
+       //     PrivilegeDao.getById(); 
+       
+            page = pagination.getCurrentPageIndex();                   
+            row = tblRoomType.getSelectionModel().getSelectedIndex();
+            
+           // Notification.Notifier.INSTANCE.notifyInfo("Selected", oldPrivilegeForForm.getModuleId().getName() + " is selected!");
+             
+        }
+         
+    }
+//</editor-fold>
 
    
 }
