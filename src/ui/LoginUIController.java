@@ -77,6 +77,37 @@ public class LoginUIController implements Initializable {
 //</editor-fold>
     
 
+    //<editor-fold defaultstate="collapsed" desc="Initializing-Methods">
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        attempt = 2;
+    }
+//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Operation-Methods">
+    @FXML
+    private void btnCancelAP(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Oder and Payment Management");
+        alert.setHeaderText("Cancel");
+        alert.setContentText("Do you want to cancel?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+
+            System.exit(3);
+
+        }
+    }
+
+    @FXML
+    private void btnLoginAP(ActionEvent event) throws IOException, SQLException {
+        signIn();
+    }
+
+  
+//</editor-fold>
 
    
 }
