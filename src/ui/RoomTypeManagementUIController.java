@@ -533,7 +533,132 @@ public class RoomTypeManagementUIController implements Initializable {
     }
 
 //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Binding-Methods">
+    @FXML
+    private void txtRoomTypeKR(KeyEvent event) {
+        if (roomtype.setName(txtRoomType.getText().trim())) {
+
+            if (oldRoomtype != null && !roomtype.getName().equals(oldRoomtype.getName())) {
+
+                txtRoomType.setStyle(updated);
+
+            } else {
+
+                txtRoomType.setStyle(valid);
+
+            }
+
+        } else {
+
+            txtRoomType.setStyle(invalid);
+
+        }
+    }
     
+    @FXML
+    private void txtAreaKR(KeyEvent event) {
+        
+         if (txtArea.getText().matches("[0-9]{1}")) {
+
+            if (roomtype.setArea(new BigDecimal(txtArea.getText()))) {
+
+                txtArea.setStyle(valid);
+
+            } else {
+
+                txtArea.setStyle(invalid);
+            }
+
+        } else {
+            txtArea.setStyle(invalid);
+
+        }
+    }
+     @FXML
+    private void txtDescriptionKR(KeyEvent event) {
+         if (roomtype.setDescription(txtDescription.getText().trim())) {
+
+            if (oldRoomtype != null && !roomtype.getDescription().equals(oldRoomtype.getDescription())) {
+
+                ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(updated);
+
+            } else {
+
+                ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(valid);
+
+            }
+
+        } else {
+
+            ((ScrollPane) txtDescription.getChildrenUnmodifiable().get(0)).getContent().setStyle(invalid);
+
+        }
+    }
+    
+    @FXML
+    private void txtRoomTypePriceKR(KeyEvent event) {
+      if (txtRoomTypePrice.getText().trim().matches("[0-9]{1}[0-9]*.[0-9]{1}[0-9]") || txtRoomTypePrice.getText().trim().matches("[0-9]{1}[0-9]*") || txtRoomTypePrice.getText().trim().matches("[0-9]{1}[0-9]*.[0-9]{1}") || txtRoomTypePrice.getText().trim().matches("[0-9]{1}[0-9]*.")) {
+
+            roomTypeCost = new BigDecimal(txtRoomTypePrice.getText().trim());//check it
+
+            roomtype.setUnitprice(toGetTextColor(txtRoomTypePrice.getText().trim()));
+
+            if (oldRoomtype != null && !roomtype.getUnitprice().equals(oldRoomtype.getUnitprice())) {
+
+                txtRoomTypePrice.setStyle(updated);
+
+            } else {
+
+                txtRoomTypePrice.setStyle(valid);
+
+            }
+
+        } else {
+
+            txtRoomTypePrice.setStyle(invalid);
+
+            roomtype.setUnitprice(null);
+
+        }
+    }
+
+    private BigDecimal toGetTextColor(String string) {
+
+        if (!string.contains(".") && !"".equals(txtRoomTypePrice.getText().trim())) {
+
+            return new BigDecimal(string + ".00");
+
+        } else if (string.contains(".") && !"".equals(txtRoomTypePrice.getText().trim())) {
+
+            try {
+
+                String[] x = string.split("[.]");
+
+                if (x[1].length() == 2) {
+
+                    return new BigDecimal(string);
+
+                } else if (x[1].length() == 1) {
+
+                    return new BigDecimal(string + "0");
+
+                }
+
+            } catch (Exception e) {
+
+//                System.out.println(e);
+                return new BigDecimal(string + "00");
+
+            }
+
+        }
+
+        return new BigDecimal("0");
+
+    }
+ 
+    
+//</editor-fold>
 
 
    
