@@ -106,7 +106,165 @@ public class LoginUIController implements Initializable {
         signIn();
     }
 
-  
+    private void signIn() throws IOException, SQLException {
+        if (txtUsername.getText().equals("admin") && pswPassword.getText().equals("123")) {
+
+            privilege = new HashMap<String, Boolean>();
+
+            user = new User();
+
+            Employee emp = new Employee();
+            emp.setName("Admin");
+            emp.setId(1); // Because there is no id for Admin..
+//            emp.getEmployeestatusId().setId(3);
+
+            user.setEmployeeId(emp);
+            user.setUsername("Admin");
+
+            ObservableList<Module> x = ModuleDao.getAll();
+
+            for (Module module : x) {
+                privilege.put(module.getName() + "_select", true);
+                privilege.put(module.getName() + "_insert", true);
+                privilege.put(module.getName() + "_update", true);
+                privilege.put(module.getName() + "_delete", true);
+            }
+
+        } else {
+
+            if (attempt == 0) {
+                System.exit(1);
+            } else {
+
+                Connection connection = null;
+
+                String location = "jdbc:mysql://localhost/hrh";
+                String username = "root";
+                String password = "1234";
+                try {
+                    connection = DriverManager.getConnection(location, username, password);
+                } catch (SQLException ex) {
+                    lblMessage.setText("Could not connect with the Database");
+                }
+
+                String query = "SELECT * FROM user WHERE username =? AND password = ?";
+
+                try {
+
+                    PreparedStatement statement = connection.prepareStatement(query);
+                    System.out.println(statement);
+                    statement.setString(1, txtUsername.getText());
+                    statement.setString(2, Security.encrypt(pswPassword.getText()));
+                    ResultSet results = statement.executeQuery();
+                    
+                   System.out.println(results);
+//                    System.out.println(results.next());
+                   System.out.println(statement);
+                    
+                    if (results.next()) {
+
+                        user = UserDao.getById(results.getInt("id"));//id column name(auto increment id)
+                        
+                        //System.out.println(results.getString(2));
+                        
+                        privilege = new HashMap<String, Boolean>();
+
+                        ObservableList<Module> x = ModuleDao.getAll();
+
+                        for (Module module : x) {
+
+                            privilege.put(module.getName() + "_select", false);
+                            privilege.put(module.getName() + "_insert", false);
+                            privilege.put(module.getName() + "_update", false);
+                            privilege.put(module.getName() + "_delete", false);
+
+                        }
+
+                        ObservableList<Privilege> privileges = PrivilegeDao.getAllByUser(user);//new query for login
+                        
+//                        System.out.println(privileges);
+                        
+                        for (Privilege privi : privileges) {
+
+                            String moduleName = privi.getModuleId().getName();
+
+                            if (privi.getSel() == 1) {
+                                if (!privilege.get(moduleName + "_select")) {
+                                    privilege.put(moduleName + "_select", true);
+                                }
+                            }
+
+                            if (privi.getIns() == 1) {
+                                if (!privilege.get(moduleName + "_insert")) {
+                                    privilege.put(moduleName + "_insert", true);
+                                }
+                            }
+
+                            if (privi.getUpd() == 1) {
+                                if (!privilege.get(moduleName + "_update")) {
+                                    privilege.put(moduleName + "_update", true);
+                                }
+                            }
+
+                            if (privi.getDel() == 1) {
+                                if (!privilege.get(moduleName + "_delete")) {
+                                    privilege.put(moduleName + "_delete", true);
+                                }
+                            }
+
+                        }
+
+                        statement.close();
+
+                    } else {
+                        lblAttempt.setText("Login Faild. You have " + (attempt--) + " more attemts.");
+                        pswPassword.setText("");
+                    }
+                } catch (SQLException ex) {
+                    lblMessage.setText("Could not get the User data from the Database");
+                }
+
+            }
+        }
+
+        if (privilege != null) {
+
+            try {
+
+                loginStage = (Stage) btnLogin.getScene().getWindow();
+                loginStage.close();
+
+                AnchorPane root = FXMLLoader.load(getClass().getResource("MainWindowUI.fxml"));
+                Scene scene = new Scene(root);
+
+                stageBasic = new Stage();
+
+                stageBasic.setScene(scene);
+                stageBasic.setResizable(false);
+                stageBasic.show();
+            } catch (IOException ex) {
+                lblAttempt.setText("Could not load the MainWindow");
+            }
+        }
+    }
+    
+     @FXML
+    private void lblForgetPasswordMC(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("ForgetPasswordUI.fxml"));
+        
+        Scene scene = new Scene(root);
+        
+        forgetPassword = new Stage();
+        forgetPassword.setScene(scene);
+        
+        forgetPassword.initModality(Modality.APPLICATION_MODAL);
+//        forgetPassword.initOwner(loginStage);
+        forgetPassword.setResizable(false);
+        Image ico = new Image("image/confirm.jpg");
+        forgetPassword.getIcons().add(ico);
+        forgetPassword.setTitle("Oder and Payment Management System");
+        forgetPassword.show();
+    }
 //</editor-fold>
 
    
