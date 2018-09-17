@@ -220,7 +220,50 @@ public class RoomTypeManagementUIController implements Initializable {
 //        colUpdate.setCellValueFactory(new PropertyValueFactory("upd"));
 //        colDelete.setCellValueFactory(new PropertyValueFactory("del"));
         
+        colFun1.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Roomtype, ImageView>, ObservableValue<ImageView>>() {
 
-	}
+              @Override
+              public ObservableValue<ImageView> call(TableColumn.CellDataFeatures<Roomtype, ImageView> param) {
+
+                  if (param.getValue().getFun1() == 1) {
+
+                      ImageView img = new ImageView("/image/confirm.jpg");
+
+                      img.setFitHeight(20);
+                      img.setFitWidth(20);
+
+                      return new SimpleObjectProperty(img);
+
+                  } else if (param.getValue().getFun1() == 0) {
+
+                      ImageView img = new ImageView("/image/wrong2.jpg");
+
+                      img.setFitHeight(20);
+                      img.setFitWidth(20);
+
+                      return new SimpleObjectProperty(img);
+
+                  }
+
+                  return null;
+
+              }
+
+          });
+          
+
+
+        fillTable(RoomTypeDao.getAll());//chang to getAll to getAppprivilege
+        
+//        RoleDao.getAll();
+//        ModulaDao.getAll();
+//        PrivilegeDao.getAll();
+        
+    }
+
+//</editor-fold>
+    
+
+
    
 }
