@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" styleClass="mainFxmlClass" stylesheets="@../css/style1.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RoomManagementUIController">
+   <children>
+      <Pane layoutX="596.0" layoutY="567.0" prefHeight="79.0" prefWidth="470.0" styleClass="innerpane" />
+      <Pane layoutX="596.0" layoutY="311.0" prefHeight="249.0" prefWidth="470.0" styleClass="innerpane" />
+      <Pane layoutX="595.0" layoutY="112.0" prefHeight="192.0" prefWidth="470.0" styleClass="innerpane">
+         <children>
+            <Label layoutX="34.0" layoutY="73.0" text="Search By Room Type" />
+            <Label layoutX="36.0" layoutY="105.0" text="Search By Room Status" />
+         </children></Pane>
+      <Pane layoutX="100.0" layoutY="112.0" prefHeight="534.0" prefWidth="489.0" styleClass="innerpane">
+         <children>
+            <Label layoutX="120.0" layoutY="21.0" text="*" textFill="RED">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="112.0" layoutY="63.0" text="*" textFill="RED">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="104.0" layoutY="115.0" text="*" textFill="RED">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <JFXComboBox fx:id="cmbFloorNo" layoutX="151.0" layoutY="64.0" onAction="#cmbFloorNoAP" prefHeight="25.0" prefWidth="292.0" promptText="Selecy Category" />
+            <JFXTextField fx:id="txtRoomNo" focusColor="#007599" layoutX="151.0" layoutY="22.0" maxWidth="320.0" minWidth="292.0" onKeyReleased="#txtRoomNoKR" prefHeight="31.0" prefWidth="292.0" promptText="Type Room no" styleClass="textField" />
+            <JFXComboBox fx:id="cmbRoomType" layoutX="150.0" layoutY="110.0" onAction="#cmbRoomTypeAP" prefHeight="25.0" prefWidth="292.0" promptText="Select Status" />
+            <JFXComboBox fx:id="cmbRoomStatus" layoutX="150.0" layoutY="173.0" onAction="#cmbRoomStatusAP" prefHeight="25.0" prefWidth="292.0" promptText="Select Status" />
+         </children></Pane>
+      <Pagination fx:id="pagination" layoutX="604.0" layoutY="311.0" prefHeight="249.0" prefWidth="453.0" />
+      <Pane prefHeight="56.0" prefWidth="1145.0" styleClass="moduletopicback" stylesheets="@../css/style1.css">
+         <children>
+            <Label layoutX="38.0" layoutY="15.0" prefHeight="33.0" prefWidth="310.0" styleClass="moduletopic" text="Room Management" />
+         </children>
+      </Pane>
+      <Label layoutX="131.0" layoutY="136.0" text="Room No" />
+      <Label layoutX="132.0" layoutY="182.0" text="Floor No" />
+      <Label layoutX="133.0" layoutY="226.0" text="Room Type" />
+      <Label layoutX="135.0" layoutY="292.0" text="Room Status" />
+      <Label layoutX="628.0" layoutY="124.0" text="Search By Room No" />
+      <TableView fx:id="tblRoom" layoutX="612.0" layoutY="319.0" onKeyReleased="#tblRoomKR" onMouseClicked="#tblRoomMC" prefHeight="200.0" prefWidth="438.0">
+        <columns>
+          <TableColumn fx:id="colRoomNo" prefWidth="103.0" text="Room No" />
+          <TableColumn fx:id="colFloorNo" prefWidth="139.0" text="Floor No" />
+            <TableColumn fx:id="colRoomType" prefWidth="104.0" text="Room Type" />
+            <TableColumn fx:id="colRoomStatus" prefWidth="91.0" text="Room Status" />
+        </columns>
+         <styleClass>
+            <String fx:value="TableView" />
+            <String fx:value="table-view" />
+         </styleClass>
+      </TableView>
+      <JFXTextField fx:id="txtSearchRoomNo" focusColor="#007599" layoutX="753.0" layoutY="119.0" maxWidth="320.0" minWidth="292.0" onKeyReleased="#txtSearchRoomNoKR" prefHeight="31.0" prefWidth="303.0" promptText="Type Service Name" styleClass="textField" />
+      <JFXButton fx:id="btnSearchClear" layoutX="955.0" layoutY="273.0" onAction="#btnSearchClearAP" text="Search Clear" />
+      <JFXButton fx:id="btnAdd" layoutX="938.0" layoutY="585.0" onAction="#btnAddAP" prefHeight="39.0" prefWidth="84.0" text="Insert">
+         <font>
+            <Font size="18.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="btnDelete" layoutX="646.0" layoutY="586.0" onAction="#btnDeleteAP" prefHeight="39.0" prefWidth="84.0" text="Delete">
+         <font>
+            <Font size="18.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="btnClear" layoutX="840.0" layoutY="586.0" onAction="#btnClearAP" text="Refresh">
+         <font>
+            <Font size="18.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="btnUpdate" layoutX="743.0" layoutY="586.0" onAction="#btnUpdateAP" prefHeight="39.0" prefWidth="84.0" text="Update">
+         <font>
+            <Font size="18.0" />
+         </font></JFXButton>
+      <JFXComboBox fx:id="cmbSearchRoomType" layoutX="766.0" layoutY="182.0" onAction="#cmbSearchRoomTypeAP" prefHeight="25.0" prefWidth="292.0" promptText="Select Category" />
+      <JFXComboBox fx:id="cmbSearchRoomStatus" layoutX="766.0" layoutY="212.0" onAction="#cmbSearchRoomStatusAP" prefHeight="25.0" prefWidth="292.0" promptText="Select Category" />
+   </children>
+</AnchorPane>
