@@ -227,6 +227,76 @@ public class RoomManagementUIController implements Initializable {
     }
 //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Binding methods">
+    @FXML
+    private void cmbFloorNoAP(ActionEvent event) {
+        room.setFloorId(cmbFloorNo.getSelectionModel().getSelectedItem());
+
+        if (oldRoom != null && !room.getFloorId().equals(oldRoom.getFloorId())) {
+
+            cmbFloorNo.setStyle(updated);
+
+        } else {
+
+            cmbFloorNo.setStyle(valid);
+
+        }
+    }
+
+    @FXML
+    private void txtRoomNoKR(KeyEvent event) {
+        if (room.setNo(txtRoomNo.getText().trim())) {
+
+            if (oldRoom != null && !room.getNo().equals(oldRoom.getNo())) {
+
+                txtRoomNo.setStyle(updated);
+
+            } else {
+
+                txtRoomNo.setStyle(valid);
+
+            }
+
+        } else {
+
+            txtRoomNo.setStyle(invalid);
+
+        }
+    }
+
+    @FXML
+    private void cmbRoomTypeAP(ActionEvent event) {
+        room.setRoomtypeId(cmbRoomType.getSelectionModel().getSelectedItem());
+
+        if (oldRoom != null && !room.getRoomtypeId().equals(oldRoom.getRoomtypeId())) {
+
+            cmbRoomType.setStyle(updated);
+
+        } else {
+
+            cmbRoomType.setStyle(valid);
+
+        }
+
+    }
+
+    @FXML
+    private void cmbRoomStatusAP(ActionEvent event) {
+        room.setRoomstatusId(cmbRoomStatus.getSelectionModel().getSelectedItem());
+
+        if (oldRoom != null && !room.getRoomstatusId().equals(oldRoom.getRoomstatusId())) {
+
+            cmbRoomStatus.setStyle(updated);
+
+        } else {
+
+            cmbRoomStatus.setStyle(valid);
+
+        }
+    }
+
+//</editor-fold>
+    
 
 
     
