@@ -579,7 +579,96 @@ public class RoomManagementUIController implements Initializable {
     }
 //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Search Methods">
 
+
+    @FXML
+    private void cmbSearchRoomTypeAP(ActionEvent event) {
+        if (cmbSearchRoomType.getSelectionModel().getSelectedItem() != null) {
+                
+                updateTable();
+                
+            }
+    }
+
+    @FXML
+    private void cmbSearchRoomStatusAP(ActionEvent event) {
+        if (cmbSearchRoomStatus.getSelectionModel().getSelectedItem() != null) {
+                
+                updateTable();
+                
+            }
+    }
+
+    @FXML
+    private void txtSearchRoomNoKR(KeyEvent event) {
+         updateTable();
+    }
+
+    @FXML
+    private void btnSearchClearAP(ActionEvent event) {
+         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle(" Liquor Item Management");
+        alert.setHeaderText("Clear Search Form");
+        alert.setContentText("Are you sure you need to clear search form ????");
+
+        DialogPane dialogPane = alert.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+
+            loadTable();
+//            if (privilege.get("Employee_select")) {
+//
+//                //Notification.Notifier.INSTANCE.notifySuccess("Search Form", "The Search Fields are cleared!" );
+//
+//
+//
+//            }
+
+        }
+    }
+    private void updateTable() {
+
+        String no = txtSearchRoomNo.getText().trim();
+        boolean sno = !no.isEmpty();
+        Roomstatus status = cmbSearchRoomStatus.getSelectionModel().getSelectedItem();
+        boolean sstatus = cmbSearchRoomStatus.getSelectionModel().getSelectedIndex() != -1;
+        Roomtype type = cmbSearchRoomType.getSelectionModel().getSelectedItem();
+        boolean stype = cmbSearchRoomType.getSelectionModel().getSelectedIndex() != -1;
+        
+        if (!sno && !sstatus && !stype) {
+            fillTable(RoomDao.getAll());
+        }
+        if (sno && !sstatus && !stype) {
+            fillTable(RoomDao.getAllByNo(no));
+        }
+        if (!sno && !sstatus && stype) {
+            fillTable(RoomDao.getAllByType(type));
+        }
+        if (!sno && sstatus && !stype) {
+            fillTable(RoomDao.getAllByStatus(status));
+        }
+        if (sno && sstatus && !stype) {
+            fillTable(RoomDao.getAllByNoStatus(no, status));
+        }
+        if (sno && !sstatus && stype) {
+            fillTable(RoomDao.getAllByNoType(no, type));
+        }
+        if (!sno && sstatus && stype) {
+            fillTable(RoomDao.getAllByStatusType(status, type));
+        }
+        if (sno && sstatus && stype) {
+            fillTable(RoomDao.getAllByNoStatusType(no, status, type));
+        }
+
+    }
+//</editor-fold>
 
     
 
