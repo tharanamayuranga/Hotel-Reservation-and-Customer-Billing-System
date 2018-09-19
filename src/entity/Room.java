@@ -35,6 +35,18 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Room.findByNo", query = "SELECT r FROM Room r WHERE r.no = :no")
 
 
+    //Serach Querys
+    
+    , @NamedQuery(name = "Room.findAllByNo", query = "SELECT r FROM Room r WHERE r.no LIKE :no "),
+    @NamedQuery(name = "Room.findAllByType", query = "SELECT r FROM Room r WHERE r.roomtypeId = :type "),
+    @NamedQuery(name = "Room.findAllByStatus", query = "SELECT r FROM Room r WHERE r.roomstatusId = :status"),
+    @NamedQuery(name = "Room.findAllByNoStatus", query = "SELECT r FROM Room r WHERE r.roomstatusId = :status AND r.no LIKE :no "),
+    @NamedQuery(name = "Room.findAllByNoType", query = "SELECT r FROM Room r WHERE r.roomtypeId = :type AND r.no LIKE :no "),
+    @NamedQuery(name = "Room.findAllByStatusType", query = "SELECT r FROM Room r WHERE r.roomstatusId = :status AND r.roomtypeId = :type "),
+    @NamedQuery(name = "Room.findAllByNoStatusType", query = "SELECT r FROM Room r WHERE r.roomstatusId = :status AND r.roomtypeId = :type AND r.no LIKE :no"),
+     
+
+
 })
 public class Room implements Serializable {
 
