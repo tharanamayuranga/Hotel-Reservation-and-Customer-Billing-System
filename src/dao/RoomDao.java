@@ -22,6 +22,25 @@ public class RoomDao {
         return  CommonDao.select("Room.findAll");
     }
 
+    public static void add(Room room) {
+         CommonDao.insert(room);
+    }
+
+    public static Room getById(Integer id) {
+        HashMap hmap = new HashMap();
+        hmap.put("id", id);
+
+        return (Room) CommonDao.select("Room.findById", hmap).get(0);
+    }
+
+    public static void update(Room room) {
+         CommonDao.update(room);
+    }
+
+    public static void delete(Room room) {
+         CommonDao.delete(room);
+    }
+
 
 
    
