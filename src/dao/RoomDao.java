@@ -41,8 +41,30 @@ public class RoomDao {
          CommonDao.delete(room);
     }
 
+    public static ObservableList<Room> getAllByNo(String no) {
+         HashMap hmap = new HashMap();
+        hmap.put("no", "%" + no + "%" );
+        
+//        System.out.println(hmap);
 
+        return CommonDao.select("Room.findAllByNo", hmap);
+    }
 
+    public static ObservableList<Room> getAllByType(Roomtype type) {
+        HashMap hmap = new HashMap();
+        hmap.put("type", type);
+
+        return CommonDao.select("Room.findAllByType", hmap);
+    }
+
+    public static ObservableList<Room> getAllByStatus(Roomstatus status) {
+        HashMap hmap = new HashMap();
+        hmap.put("status", status);
+
+        return CommonDao.select("Room.findAllByStatus", hmap);
+    }
+
+   
    
 
    
