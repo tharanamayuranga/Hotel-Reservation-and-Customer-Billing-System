@@ -174,6 +174,148 @@ public class ReservationUIController implements Initializable {
 
     }
 
+    private void loadForm() {
+
+        reservation = new Reservation();
+        oldReservation = null;
+
+        cmbExtBed.setItems(ExtBedDao.getAll());//get all cmb details
+        cmbExtBed.getSelectionModel().clearSelection();//clear the selected item
+
+        cmbPackage.setItems(PackageDao.getAll());
+        cmbPackage.getSelectionModel().clearSelection();
+
+        cmbReservationStatus.setItems(ReservationStatusDao.getAll());
+        cmbReservationStatus.getSelectionModel().clearSelection();
+
+        cmbRoomType.setItems(RoomTypeDao.getAll());
+        cmbRoomType.getSelectionModel().clearSelection();
+
+        cmbRoomNo.setItems(RoomDao.getAll());
+        cmbRoomType.getSelectionModel().clearSelection();
+
+//        cmbStatus.setItems(EmployeestatusDao.getAll());
+//        cmbStatus.getSelectionModel().select(0);//select the first index value
+//        cmbStatus.setDisable(true);//disable the combo box
+//        employee.setEmployeestatusId(cmbStatus.getSelectionModel().getSelectedItem());//add status details to employee object because it is disable combo box
+//        
+        txtID.setText("");
+        txtDisPresentage.setText("");
+        txtServiceChargePresentage.setText("");
+        txtVatPresentage.setText("");
+
+        dtpArrival.setValue(null);
+        dtpDeparture.setValue(null);
+
+        dtpReservationDate.setDisable(true);
+        dtpReservationDate.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(new Date())));
+        Date assign = java.sql.Date.valueOf(dtpReservationDate.getValue());
+        reservation.setReservationdate(assign);
+
+        if (ReservationDao.getLastReservationId() != null) {
+
+            lblReservationID.setText(String.format("%06d", ReservationDao.getLastReservationId() + 1));
+
+        } else {
+
+            lblReservationID.setText(String.format("%06d", 1));
+
+        }
+
+        dissableButtons(false, false, true, true);
+
+        setStyle(initial);
+    }
+
+    private void setStyle(String style) {
+
+        cmbExtBed.setStyle(style);
+        cmbPackage.setStyle(style);
+        cmbReservationStatus.setStyle(style);
+        cmbRoomType.setStyle(style);
+
+        txtID.setStyle(style);
+        txtDisPresentage.setStyle(style);
+        txtServiceChargePresentage.setStyle(style);
+        txtVatPresentage.setStyle(style);
+
+        if (!txtComments.getChildrenUnmodifiable().isEmpty()) {
+
+            ((ScrollPane) txtComments.getChildrenUnmodifiable().get(0)).getContent().setStyle(style);
+
+        }
+
+        dtpReservationDate.getEditor().setStyle(style);
+
+        cmbSearchRoomNo.setStyle(style);
+        dtpSearchArrival.setStyle(style);
+        dtpSearchDeparture.setStyle(style);
+        txtSearchName.setStyle(style);
+
+    }
+
+    private void dissableButtons(boolean select, boolean insert, boolean update, boolean delete) {
+
+        btnAdd.setDisable(insert);
+        btnUpdate.setDisable(update);
+        btnDelete.setDisable(delete);
+
+    }
+
+    private void loadTable() {
+
+        cmbSearchRoomNo.setItems(RoomDao.getAll());
+        cmbSearchRoomNo.getSelectionModel().clearSelection();
+        
+        txtSearchName.setText("");
+        dtpSearchArrival.setValue(null);
+        dtpSearchDeparture.setValue(null);
+
+        colReservationID.setCellValueFactory(new PropertyValueFactory("id"));
+        colGuestID.setCellValueFactory(new PropertyValueFactory("customer_id"));
+        colRoomNo.setCellValueFactory(new PropertyValueFactory("mobile"));
+        colArrival.setCellValueFactory(new PropertyValueFactory("arrival"));
+        colDeparture.setCellValueFactory(new PropertyValueFactory("departure"));
+
+        row = 0;
+        page = 0;
+
+        fillTable(ReservationDao.getAll());
+
+        pagination.setCurrentPageIndex(0);
+
+    }
+
+    private void fillTable(ObservableList<Reservation> reservation) {
+
+        if (reservation != null && !reservation.isEmpty()) {
+
+            int rowsCount = 5;
+            int pageCount = ((reservation.size() - 1) / rowsCount) + 1;
+            pagination.setPageCount(pageCount);
+
+            pagination.setPageFactory((Integer pageIndex) -> {
+                int start = pageIndex * rowsCount;
+                int end = pageIndex == pageCount - 1 ? reservation.size() : pageIndex * rowsCount + rowsCount;
+                tblReservation.getItems().clear();
+                tblReservation.setItems(FXCollections.observableArrayList(reservation.subList(start, end)));
+                return tblReservation;
+            });
+
+        } else {
+
+            pagination.setPageCount(1);
+            tblReservation.getItems().clear();
+
+        }
+
+        pagination.setCurrentPageIndex(page);
+        tblReservation.getSelectionModel().select(row);
+
+    }
+//</editor-fold>
+    
+    
     
 
 }
