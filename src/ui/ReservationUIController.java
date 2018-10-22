@@ -315,7 +315,177 @@ public class ReservationUIController implements Initializable {
     }
 //</editor-fold>
     
+    //<editor-fold defaultstate="collapsed" desc="Binding-Methods">
+    @FXML
+    private void txtIDKR(KeyEvent event) {
+         if ( !(txtID.getText().trim().isEmpty())) {
+            //txtID.getText().trim().matches("\\d*") &&
+            Customer customer = CustomerDao.getAllByCustomerID(txtID.getText().trim());
+            
+            if (customer != null) {
+                
+                reservation.setCustomerId(customer);
+                
+                txtID.setStyle(valid);
+                
+                toFillCustomerDetails(customer);
+                
+            } else {
+                
+                reservation.setCustomerId(null);
+                
+                txtID.setStyle(invalid);
+                
+                txtCustomerName.setText("");
+                txtCustomerMobile.setText("");
+                txtCustomerEmail.setText("");
+                
+                
+            }
+            
+        } else {
+            
+            reservation.setCustomerId(null);
+            
+            txtID.setStyle(invalid);
+                
+            txtCustomerName.setText("");
+            txtCustomerMobile.setText("");
+            txtCustomerEmail.setText("");
+            
+            
+        }
+    }
     
+    private void toFillCustomerDetails(Customer customer) {
+        
+
+        if (customer.getName() != null) {
+
+            txtCustomerName.setText(customer.getName());
+
+        } else {
+
+            txtCustomerName.setText("");
+
+        }
+
+        if (customer.getEmail() !=null) {
+
+            txtCustomerEmail.setText(customer.getEmail());
+
+        } else {
+
+            txtCustomerEmail.setText("");
+
+        }
+        if (customer.getMobile() !=null) {
+
+            txtCustomerMobile.setText(customer.getMobile());
+
+        } else {
+
+            txtCustomerEmail.setText("");
+
+        }
+         
+    }
+    @FXML
+    private void tblEmployeeMC(MouseEvent event) {
+    }
+    
+    @FXML
+    private void tblEmployeeKR(KeyEvent event) {
+    }
+    
+    
+    
+    @FXML
+    private void cmbPackageAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void cmbRoomTypeAP(ActionEvent event) {
+         if (cmbRoomType.getSelectionModel().getSelectedItem() != null) {
+            cmbRoomNo.setItems(
+                    RoomDao.getAllByRoomType(
+                            cmbRoomType.getSelectionModel().getSelectedItem())
+            );
+        }
+    }
+    
+    @FXML
+    private void dtpArrivalAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void dtpReservationDateAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void dtpDepartureAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void cmbExtBedAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void cmbReservationStatusAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void spnAdulltKR(KeyEvent event) {
+    }
+    
+    @FXML
+    private void btnNewCustomerAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void btnRoomAvailabilityAP(ActionEvent event) {
+    }
+    @FXML
+    private void cmbRoomNoAP(ActionEvent event) {
+    }
+//</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Operation-Methods">
+    @FXML
+    private void btnDeleteAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void btnUpdateAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void btnClearAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void btnAddAP(ActionEvent event) {
+    }
+//</editor-fold>
+        
+    //<editor-fold defaultstate="collapsed" desc="Search-Methods">
+    @FXML
+    private void cmbSearchRoomNoAP(ActionEvent event) {
+    }
+    @FXML
+    private void txtSearchNameKR(KeyEvent event) {
+    }
+    @FXML
+    private void btnSearchClearAP(ActionEvent event) {
+    }
+    @FXML
+    private void dtpSearchArrivalAP(ActionEvent event) {
+    }
+    
+    @FXML
+    private void dtpSearchDepartureAP(ActionEvent event) {
+    }
+//</editor-fold>
     
 
 }
