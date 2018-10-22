@@ -50,6 +50,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Reservation.findByServicechargeamount", query = "SELECT r FROM Reservation r WHERE r.servicechargeamount = :servicechargeamount")
 
     
+     // get last id
+    
+    , @NamedQuery(name = "Reservation.getReservationId", query = "SELECT r FROM Reservation r WHERE r.id = ( SELECT MAX(r.id) FROM Reservation r )"),
+    
     
     
 
