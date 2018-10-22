@@ -20,6 +20,19 @@ public class ReservationDao {
 
     }
        
- 
+    public static Integer getLastReservationId() {
+       
+        ObservableList<Reservation> list = CommonDao.select("Reservation.getReservationId");
+        
+        if (list.isEmpty()) {
+            
+            return null;
+            
+        } else {
+            
+            return list.get(0).getId();
+            
+        }
+    }
     
 }
