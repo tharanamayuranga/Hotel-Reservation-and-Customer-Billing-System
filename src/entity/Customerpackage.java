@@ -28,13 +28,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Tharana
  */
 @Entity
-@Table(name = "package")
+@Table(name = "customerpackage")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Package.findAll", query = "SELECT p FROM Package p")
-    , @NamedQuery(name = "Package.findById", query = "SELECT p FROM Package p WHERE p.id = :id")
-    , @NamedQuery(name = "Package.findByName", query = "SELECT p FROM Package p WHERE p.name = :name")})
-public class Package implements Serializable {
+    @NamedQuery(name = "Customerpackage.findAll", query = "SELECT c FROM Customerpackage c")
+    , @NamedQuery(name = "Customerpackage.findById", query = "SELECT c FROM Customerpackage c WHERE c.id = :id")
+    , @NamedQuery(name = "Customerpackage.findByName", query = "SELECT c FROM Customerpackage c WHERE c.name = :name")})
+public class Customerpackage implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,13 +45,13 @@ public class Package implements Serializable {
     @Size(max = 45)
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "packageId", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerpackageId", fetch = FetchType.EAGER)
     private List<Reservation> reservationList;
 
-    public Package() {
+    public Customerpackage() {
     }
 
-    public Package(Integer id) {
+    public Customerpackage(Integer id) {
         this.id = id;
     }
 
@@ -90,10 +90,10 @@ public class Package implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Package)) {
+        if (!(object instanceof Customerpackage)) {
             return false;
         }
-        Package other = (Package) object;
+        Customerpackage other = (Customerpackage) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
