@@ -6,7 +6,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -41,24 +40,36 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Reservation.findByAdultscount", query = "SELECT r FROM Reservation r WHERE r.adultscount = :adultscount")
     , @NamedQuery(name = "Reservation.findByChildcount", query = "SELECT r FROM Reservation r WHERE r.childcount = :childcount")
     , @NamedQuery(name = "Reservation.findByNights", query = "SELECT r FROM Reservation r WHERE r.nights = :nights")
-    , @NamedQuery(name = "Reservation.findBySubtotal", query = "SELECT r FROM Reservation r WHERE r.subtotal = :subtotal")
-    , @NamedQuery(name = "Reservation.findByVatpresentage", query = "SELECT r FROM Reservation r WHERE r.vatpresentage = :vatpresentage")
-    , @NamedQuery(name = "Reservation.findByDispresentage", query = "SELECT r FROM Reservation r WHERE r.dispresentage = :dispresentage")
-    , @NamedQuery(name = "Reservation.findByVatamount", query = "SELECT r FROM Reservation r WHERE r.vatamount = :vatamount")
-    , @NamedQuery(name = "Reservation.findByDisamaount", query = "SELECT r FROM Reservation r WHERE r.disamaount = :disamaount")
-    , @NamedQuery(name = "Reservation.findByServicechargepresentage", query = "SELECT r FROM Reservation r WHERE r.servicechargepresentage = :servicechargepresentage")
-    , @NamedQuery(name = "Reservation.findByServicechargeamount", query = "SELECT r FROM Reservation r WHERE r.servicechargeamount = :servicechargeamount")
 
-    
-     // get last id
-    
+     //to get last reservation id
     , @NamedQuery(name = "Reservation.getReservationId", query = "SELECT r FROM Reservation r WHERE r.id = ( SELECT MAX(r.id) FROM Reservation r )"),
     
-    
-    
-
 })
 public class Reservation implements Serializable {
+
+    @Size(max = 45)
+    @Column(name = "comments")
+    private String comments;
+
+    @JoinColumn(name = "customerpackage_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Customerpackage customerpackageId;
+
+    @JoinColumn(name = "reservationstatus_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Reservationstatus reservationstatusId;
+
+    @JoinColumn(name = "extrabed_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Extrabed extrabedId;
+
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Customer customerId;
+
+    @JoinColumn(name = "room_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Room roomId;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -79,39 +90,8 @@ public class Reservation implements Serializable {
     private Integer adultscount;
     @Column(name = "childcount")
     private Integer childcount;
-    @Size(max = 45)
     @Column(name = "nights")
-    private String nights;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "subtotal")
-    private BigDecimal subtotal;
-    @Column(name = "vatpresentage")
-    private Integer vatpresentage;
-    @Column(name = "dispresentage")
-    private Integer dispresentage;
-    @Column(name = "vatamount")
-    private BigDecimal vatamount;
-    @Column(name = "disamaount")
-    private BigDecimal disamaount;
-    @Column(name = "servicechargepresentage")
-    private Integer servicechargepresentage;
-    @Column(name = "servicechargeamount")
-    private BigDecimal servicechargeamount;
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Customer customerId;
-    @JoinColumn(name = "extrabed_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Extrabed extrabedId;
-    @JoinColumn(name = "package_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Package packageId;
-    @JoinColumn(name = "reservationstatus_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Reservationstatus reservationstatusId;
-    @JoinColumn(name = "room_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Room roomId;
+    private Integer nights;
 
     public Reservation() {
     }
@@ -168,108 +148,24 @@ public class Reservation implements Serializable {
         this.childcount = childcount;
     }
 
-    public String getNights() {
+    public Integer getNights() {
         return nights;
     }
 
-    public void setNights(String nights) {
-        this.nights = nights;
-    }
-
-    public BigDecimal getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(BigDecimal subtotal) {
-        this.subtotal = subtotal;
-    }
-
-    public Integer getVatpresentage() {
-        return vatpresentage;
-    }
-
-    public void setVatpresentage(Integer vatpresentage) {
-        this.vatpresentage = vatpresentage;
-    }
-
-    public Integer getDispresentage() {
-        return dispresentage;
-    }
-
-    public void setDispresentage(Integer dispresentage) {
-        this.dispresentage = dispresentage;
-    }
-
-    public BigDecimal getVatamount() {
-        return vatamount;
-    }
-
-    public void setVatamount(BigDecimal vatamount) {
-        this.vatamount = vatamount;
-    }
-
-    public BigDecimal getDisamaount() {
-        return disamaount;
-    }
-
-    public void setDisamaount(BigDecimal disamaount) {
-        this.disamaount = disamaount;
-    }
-
-    public Integer getServicechargepresentage() {
-        return servicechargepresentage;
-    }
-
-    public void setServicechargepresentage(Integer servicechargepresentage) {
-        this.servicechargepresentage = servicechargepresentage;
-    }
-
-    public BigDecimal getServicechargeamount() {
-        return servicechargeamount;
-    }
-
-    public void setServicechargeamount(BigDecimal servicechargeamount) {
-        this.servicechargeamount = servicechargeamount;
-    }
-
-    public Customer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
-    }
-
-    public Extrabed getExtrabedId() {
-        return extrabedId;
-    }
-
-    public void setExtrabedId(Extrabed extrabedId) {
-        this.extrabedId = extrabedId;
-    }
-
-    public Package getPackageId() {
-        return packageId;
-    }
-
-    public void setPackageId(Package packageId) {
-        this.packageId = packageId;
-    }
-
-    public Reservationstatus getReservationstatusId() {
-        return reservationstatusId;
-    }
-
-    public void setReservationstatusId(Reservationstatus reservationstatusId) {
-        this.reservationstatusId = reservationstatusId;
-    }
-
-    public Room getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(Room roomId) {
-        this.roomId = roomId;
+    public boolean  setNights(Integer nights) {
+         boolean validity = nights != null;
+        
+        if(validity){
+            
+            this.nights = nights; 
+            
+        } else { 
+            
+            this.nights = null; 
+        
+        } 
+        
+        return validity; 
     }
 
     @Override
@@ -295,6 +191,66 @@ public class Reservation implements Serializable {
     @Override
     public String toString() {
         return "entity.Reservation[ id=" + id + " ]";
+    }
+
+    public Room getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Room roomId) {
+        this.roomId = roomId;
+    }
+
+    public Customer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Customer customerId) {
+        this.customerId = customerId;
+    }
+
+    public Extrabed getExtrabedId() {
+        return extrabedId;
+    }
+
+    public void setExtrabedId(Extrabed extrabedId) {
+        this.extrabedId = extrabedId;
+    }
+
+    public Reservationstatus getReservationstatusId() {
+        return reservationstatusId;
+    }
+
+    public void setReservationstatusId(Reservationstatus reservationstatusId) {
+        this.reservationstatusId = reservationstatusId;
+    }
+
+    public Customerpackage getCustomerpackageId() {
+        return customerpackageId;
+    }
+
+    public void setCustomerpackageId(Customerpackage customerpackageId) {
+        this.customerpackageId = customerpackageId;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public boolean  setComments(String comments) {
+               boolean validity = comments != null && comments.matches("^[_A-Za-z0-9-/.:,\\s]{5}[_A-Za-z0-9-/.:,\\s]*"); 
+        
+        if(validity){
+            
+            this.comments = comments; 
+        
+        } else { 
+            
+            this.comments=null;
+        
+        } 
+        
+        return validity;
     }
     
 }
