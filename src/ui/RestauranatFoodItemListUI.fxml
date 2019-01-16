@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="381.0" prefWidth="784.0" styleClass="mainFxmlClass" stylesheets="@../css/style1.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RestauranatFoodItemListUIController">
+   <children>
+      <ListView fx:id="lstFoodItems" layoutX="50.0" layoutY="114.0" onMouseClicked="#lstItemsMC" prefHeight="200.0" prefWidth="143.0" styleClass="innerpane" />
+      <ScrollPane fx:id="scpSelectedFoodItems" layoutX="252.0" layoutY="114.0" prefHeight="200.0" prefWidth="504.0" styleClass="innerpane" />
+      <Label fx:id="lblTotalPrice" layoutX="280.0" layoutY="330.0" prefHeight="36.0" prefWidth="257.0" />
+      <JFXTextField fx:id="txtSearchFoodItems" layoutX="47.0" layoutY="70.0" onKeyReleased="#txtSearchFoodItemsKR" promptText="Search Food Item" />
+      <Label layoutX="52.0" layoutY="334.0" prefHeight="17.0" prefWidth="143.0" text="Total Price" />
+      <JFXButton fx:id="btnAddFoodItems" layoutX="640.0" layoutY="330.0" onAction="#btnAddFoodItemsAP" prefHeight="25.0" prefWidth="116.0" text="Add Food items" />
+   </children>
+</AnchorPane>
