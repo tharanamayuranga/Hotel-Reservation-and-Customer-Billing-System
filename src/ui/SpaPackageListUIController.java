@@ -82,6 +82,40 @@ public class SpaPackageListUIController implements Initializable {
 
 
     @FXML
+    private void txtSearchSpapackagesKR(KeyEvent event) {
+        String jobId = txtSearchSpapackages.getText().trim();
+        boolean sjobId = !jobId.isEmpty();
+        ObservableList<Spapackage> allItems = FXCollections.observableArrayList();
+        ObservableList<Spapackage> setItems = FXCollections.observableArrayList();
+        ObservableList<Spapackagelist> addedItems = FXCollections.observableArrayList();
+//        ObservableList<Restaurantfooditemlist> addedItems = (ObservableList<Restaurantfooditemlist>) foodItems.getRestaurantfooditemlistList();
+        for (int i = 0; i < spaPackages.getSpapackagelistList().size(); i++) {
+            addedItems.add(spaPackages.getSpapackagelistList().get(i));
+        }
+        if (sjobId) {
+            allItems = SpaPackageDao.getAllByName(jobId);
+            setItems = SpaPackageDao.getAllByName(jobId);
+        } else {
+            allItems = SpaPackageDao.getAll();
+            setItems = SpaPackageDao.getAll();
+        }
+        for (int i = 0; i < allItems.size(); i++) {
+            for (int j = 0; j < addedItems.size(); j++) {
+                if (addedItems.get(j).getSpapackageId().getId() == allItems.get(i).getId()) {
+                    setItems.remove(allItems.get(i));
+                }
+            }
+        }
+        if (0 != addedItems.size()) {
+            lstSpaPackages.getItems().clear();
+            lstSpaPackages.getItems().addAll(setItems);
+        } else {
+            lstSpaPackages.getItems().clear();
+            lstSpaPackages.getItems().addAll(allItems);
+        }
+    }
+
+    @FXML
     private void btnAddSpaPackagesAP(ActionEvent event) {
         // get all
         List<Spapackagelist> allList = SpaPackagelistDao.getAllBySpaBillId(spaBill);
