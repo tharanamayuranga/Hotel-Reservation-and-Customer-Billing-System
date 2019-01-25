@@ -80,6 +80,24 @@ public class SpaPackageListUIController implements Initializable {
 
 
 
+    @FXML
+    private void lstISpaPackagesMC(MouseEvent event) {
+        if (2 == event.getClickCount()) {
+            if (null != lstSpaPackages.getSelectionModel().getSelectedItem()) {
+
+                Spapackagelist newInner = new Spapackagelist();
+
+                newInner.setSpapackageId(lstSpaPackages.getSelectionModel().getSelectedItem());
+                newInner.setQty(1);
+
+                spaPackages.getSpapackagelistList().add(newInner);
+
+                toFillList(spaPackages.getSpapackagelistList());
+
+                lstSpaPackages.getItems().removeAll(lstSpaPackages.getSelectionModel().getSelectedItems());
+            }
+        }
+    }
 
     @FXML
     private void txtSearchSpapackagesKR(KeyEvent event) {
