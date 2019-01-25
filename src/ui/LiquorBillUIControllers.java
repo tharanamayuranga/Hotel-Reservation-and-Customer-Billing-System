@@ -426,7 +426,39 @@ public class LiquorBillUIControllers implements Initializable {
         }
     }
 
-   
+    private void toFillCustomerDetails(Reservation reservation) {
+
+        if (reservation.getCustomerId().getName() != null) {
+
+            txtCustomerName.setText(reservation.getCustomerId().getName());
+
+        } else {
+
+            txtCustomerName.setText("");
+
+        }
+
+        if (reservation.getCustomerId().getEmail() != null) {
+
+            txtCustomerEmail.setText(reservation.getCustomerId().getEmail());
+
+        } else {
+
+            txtCustomerEmail.setText("");
+
+        }
+        if (reservation.getCustomerId().getMobile() != null) {
+
+            txtCustomerMobile.setText(reservation.getCustomerId().getMobile());
+
+        } else {
+
+            txtCustomerEmail.setText("");
+
+        }
+        lblCustomerID.setText(reservation.getId().toString());
+
+    }
 
     @FXML
     private void dtpReservedDateAP(ActionEvent event) {
