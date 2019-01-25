@@ -78,7 +78,98 @@ public class SpaPackageListUIController implements Initializable {
         toFillList(spaPackages.getSpapackagelistList());
     }
 
+    private void toFillList(List<Spapackagelist> innertableList) {
+        GridPane gridPane = new GridPane();
 
+        gridPane.setPadding(new Insets(5, 5, 5, 5));
+        gridPane.setHgap(10);
+        gridPane.setVgap(10);
+
+        scpSelectedSpaPackages.setContent(gridPane);
+        scpSelectedSpaPackages.setPannable(true);
+
+        DropShadow dsForText = new DropShadow(20, Color.GREEN);
+
+        for (int i = 0; i < innertableList.size(); i++) {
+            Label lable = new Label("");
+
+            lable.setText(innertableList.get(i).getSpapackageId().getName());
+            lable.setId(String.valueOf(i));
+
+            Label lableUnitPize = new Label(innertableList.get(i).getSpapackageId().getPackageprice().toString());
+            lableUnitPize.setId(String.valueOf(i));
+
+            TextField textField = new TextField(innertableList.get(i).getQty().toString());
+
+            textField.setId(String.valueOf(i));
+            textField.setMaxSize(50, 10);
+
+            UnaryOperator unaryOperatorFortxtQuantity = new UnaryOperator<TextFormatter.Change>() {
+                @Override
+                public TextFormatter.Change apply(TextFormatter.Change t) {
+                    for (int i = 0; i < t.getText().length(); i++) {
+                        if (t.getText().substring(0, i + 1).matches("\\d")) {
+                            return t;
+                        } else {
+                            return null;
+                        }
+                    }
+
+                    return t;
+                }
+            };
+
+            TextFormatter textFormatterFortxtQuantity = new TextFormatter<String>(unaryOperatorFortxtQuantity);
+
+            textField.setTextFormatter(textFormatterFortxtQuantity);
+
+            Label lablePrice = new Label("");
+            lablePrice.setText(String.valueOf(innertableList.get(i).getSpapackageId().getPackageprice().multiply(new BigDecimal(innertableList.get(i).getQty()))));
+            lablePrice.setId(String.valueOf(i));
+
+            Button delete = new Button("Delete");
+            delete.setId(String.valueOf(i));
+
+            gridPane.add(lable, 0, i);
+            gridPane.add(lableUnitPize, 4, i);
+            gridPane.add(textField, 8, i);
+            gridPane.add(lablePrice, 12, i);
+            gridPane.add(delete, 16, i);
+
+            textField.setOnKeyReleased((event) -> {
+                int y = Integer.valueOf(textField.getId());
+
+                if (!textField.getText().trim().equals("") && textField.getText().trim().matches("[^0]{1}\\d*")) {
+                    innertableList.get(y).setQty(new Integer(textField.getText().trim()));
+                } else {
+                    innertableList.get(y).setQty(1);
+                }
+
+                toFillList(innertableList);
+            });
+
+            delete.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    int x = Integer.valueOf(delete.getId());
+
+                    lstSpaPackages.getItems().addAll(FXCollections.observableArrayList(innertableList.get(x).getSpapackageId()));
+
+                    innertableList.remove(x);
+
+                    toFillList(innertableList);
+                }
+            });
+        }
+
+        BigDecimal totalCost = BigDecimal.ZERO;
+
+        for (int i = 0; i < innertableList.size(); i++) {
+            totalCost = totalCost.add(innertableList.get(i).getSpapackageId().getPackageprice().multiply(new BigDecimal(innertableList.get(i).getQty())));
+        }
+
+        lblTotalPrice.setText(totalCost.toString());
+    }
 
     @FXML
     private void lstISpaPackagesMC(MouseEvent event) {
