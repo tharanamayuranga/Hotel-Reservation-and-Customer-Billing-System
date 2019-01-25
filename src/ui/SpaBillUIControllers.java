@@ -338,7 +338,44 @@ public class SpaBillUIControllers implements Initializable {
     private void dtpReservedDateAP(ActionEvent event) {
     }
 
-   
+    @FXML
+    private void txtIDKR(KeyEvent event) {
+        if (!(txtID.getText().trim().isEmpty()) && txtID.getText().trim().matches("\\d{9}[V|v|x|X]")) {
+
+            Reservation reservarion = ReservationDao.getAllByCustomerID(txtID.getText().trim());
+
+            if (reservarion != null) {
+
+                spaBill.setReservationId(reservarion);
+
+                txtID.setStyle(valid);
+
+                toFillCustomerDetails(reservarion);
+
+            } else {
+
+                spaBill.setReservationId(null);
+
+                txtID.setStyle(invalid);
+
+                txtCustomerName.setText("");
+                txtCustomerMobile.setText("");
+                txtCustomerEmail.setText("");
+
+            }
+
+        } else {
+
+            spaBill.setReservationId(null);
+
+            txtID.setStyle(invalid);
+
+            txtCustomerName.setText("");
+            txtCustomerMobile.setText("");
+            txtCustomerEmail.setText("");
+
+        }
+    }
 
     private void toFillCustomerDetails(Reservation reservation) {
 
