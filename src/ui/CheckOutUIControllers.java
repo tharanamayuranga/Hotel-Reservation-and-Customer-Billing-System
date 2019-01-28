@@ -519,6 +519,40 @@ public class CheckOutUIControllers implements Initializable {
     private void cmbReservationTypeAP(ActionEvent event) {
     }
 
+    @FXML
+    private void btnCheckOutAP(ActionEvent event) {
+        
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
+        alert.setTitle("Check Out Module");
+        alert.setHeaderText("Check out Module");
+        alert.setContentText("Are you sure  need to check out this reservation");
+
+        DialogPane dialogPane = alert.getDialogPane();
+
+        dialogPane.getStylesheets().add(getClass().getResource("/css/style1.css").toExternalForm());
+        dialogPane.getStyleClass().add("myDialogForConfirmation");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.OK) {
+            reservation.setReservationstatusId(ReservationStatusDao.getCheckoutTypeOnly());
+            //  Notification.Notifier.INSTANCE.notifySuccess("Update", employee.getName() + " is updated!");
+            reservation.setCheckindate(today);
+            
+            ReservationDao.update(reservation);
+            loadTable();
+                loadForm();
+//            try {
+//                AnchorPane root = FXMLLoader.load(Main.class.getResource("CheckinMainUI.fxml"));
+//                apnCheckIn.getChildren().clear();
+//                apnCheckIn.getChildren().add(root);
+//            } catch (IOException ex) {
+//                Logger.getLogger(MainWindowController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+
+        }
+
+    }
 
 }
