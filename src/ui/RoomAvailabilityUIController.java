@@ -671,6 +671,73 @@ public class RoomAvailabilityUIController implements Initializable {
         return outPut;
     }
 
+	    private void loadTable(String startData, String endDate) {
+        ObservableList<MyObject> characters = FXCollections.observableArrayList();
+
+        Connection connection = null; // To set hibernate connection before
+
+        String location = "jdbc:mysql://localhost/hrh";
+        String username = "root";
+        String password = "1234";
+
+        try {
+            connection = DriverManager.getConnection(location, username, password);
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+        String query = "SELECT "
+                + "group_concat(TRIM(LEADING \'0\' FROM if(DATE_FORMAT(r.arrival, \'%d\')>DATE_FORMAT('" + startData + "', \'%d\'),"
+                + "DATE_FORMAT(r.arrival, \'%d\'),DATE_FORMAT('" + startData + "', \'%d\'))) separator \', \') as fromList, "
+                + "group_concat(TRIM(LEADING \'0\' FROM if(DATE_FORMAT(r.departure, \'%d\')<DATE_FORMAT('" + endDate + "', \'%d\'),"
+                + "DATE_FORMAT(r.departure, \'%d\'),DATE_FORMAT('" + endDate + "', \'%d\'))) separator \', \') as toList, "
+                + "r.room_id as room "
+                + "FROM reservation r "
+                + "where r.reservationstatus_id = 1 and r.arrival between '" + startData + " 00:00:00' and '" + endDate + " 23:59:59' "
+                + "group by r.room_id";
+        
+
+//        String query = "SELECT "
+//                + "group_concat(TRIM(LEADING \'0\' FROM if(DATE_FORMAT(r.arrival, \'%d\')>DATE_FORMAT('" + "2018-11-08" + "', \'%d\'),DATE_FORMAT(r.arrival, \'%d\'),DATE_FORMAT('" + "2018-11-08" + "', \'%d\'))) separator \', \') as fromList, "
+//                + "group_concat(TRIM(LEADING \'0\' FROM if(DATE_FORMAT(r.departure, \'%d\')<DATE_FORMAT('" + "2018-11-25" + "', \'%d\'),DATE_FORMAT(r.departure, \'%d\'),DATE_FORMAT('" + "2018-11-25" + "', \'%d\'))) separator \', \') as toList, "
+//                + "r.room_id as room "
+//                + "FROM reservation r "
+//                + "where r.arrival between '" + "2018-11-08" + " 00:00:00' and '" + "2018-11-25" + " 23:59:59' "
+//                + "group by r.room_id";
+        try {
+            PreparedStatement statement = connection.prepareStatement(query); //To defend mysql injection
+
+            ResultSet results = statement.executeQuery();
+
+            ObservableList<Room> romms = RoomDao.getAll();
+            int rommListSize = romms.size();
+            for (int i = 0; i < rommListSize; i++) {
+                try {
+                    if (results.next()) {
+                        for (int y = 0; y < rommListSize; y++) {
+                            if (results.getString("room").toString().equals(romms.get(y).getId().toString())) {
+                                MyObject x = new MyObject();
+
+                                x.setRoom((romms.get(y).getNo().toString()));
+
+                                String[] fromArray = results.getString("fromList").split("\\,", -1);
+                                String[] toArray = results.getString("toList").split("\\,", -1);
+
+                                characters.add(setValuesForTheObject(x, getListOfDays(fromArray, toArray)));
+                            }
+                        }
+                    }
+                } catch (SQLException e) {
+                    System.out.println(e);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        tblEmployee.getItems().clear();
+        tblEmployee.getItems().clear();
+        tblEmployee.setItems(FXCollections.observableArrayList(characters));
     }
 
 	}
