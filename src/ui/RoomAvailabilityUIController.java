@@ -117,9 +117,43 @@ public class RoomAvailabilityUIController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        colRoom.setCellValueFactory(new PropertyValueFactory("room"));
+        col1.setCellValueFactory(new PropertyValueFactory("one"));
+        col2.setCellValueFactory(new PropertyValueFactory("two"));
+        col3.setCellValueFactory(new PropertyValueFactory("three"));
+        col4.setCellValueFactory(new PropertyValueFactory("four"));
+        col5.setCellValueFactory(new PropertyValueFactory("five"));
+        col6.setCellValueFactory(new PropertyValueFactory("six"));
+        col7.setCellValueFactory(new PropertyValueFactory("seven"));
+        col8.setCellValueFactory(new PropertyValueFactory("eight"));
+        col9.setCellValueFactory(new PropertyValueFactory("nine"));
+        col10.setCellValueFactory(new PropertyValueFactory("ten"));
+        col11.setCellValueFactory(new PropertyValueFactory("eleven"));
+        col12.setCellValueFactory(new PropertyValueFactory("twelve"));
+        col13.setCellValueFactory(new PropertyValueFactory("thirteen"));
+        col14.setCellValueFactory(new PropertyValueFactory("fourteen"));
+        col15.setCellValueFactory(new PropertyValueFactory("fifteen"));
+        col16.setCellValueFactory(new PropertyValueFactory("sixteen"));
+        col17.setCellValueFactory(new PropertyValueFactory("seventeen"));
+        col18.setCellValueFactory(new PropertyValueFactory("eighteen"));
+        col19.setCellValueFactory(new PropertyValueFactory("nineteen"));
+        col20.setCellValueFactory(new PropertyValueFactory("twenty"));
+        col21.setCellValueFactory(new PropertyValueFactory("twentyone"));
+        col22.setCellValueFactory(new PropertyValueFactory("twentytwo"));
+        col23.setCellValueFactory(new PropertyValueFactory("twentythree"));
+        col24.setCellValueFactory(new PropertyValueFactory("twentyfour"));
+        col25.setCellValueFactory(new PropertyValueFactory("twentyfive"));
+        col26.setCellValueFactory(new PropertyValueFactory("twentysix"));
+        col27.setCellValueFactory(new PropertyValueFactory("twentyseven"));
+        col28.setCellValueFactory(new PropertyValueFactory("twentyeight"));
+        col29.setCellValueFactory(new PropertyValueFactory("twentynine"));
+        col30.setCellValueFactory(new PropertyValueFactory("thirty"));
+        col31.setCellValueFactory(new PropertyValueFactory("thirtyone"));
 
+	}
+   
 
-    @FXML
-    private void btnClearAP(ActionEvent event) {
-    }
+   
 }
