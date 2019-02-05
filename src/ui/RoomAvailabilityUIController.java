@@ -169,6 +169,22 @@ public class RoomAvailabilityUIController implements Initializable {
                 };
             }
         });
+		    col2.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
 
 	}
    
