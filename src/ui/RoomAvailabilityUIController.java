@@ -329,6 +329,246 @@ public class RoomAvailabilityUIController implements Initializable {
                 };
             }
         });
+		  col12.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
+        col13.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
+        col14.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
+        col15.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
+        col16.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
+        col17.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
+        col18.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
+        col19.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
+        col20.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
+        col21.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
+        col22.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
+        col23.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
+        col24.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
+        col25.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
+        col26.setCellFactory(new Callback<TableColumn<MyObject, String>, TableCell<MyObject, String>>() {
+            @Override
+            public TableCell<MyObject, String> call(TableColumn<MyObject, String> param) {
+
+                return new TableCell<MyObject, String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        if (null != item) {
+                            setStyle("-fx-background-color: red");
+                        } else {
+                            setStyle(null);
+                        }
+                    }
+                };
+            }
+        });
 
 	}
    
