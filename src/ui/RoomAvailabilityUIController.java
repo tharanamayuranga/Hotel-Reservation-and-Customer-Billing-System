@@ -671,6 +671,8 @@ public class RoomAvailabilityUIController implements Initializable {
         return outPut;
     }
 
+    }
+
 	}
    
 
