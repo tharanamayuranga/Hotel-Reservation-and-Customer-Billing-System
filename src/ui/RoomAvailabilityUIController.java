@@ -649,6 +649,27 @@ public class RoomAvailabilityUIController implements Initializable {
                 };
             }
         });
+		
+    private ObservableList<String> getListOfDays(String[] fromArray, String[] toArray) {
+        ObservableList<String> outPut = FXCollections.observableArrayList();
+
+        for (int i = 0; i < fromArray.length; i++) {
+            int Low = Integer.parseInt(fromArray[i].trim());
+            int High = Integer.parseInt(toArray[i].trim());
+            int diff = High - Low;
+
+            if (1 != diff) {
+                for (int j = 0; j < diff - 1; j++) {
+                    outPut.add(String.valueOf(Low + j + 1));
+                }
+            }
+
+            outPut.add(fromArray[i]);
+            outPut.add(toArray[i]);
+        }
+
+        return outPut;
+    }
 
 	}
    
