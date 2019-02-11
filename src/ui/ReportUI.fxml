@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane id="AnchorPane" prefHeight="750.0" prefWidth="1070.0" styleClass="mainFxmlClass" stylesheets="@../css/style1.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.ReportUIControllers">
+<children><Pane layoutY="-5.0" prefHeight="68.0" prefWidth="1200.0" styleClass="moduletopicback" stylesheets="@../css/style1.css">
+<children><Label layoutX="473.0" layoutY="16.0" styleClass="moduletopic" text="Reports" />
+</children></Pane>
+      <JFXButton fx:id="btnGuestReport" layoutX="186.0" layoutY="290.0" onAction="#btnGuestReportAP" prefHeight="46.0" prefWidth="167.0" text="All Guest Report" />
+      <JFXButton fx:id="btnEmployeeReport" layoutX="671.0" layoutY="290.0" onAction="#btnEmployeeReportAP" prefHeight="46.0" prefWidth="167.0" text="All Employee Report" />
+      <JFXButton fx:id="btnReservationReport" layoutX="425.0" layoutY="290.0" onAction="#btnReservationReportAp" prefHeight="46.0" prefWidth="167.0" text="All Reservation Report" />
+</children>
+</AnchorPane>
