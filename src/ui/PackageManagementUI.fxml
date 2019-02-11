@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1085.0" styleClass="mainFxmlClass" stylesheets="@../css/style1.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.RoomTypeManagementUIController">
+   <children>
+      <Pane layoutX="518.0" layoutY="567.0" prefHeight="79.0" prefWidth="570.0" styleClass="innerpane" />
+      <Pane layoutX="518.0" layoutY="311.0" prefHeight="249.0" prefWidth="570.0" styleClass="innerpane" />
+      <Pane layoutX="517.0" layoutY="112.0" prefHeight="192.0" prefWidth="570.0" styleClass="innerpane">
+         <children>
+            <Label layoutX="34.0" layoutY="66.0" text="Search By Room Type" />
+         </children></Pane>
+      <Pane layoutX="49.0" layoutY="112.0" prefHeight="534.0" prefWidth="460.0" styleClass="innerpane">
+         <children>
+            <Label layoutX="67.0" layoutY="30.0" text="*" textFill="RED">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="32.0" layoutY="231.0" text="Room Facilities">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font></Label>
+            <JFXTextField fx:id="txtRoomType" focusColor="#007599" layoutX="133.0" layoutY="22.0" maxWidth="320.0" minWidth="292.0" onKeyReleased="#txtRoomTypeKR" prefHeight="31.0" prefWidth="292.0" promptText="Type Room type" styleClass="textField" />
+            <JFXCheckBox fx:id="cbxFun1" layoutX="39.0" layoutY="288.0" text="King Bed(F1)" />
+            <JFXCheckBox fx:id="cbxFun6" layoutX="238.0" layoutY="288.0" text="Mini Bar(F6)" />
+            <JFXCheckBox fx:id="cbxFun4" layoutX="39.0" layoutY="399.0" text="40-inch LED TV, DVD player(F4)" />
+            <JFXCheckBox fx:id="cbxFun3" layoutX="39.0" layoutY="364.0" text="Balcony with Ocean View(F3)" />
+            <JFXCheckBox fx:id="cbxFun2" layoutX="39.0" layoutY="326.0" text="Twin beds(F2)" />
+            <JFXCheckBox fx:id="cbxFun8" layoutX="239.0" layoutY="360.0" text="Rain shower(F8)" />
+            <JFXCheckBox fx:id="cbxFun7" layoutX="238.0" layoutY="326.0" text=" Free WiFi(F7)" />
+            <JFXCheckBox fx:id="cbxFun9" layoutX="239.0" layoutY="399.0" prefHeight="17.0" prefWidth="215.0" text="Tea Making Facilities(F9)" />
+            <JFXTextField fx:id="txtArea" focusColor="#007599" layoutX="133.0" layoutY="61.0" maxWidth="320.0" minWidth="292.0" onKeyReleased="#txtAreaKR" prefHeight="31.0" prefWidth="292.0" promptText="Type Area" styleClass="textField" />
+            <JFXTextField fx:id="txtRoomTypePrice" focusColor="#007599" layoutX="133.0" layoutY="96.0" maxWidth="320.0" minWidth="292.0" onKeyReleased="#txtRoomTypePriceKR" prefHeight="31.0" prefWidth="292.0" promptText="Type Per Day" styleClass="textField" />
+            <JFXCheckBox fx:id="cbxFun5" layoutX="39.0" layoutY="436.0" text="Telephone with IDD(F5)" />
+            <JFXCheckBox fx:id="cbxFun10" layoutX="240.0" layoutY="437.0" text="Hot and cool water(F10)" />
+            <JFXTextField fx:id="txtSearchRoomType" focusColor="#007599" layoutX="632.0" layoutY="59.0" maxWidth="320.0" minWidth="292.0" onKeyReleased="#txtSearchRoomTypeKR" prefHeight="31.0" prefWidth="292.0" promptText="Type Room type" styleClass="textField" />
+            <TextArea fx:id="txtDescription" layoutX="139.0" layoutY="145.0" onKeyPressed="#txtDescriptionKR" prefHeight="79.0" prefWidth="276.0" />
+            <Label layoutX="99.0" layoutY="136.0" text="*" textFill="RED">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="76.0" layoutY="98.0" text="*" textFill="RED">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="63.0" layoutY="66.0" text="*" textFill="RED">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <Pagination fx:id="pagination" layoutX="520.0" layoutY="311.0" prefHeight="249.0" prefWidth="559.0" />
+      <Pane prefHeight="56.0" prefWidth="1145.0" styleClass="moduletopicback" stylesheets="@../css/style1.css">
+         <children>
+            <Label layoutX="38.0" layoutY="15.0" prefHeight="33.0" prefWidth="310.0" styleClass="moduletopic" text="Room Type Management" />
+         </children>
+      </Pane>
+      <Label layoutX="58.0" layoutY="148.0" text="Room Type" />
+      <TableView fx:id="tblRoomType" layoutX="526.0" layoutY="319.0" onKeyReleased="#tblRoomTypeKR" onMouseClicked="#tblRoomTypeMC" prefHeight="200.0" prefWidth="546.0">
+        <columns>
+          <TableColumn fx:id="colRoomType" prefWidth="103.0" text="Room Type" />
+          <TableColumn fx:id="colFun1" prefWidth="49.0" text="F1" />
+            <TableColumn fx:id="colFun2" prefWidth="38.0" text="F2" />
+            <TableColumn fx:id="colFun3" prefWidth="38.0" text="F3" />
+            <TableColumn fx:id="colFun4" prefWidth="42.0" text="F4" />
+            <TableColumn fx:id="colFun5" prefWidth="45.0" text="F5" />
+            <TableColumn fx:id="colFun6" prefWidth="48.0" text="F6" />
+            <TableColumn fx:id="colFun7" prefWidth="44.0" text="F7" />
+            <TableColumn fx:id="colFun8" prefWidth="45.0" text="F8" />
+            <TableColumn fx:id="colFun9" prefWidth="40.0" text="F9" />
+            <TableColumn fx:id="colFun10" prefWidth="51.0" text="F10" />
+        </columns>
+         <styleClass>
+            <String fx:value="TableView" />
+            <String fx:value="table-view" />
+         </styleClass>
+      </TableView>
+      <JFXButton fx:id="btnSearchClear" layoutX="955.0" layoutY="246.0" onAction="#btnSearchClearAP" text="Search Clear" />
+      <JFXButton fx:id="btnAdd" layoutX="906.0" layoutY="585.0" onAction="#btnAddAP" prefHeight="39.0" prefWidth="84.0" text="Insert">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnDelete" layoutX="614.0" layoutY="586.0" onAction="#btnDeleteAP" prefHeight="39.0" prefWidth="84.0" text="Delete">
+         <font>
+            <Font size="18.0" />
+         </font></JFXButton>
+      <JFXButton fx:id="btnClear" layoutX="808.0" layoutY="586.0" onAction="#btnClearAP" text="Refresh">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnUpdate" layoutX="711.0" layoutY="586.0" onAction="#btnUpdateAP" prefHeight="39.0" prefWidth="84.0" text="Update">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="57.0" layoutY="184.0" text="Room Area" />
+      <Label layoutX="58.0" layoutY="255.0" text="Room Description" />
+      <Label layoutX="58.0" layoutY="218.0" text="Per Day Price" />
+   </children>
+</AnchorPane>
