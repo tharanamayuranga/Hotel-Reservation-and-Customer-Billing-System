@@ -51,15 +51,7 @@
 -fx-border-color: none;
 }
 
-.button {
--fx-background-color:#007599;
-/*-fx-border-color: 5;*/
--fx-background-radius: 10 10 0 0;
--fx-border-radius: 10 10 0 0;
--fx-text-fill:white;
 
-
-}
 
 .textField{
     -fx-prompt-text-fill:black;
